@@ -1,0 +1,60 @@
+{
+  "abrvName": "abName1",
+  "baseCurrencyId": "1",
+  "bizLogo": "bizLogo",
+  "bizRegId": "biz16",
+  "branchCode": "br16",
+  "branchContactCreateDtoList": [
+    {
+      "contactTypeId": 1,
+      "isPrimary": "y",
+      "phoneNo": "0715927867"
+    }
+  ],
+  "branchCurrencyIds": [
+    1
+  ],
+  "branchEmailCreateDtoList": [
+    {
+      "email": "test.test16@infoins.com",
+      "emailTypeId": 1,
+      "isPrimary": "y"
+    }
+  ],
+  "branchLanguageIds": [
+    1
+  ],
+  "branchLocalCreateDto": {
+    "addressLine1": "No 1",
+    "addressLine2": "Nugegoda",
+    "addressLine3": "Colombo",
+    "cityId": "16",
+    "countryId": "16",
+    "lan": "1.1245141",
+    "lat": "0.1451411",
+    "stateId": "1",
+    "suburbId": "1",
+    "timeZone": "Asia Pacific"
+  },
+  "branchName": "Nugegoda",
+  "branchTaxesCreateDtoList": [
+    {
+      "applyGlobalTax": "y",
+      "endDate": "2020-07-22T06:49:10.804Z",
+      "stDate": "2020-07-22T06:49:10.804Z",
+      "taxAmount": "22",
+      "taxTypeId": 16
+    }
+  ],
+  "branchUprMethodIds": [
+    1
+  ],
+  "displayCode": "code16",
+  "duration": "5",
+  "fiscalYear": "2020",
+  "isActive": "y",
+  "parentBranchId": "1",
+  "startMonth": "June",
+  "uprEfctDate": "2020/01/01",
+  "webUrl": "https://www.infoins.com"
+}

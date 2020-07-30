@@ -1,0 +1,61 @@
+{
+  "civilStateId": 1,
+  "departmentId": 1,
+  "designationId": 1,
+  "dob": "2020-07-23T09:01:33.214Z",
+  "empNo": 16,
+  "firstName": -1,
+  "genderId": 1,
+  "isActive": "y",
+  "isSupervisor": "y",
+  "lastName": "lName",
+  "nationalityId": 1,
+  "otherName": "oName",
+  "photo": "pic1",
+  "signature": "sig1",
+  "superviserId": 1,
+  "titleId": 1,
+  "userBranchCreateDtos": [
+    {
+      "action": "Finan",
+      "branchId": 1,
+      "isDefault": "y"
+    }
+  ],
+  "userEmailCreateDtos": [
+    {
+      "email": "test.test16@infoins.com",
+      "emailTypeId": 1,
+      "isPrimary": "y"
+    }
+  ],
+  "userGroupIds": [
+    1
+  ],
+  "userLimitCreateDtos": [
+    {
+      "action": "FinanLimit",
+      "groupLimitId": 1,
+      "maxLimit": 100,
+      "minLimit": 50
+    }
+  ],
+  "userLocalCreateDto": {
+    "addressL1": "No 1",
+    "addressL2": "Nugegoda",
+    "addressL3": "Colombo",
+    "cityId": 1,
+    "countryId": 1,
+    "stateId": 1,
+    "suburbId": 1
+  },
+  "userPhoneCreateDtos": [
+    {
+      "contactTypeId": 1,
+      "isPrimary": "y",
+      "phoneNo": "0715927866"
+    }
+  ],
+  "userRefId": "1",
+  "username": "uName1"
+}

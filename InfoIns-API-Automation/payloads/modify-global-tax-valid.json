@@ -1,0 +1,9 @@
+{
+  "countryId": 1,
+  "currencyId": 2,
+  "endDate": "2020-07-22T18:24:22.859Z",
+  "stDate": "2020-07-22T18:24:22.859Z",
+  "taxAmount": 60,
+  "taxTypeId": 2,
+  "globalTaxId" : 1
+}

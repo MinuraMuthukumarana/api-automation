@@ -1,0 +1,61 @@
+{
+  "civilStateId": "id",
+  "departmentId": "Id",
+  "designationId": "id",
+  "dob": "2020-07-23T09:01:33.214Z",
+  "empNo": "id",
+  "firstName": "id",
+  "genderId": "id",
+  "isActive": 1,
+  "isSupervisor": 1,
+  "lastName": 1,
+  "nationalityId": "id",
+  "otherName": 1,
+  "photo": 1,
+  "signature": 1,
+  "superviserId": "id",
+  "titleId": "id",
+  "userBranchCreateDtos": [
+    {
+      "action": 1,
+      "branchId": "id",
+      "isDefault": 1
+    }
+  ],
+  "userEmailCreateDtos": [
+    {
+      "email": 1,
+      "emailTypeId": "id",
+      "isPrimary": 1
+    }
+  ],
+  "userGroupIds": [
+    "id"
+  ],
+  "userLimitCreateDtos": [
+    {
+      "action": 1,
+      "groupLimitId": "id",
+      "maxLimit": "id",
+      "minLimit": "id"
+    }
+  ],
+  "userLocalCreateDto": {
+    "addressL1": 1,
+    "addressL2": 1,
+    "addressL3": 1,
+    "cityId": "id",
+    "countryId": "id",
+    "stateId": "id",
+    "suburbId": "id"
+  },
+  "userPhoneCreateDtos": [
+    {
+      "contactTypeId": "id",
+      "isPrimary": 1,
+      "phoneNo": 1
+    }
+  ],
+  "userRefId": 1,
+  "username": 1
+}

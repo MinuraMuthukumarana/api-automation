@@ -1,0 +1,57 @@
+{
+  "abrvName": "",
+  "baseCurrencyId": "",
+  "bizLogo": "",
+  "bizRegId": "",
+  "branchCode": "",
+  "branchContactCreateDtoList": [
+    {
+      "contactTypeId": "",
+      "isPrimary": "",
+      "phoneNo": ""
+    }
+  ],
+  "branchCurrencyIds": [
+  ],
+  "branchEmailCreateDtoList": [
+    {
+      "email": "",
+      "emailTypeId": "",
+      "isPrimary": ""
+    }
+  ],
+  "branchLanguageIds": [
+  ],
+  "branchLocalCreateDto": {
+    "addressLine1": "",
+    "addressLine2": "",
+    "addressLine3": "",
+    "cityId": "",
+    "countryId": "",
+    "lan": "",
+    "lat": "",
+    "stateId": "",
+    "suburbId": "",
+    "timeZone": ""
+  },
+  "branchName": "",
+  "branchTaxesCreateDtoList": [
+    {
+      "applyGlobalTax": "",
+      "endDate": "2020-07-24T09:46:17.516Z",
+      "stDate": "2020-07-24T09:46:17.516Z",
+      "taxAmount": "",
+      "taxTypeId": ""
+    }
+  ],
+  "branchUprMethodIds": [
+  ],
+  "displayCode": "",
+  "duration": "",
+  "fiscalYear": "",
+  "isActive": "",
+  "parentBranchId": "",
+  "startMonth": "",
+  "uprEfctDate": "",
+  "webUrl": ""
+}
