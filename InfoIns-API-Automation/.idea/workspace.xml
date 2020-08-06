@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d4145a00-7045-4386-aa67-015986d556d8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/../.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/InfoIns-API-Automation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../InfoIns-API-Automation.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/../.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../.settings/org.eclipse.jdt.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.m2e.core.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/../.settings/org.eclipse.m2e.core.prefs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InfoIns-API-Automation.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/add-new-branch-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/add-new-branch-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/add-new-branch-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/add-new-branch-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-email-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-email-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-email-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-email-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-global-tax-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-global-tax-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-global-tax-success.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-global-tax-success.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-language-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-language-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-language-multiple-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-language-multiple-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-language-multiple-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-language-multiple-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-language-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-language-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-multiple-global-tax-success.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-multiple-global-tax-success.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-user-datatpe1-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-user-datatpe1-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-user-datatpe2-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-user-datatpe2-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/create-user-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/create-user-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/delete-all-branch-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/delete-all-branch-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/delete-all-branch-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/delete-all-branch-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/generic-rest-delete-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/generic-rest-delete-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/generic-rest-save-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/generic-rest-save-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/generic-rest-update-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/generic-rest-update-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/get-bulk-global-tax.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/get-bulk-global-tax.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-email-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-email-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-email-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-email-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-global-tax-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-global-tax-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-language-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-language-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-language-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-language-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-user-datatpe1-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-user-datatpe1-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-user-datatpe2-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-user-datatpe2-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-user-profile-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-user-profile-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-user-profile-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-user-profile-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/modify-user-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/modify-user-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/reference-delete-reference-data-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/reference-delete-reference-data-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/reference-delete-reference-data-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/reference-delete-reference-data-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/reference-save-reference-data-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/reference-save-reference-data-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/reference-save-reference-data-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/reference-save-reference-data-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/reference-update-reference-data-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/reference-update-reference-data-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/reference-update-reference-data-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/reference-update-reference-data-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/update-branch-invalid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/update-branch-invalid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payloads/update-branch-valid.json" beforeDir="false" afterPath="$PROJECT_DIR$/../payloads/update-branch-valid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/BaseClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/BaseClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/branch/BranchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/branch/BranchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/email/EmailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/email/EmailController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/genericRest/GenericRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/genericRest/GenericRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/globaltax/GlobalTaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/globaltax/GlobalTaxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/language/LanguageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/language/LanguageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/reference/ReferenceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/reference/ReferenceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/api/admin/userProfile/UserProfileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/api/admin/userProfile/UserProfileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/infoins/global.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../src/test/java/infoins/global.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1fP5R9157PBiOZVUOwlZbKj5rAB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d4145a00-7045-4386-aa67-015986d556d8" name="Default Changelist" comment="" />
+      <created>1596106875245</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596106875245</updated>
+    </task>
+    <servers />
+  </component>
+</project>
