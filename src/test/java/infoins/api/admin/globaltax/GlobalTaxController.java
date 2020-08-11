@@ -10,6 +10,13 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
+/**
+ * @author : Eranda Kodagoda
+ *  * @date : August 10, 2020
+ *  * @version : 1.0
+ *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
+ *  */
+
 public class GlobalTaxController extends BaseClass {
     String baseURL;
 

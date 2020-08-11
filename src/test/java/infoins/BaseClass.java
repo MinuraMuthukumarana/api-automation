@@ -6,6 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
 
+/**
+ * @author : Eranda Kodagoda
+ *  * @date : August 10, 2020
+ *  * @version : 1.0
+ *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
+ *  */
+
 public class BaseClass {
     public String url;
     public String bearerAdminToken = null;

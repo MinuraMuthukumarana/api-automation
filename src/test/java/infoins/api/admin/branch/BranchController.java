@@ -9,6 +9,13 @@ import java.io.IOException;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+/**
+ * @author : Eranda Kodagoda
+ *  * @date : August 10, 2020
+ *  * @version : 1.0
+ *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
+ *  */
+
 public class BranchController extends BaseClass {
 
     String baseURL;
@@ -304,6 +311,4 @@ public class BranchController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
-
 }
