@@ -1,0 +1,14 @@
+{
+  "isCurrency": "Y",
+  "isFiscalYear": "Y",
+  "isLanguage": "Y",
+  "isLocationSetup": "Y",
+  "isLogo": "Y",
+  "isParent": "Y",
+  "isTax": "Y",
+  "isUpr": "Y",
+  "levelCode": "LEVEL01",
+  "levelDesc": "Test Level Description",
+  "levelName": "Level 0001",
+  "levelConfigId" : 1
+}
