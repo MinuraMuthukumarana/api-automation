@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "Suite" parallel = "tests">
+
+    <test name = "Regression">
+        <parameter name = "browser" value = "chrome" />
+        <classes>
+            <class name = "infoins.api.admin.reference.ReferenceController"/>
+            <class name="infoins.api.admin.level.LevelController"/>
+            <class name="infoins.api.admin.branch.BranchController"/>
+            <class name="infoins.api.admin.email.EmailController"/>
+            <class name="infoins.api.admin.language.LanguageController"/>
+            <class name="infoins.api.admin.theme.ThemeController"/>
+            <class name="infoins.api.admin.globaltax.GlobalTaxController"/>
+            <class name="infoins.api.admin.user.UserController"/>
+            <class name="infoins.api.admin.userProfile.UserProfileController"/>
+            <class name="infoins.api.admin.genericRest.GenericRestController"/>
+        </classes>
+    </test>
+
+</suite>
