@@ -16,7 +16,8 @@ import static org.hamcrest.Matchers.*;
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
 
-public class BranchController extends BaseClass {
+public class
+BranchController extends BaseClass {
 
     String baseURL;
     String addNewBranchEndPoint = "/branches";
@@ -29,6 +30,7 @@ public class BranchController extends BaseClass {
 
     @Test(priority = 1)
     public void addNewBranchValidTest() throws IOException {
+
 
         baseURL = getURL();
 
@@ -131,6 +133,7 @@ public class BranchController extends BaseClass {
                 .body("taxAmount", equalTo("12"));
 
     }
+
 
     @Test
     public void getAllBranchTaxesByBranchIdInvalidTest() throws IOException {
