@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
+import io.restassured.RestAssured;
 
 /**
  * @author : Eranda Kodagoda
@@ -18,12 +19,14 @@ public class BaseClass {
     public String bearerAdminToken = null;
     Properties properties;
 
+
     public String getURL() throws IOException {
         properties = new Properties();
         String userdir = System.getProperty("user.dir");
         String propertydir = "\\src\\test\\java\\infoins\\global.properties";
         FileInputStream fileInputStream = new FileInputStream(userdir + propertydir);
         properties.load(fileInputStream);
+        RestAssured.proxy("192.168.15.5",8080);
 
         url = properties.getProperty("url");
 
