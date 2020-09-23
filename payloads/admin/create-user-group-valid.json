@@ -1,0 +1,18 @@
+{
+  "countryCode": "AUS",
+  "groupLimits": [
+    {
+      "branchId": 2,
+      "classId": 1,
+      "functionId": 1,
+      "levelConfigId": 1,
+      "maxLimit": 100,
+      "minLimit": 10,
+      "productId": 2
+    }
+  ],
+  "groupRefId": "G1",
+  "grpBranchIds": [
+    2
+  ]
+}

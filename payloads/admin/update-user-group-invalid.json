@@ -1,0 +1,20 @@
+{
+  "countryCode": "",
+  "groupId": "",
+  "groupLimits": [
+    {
+      "branchId": "",
+      "classId": "",
+      "functionId": "",
+      "groupLimitId": "",
+      "levelConfigId": "",
+      "maxLimit": "",
+      "minLimit": "",
+      "productId": ""
+    }
+  ],
+  "groupRefId": "",
+  "grpBranchIds": [
+    ""
+  ]
+}

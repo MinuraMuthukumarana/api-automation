@@ -1,4 +1,4 @@
-package infoins.api.admin.language;
+package infoins.api.admin.validationEngine;
 
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
@@ -9,182 +9,153 @@ import java.io.IOException;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-
 /**
- * @author : Eranda Kodagoda
- *  * @date : August 10, 2020
+ * @author : Minura Muthukumarana
+ *  * @date : September 18, 2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
-
-public class LanguageController extends BaseClass {
-
+public class validationEngineController extends BaseClass {
     String baseURL;
-    String createEndPoint = "/app-languages";
-    String modifyEndPoint = "/app-languages";
-    String getOneEndPoint = "/app-languages/{id}";
-    String deleteEndPoint = "/app-languages/{id}";
-    String deleteAllEndPoint = "/app-languages/all/{ids}";
-    String getBulkEndPoint = "/app-languages/bulk";
-    String createMultipleEndPoint = "/app-languages/multiple";
-
+    String createEndPoint="/validation-engine";
+    String updateEndPoint ="/validation-engine";
+    String getOneEndPoint = "/validation-engine/{id}";
+    String getAllWithPaginationEndPoint ="/validation-engine/all/pagination";
+    String getBulkEndPoint="/validation-engine/bulk";
+    String deleteEndPoint ="/validation-engine/{id}";
 
     @Test(priority = 1)
-    public void createValidTest() throws IOException {
-
+    public void createValidationEngineValidTest() throws IOException{
         baseURL = getURL();
-
         baseURI = baseURL;
 
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-language-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-validation-engine-valid.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
                 .assertThat().statusCode(201)
                 .and()
-                .body("message", equalTo("Data added successfully"));
-
+                .body("message", equalTo("Data updated successfully"));
     }
-
     @Test
-    public void createInvalidTest() throws IOException {
-
+    public void createValidationEngineInvalidTest() throws IOException{
         baseURL = getURL();
-
         baseURI = baseURL;
 
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-language-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-validation-engine-invalid.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 2)
-    public void modifyValidTest() throws IOException {
-
+    public void updateValidationEngineValidTest() throws IOException{
         baseURL = getURL();
-
         baseURI = baseURL;
 
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-language-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"update-validation-engine-valid.json"))
                 .when()
-                .put(modifyEndPoint)
+                .put(updateEndPoint)
                 .then()
-                .assertThat().statusCode(200);
-
+                .assertThat().statusCode(201)
+                .and()
+                .body("message", equalTo("Data updated successfully"));
     }
-
     @Test
-    public void modifyInvalidTest() throws IOException {
-
+    public void updateValidationEngineInvalidTest() throws IOException{
         baseURL = getURL();
-
         baseURI = baseURL;
 
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-language-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"update-validation-engine-valid.json"))
                 .when()
-                .put(modifyEndPoint)
+                .put(updateEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 3)
-    public void getOneValidTest() throws IOException {
-
-        int id = 1;
+    public void getOneValidationEngineValidTest() throws IOException{
+        int Id = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
                 .when()
-                .get(getOneEndPoint, id)
+                .get(getOneEndPoint, Id)
                 .then()
-                .assertThat().statusCode(200)
-                .and()
-                .body("languageId", equalTo(1));
-
+                .assertThat().statusCode(200);
     }
-
     @Test
-    public void getOneInvalidTest() throws IOException {
-
-        String id = "id";
+    public void getOneValidationEngineInvalidTest() throws IOException{
+        String Id = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
                 .when()
-                .get(getOneEndPoint, id)
+                .get(getOneEndPoint, Id)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 4)
-    public void deleteValidTest() throws IOException {
-
-        int id = 1;
+    public void getAllWithPaginationValidationEngineValidTest() throws IOException{
         baseURL = getURL();
-
         baseURI = baseURL;
 
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
+                .queryParam("pageNo", 0)
+                .queryParam("pageSize", 10)
+                .queryParam("sortBy", "entityName")
                 .when()
-                .delete(deleteEndPoint, id)
+                .get(getAllWithPaginationEndPoint)
                 .then()
-                .assertThat().statusCode(200)
-                .and()
-                .body("message", equalTo("Data deleted successfully"));
-
+                .assertThat().statusCode(200);
     }
-
     @Test
-    public void deleteInvalidTest() throws IOException {
-        String id = "id";
+    public void getAllWithPaginationValidationEngineInvalidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
+
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
+                .queryParam("pageNo", 0)
+                .queryParam("pageSize", 10)
+                .queryParam("sortBy", "InvalidEntityName")
                 .when()
-                .delete(deleteEndPoint, id)
+                .get(getAllWithPaginationEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
@@ -193,43 +164,7 @@ public class LanguageController extends BaseClass {
     }
 
     @Test(priority = 5)
-    public void deleteAllValidTest() throws IOException {
-        String ids = "1,2";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .delete(deleteAllEndPoint, ids)
-                .then()
-                .assertThat().statusCode(200)
-                .and()
-                .body("message", equalTo("Data deleted successfully"));
-
-    }
-
-    @Test
-    public void deleteAllInvalidTest() throws IOException {
-        String ids = "";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .delete(deleteAllEndPoint, ids)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-
-    @Test(priority = 6)
-    public void getBulkValidTest() throws IOException {
+    public void getBulkValidationEngineValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -241,45 +176,39 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(200)
                 .and()
-                .body("[0].languageId", equalTo(1))
-                .and()
-                .body("[1].languageId", equalTo(2));
-
+                .body("data[0].validationId", equalTo(1));
     }
 
-    @Test(priority = 7)
-    public void createMultipleValidTest() throws IOException {
+    @Test(priority = 6)
+    public void deleteBlackListedValidTest() throws IOException {
+        int id = 1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-language-multiple-valid.json"))
                 .when()
-                .post(createMultipleEndPoint)
+                .delete(deleteEndPoint, id)
                 .then()
-                .assertThat().statusCode(201)
+                .assertThat().statusCode(200)
                 .and()
-                .body("message", equalTo("Data added successfully"));
-
+                .body("message", equalTo("Data deleted successfully"));
     }
-
     @Test
-    public void createMultipleInvalidTest() throws IOException {
+    public void deleteBlackListedInvalidTest() throws IOException {
+        int id = 1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-language-multiple-invalid.json"))
                 .when()
-                .post(createMultipleEndPoint)
+                .delete(deleteEndPoint, id)
                 .then()
-                .assertThat().statusCode(400)
+                .assertThat().statusCode(200)
                 .and()
-                .body("error", equalTo("Bad Request"));
-
+                .body("message", equalTo("Data deleted successfully"));
     }
 }

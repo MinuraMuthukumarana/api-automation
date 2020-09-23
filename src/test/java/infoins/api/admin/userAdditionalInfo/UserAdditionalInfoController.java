@@ -1,4 +1,4 @@
-package infoins.api.admin.userProfile;
+package infoins.api.admin.userAdditionalInfo;
 
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
@@ -9,60 +9,21 @@ import java.io.IOException;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-
 /**
- * @author : Eranda Kodagoda
- *  * @date : August 10, 2020
+ * @author : Minura Muthukumarana
+ *  * @date : September 21, 2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
-
-public class UserProfileController extends BaseClass {
+public class UserAdditionalInfoController  extends BaseClass {
 
     String baseURL;
-    String modifyEndPoint = "/user-profiles";
-    String getOneEndPoint = "/user-profiles/{id}";
+    String getAllInfoEndPoint ="/userAdditionalInfo/{userId}";
+    String deleteEndPoint ="/userAdditionalInfo/{id}";
 
     @Test(priority = 1)
-    public void modifyValidTest() throws IOException {
-
-        baseURL = getURL();
-
-        baseURI = baseURL;
-
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-user-profile-valid.json"))
-                .when()
-                .put(modifyEndPoint)
-                .then()
-                .assertThat().statusCode(201);
-
-    }
-    @Test
-    public void modifyInvalidTest() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-user-profile-invalid.json"))
-                .when()
-                .put(modifyEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-
-    @Test(priority = 2)
-    public void getOneValidTest() throws IOException {
-
-        int id = 1;
+    public void getAllInfoUserAdditionalValidTest() throws IOException{
+        int Id = 3;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -70,13 +31,16 @@ public class UserProfileController extends BaseClass {
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
                 .when()
-                .get(getOneEndPoint, id)
+                .get(getAllInfoEndPoint, Id)
                 .then()
                 .assertThat().statusCode(200);
+
+
     }
-    @Test
-    public void getOneInvalidTest() throws IOException {
-        String id = "id";
+    @Test(priority = 2)
+    public void deleteUserAdditionalValidTest() throws IOException{
+
+        int Id = 3;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -84,7 +48,24 @@ public class UserProfileController extends BaseClass {
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
                 .when()
-                .get(getOneEndPoint, id)
+                .delete(getAllInfoEndPoint, Id)
+                .then()
+                .assertThat().statusCode(200)
+                .and()
+                .body("message",equalTo("Data deleted successfully"));
+
+    }
+    @Test
+    public void deleteUserAdditionalInvalidTest() throws IOException {
+        String id = "0";
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(deleteEndPoint, id)
                 .then()
                 .assertThat().statusCode(400)
                 .and()

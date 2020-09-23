@@ -41,7 +41,7 @@ public class ReferenceController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-save-reference-data-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-save-reference-data-valid.json"))
                 .when()
                 .post(saveReferenceDataEndPoint, entityName)
                 .then()
@@ -61,7 +61,7 @@ public class ReferenceController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-save-reference-data-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-save-reference-data-valid.json"))
                 .when()
                 .post(saveReferenceDataEndPoint, entityName)
                 .then()
@@ -83,7 +83,7 @@ public class ReferenceController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-save-reference-data-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-save-reference-data-invalid.json"))
                 .when()
                 .post(saveReferenceDataEndPoint, entityName)
                 .then()
@@ -105,7 +105,7 @@ public class ReferenceController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-update-reference-data-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-update-reference-data-valid.json"))
                 .when()
                 .put(updateReferenceDataEndPoint, entityName)
                 .then()
@@ -125,7 +125,7 @@ public class ReferenceController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-update-reference-data-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-update-reference-data-valid.json"))
                 .when()
                 .put(updateReferenceDataEndPoint, entityName)
                 .then()
@@ -137,17 +137,14 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void updateReferenceDataPayLoadInvalidTest() throws IOException {
-
         String entityName = "entity1";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-update-reference-data-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-update-reference-data-invalid.json"))
                 .when()
                 .put(updateReferenceDataEndPoint, entityName)
                 .then()
@@ -159,37 +156,29 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 3)
     public void deleteReferenceDataValidTest() throws IOException {
-
         String entityName = "entity1";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-delete-reference-data-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
                 .when()
                 .delete(deleteReferenceDataEndPoint, entityName)
                 .then()
                 .assertThat().statusCode(200);
-
     }
-
     @Test
     public void deleteReferenceDataEntityNameInvalidTest() throws IOException {
-
         int entityName = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-delete-reference-data-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
                 .when()
                 .delete(deleteReferenceDataEndPoint, entityName)
                 .then()
@@ -201,17 +190,15 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void deleteReferenceDataPayLoadInvalidTest() throws IOException {
-
         String entityName = "entity1";
         baseURL = getURL();
-
         baseURI = baseURL;
 
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("reference-delete-reference-data-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-invalid.json"))
                 .when()
                 .delete(deleteReferenceDataEndPoint, entityName)
                 .then()
@@ -223,15 +210,11 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 4)
     public void findReferenceDataByEntityAndFkValidTest() throws IOException {
-
         String entityName = "entity1";
         int id = 1;
         String reference = "1";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -245,15 +228,11 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findReferenceDataByEntityAndFkEntityNameInvalidTest() throws IOException {
-
         int entityName = 1;
         int id = 1;
         String reference = "1";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -269,15 +248,11 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findReferenceDataByEntityAndFkIdInvalidTest() throws IOException {
-
         String entityName = "entity1";
         String id = "id";
         int reference = 1;
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -290,18 +265,13 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void findReferenceDataByEntityAndFkReferenceInvalidTest() throws IOException {
-
         String entityName = "entity1";
         int id = 1;
         String reference = "reference";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -314,16 +284,11 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test(priority = 5)
     public void findAllDataByEntityNameValidTest() throws IOException {
-
         String entityName = "entity1";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -335,18 +300,12 @@ public class ReferenceController extends BaseClass {
                 .get(findAllDataByEntityNameEndPoint, entityName)
                 .then()
                 .assertThat().statusCode(200);
-
     }
-
     @Test
     public void findAllDataByEntityNameENameInvalidTest() throws IOException {
-
         int entityName = 1;
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -365,13 +324,9 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findAllDataByEntityNamePageNoInvalidTest() throws IOException {
-
         String entityName = "entity1";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -390,13 +345,9 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findAllDataByEntityNamePageSizeInvalidTest() throws IOException {
-
         String entityName = "entity1";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -415,13 +366,9 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findAllDataByEntityNameRequestTypeInvalidTest() throws IOException {
-
         String entityName = "entity1";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -438,17 +385,12 @@ public class ReferenceController extends BaseClass {
 
     }
 
-
     @Test(priority = 6)
     public void findDetailedDataByEntityAndIdValidTest() throws IOException {
-
         String entityName = "entity1";
         int id = 1;
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -462,14 +404,10 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findDetailedDataByEntityAndIdEntityNameInvalidTest() throws IOException {
-
         int entityName = 1;
         int id = 1;
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -485,14 +423,10 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findDetailedDataByEntityAndIdIDInvalidTest() throws IOException {
-
         String entityName = "entity1";
         String id = "id";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -508,13 +442,9 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 7)
     public void findAllModuleReferencesValidTest() throws IOException {
-
         String moduleName = "AD";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -532,13 +462,9 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findAllModuleReferencesModuleNameInvalidTest() throws IOException {
-
         int moduleName = 1;
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -554,13 +480,9 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findAllModuleReferencesPageNoInvalidTest() throws IOException {
-
         String moduleName = "AD";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -578,13 +500,9 @@ public class ReferenceController extends BaseClass {
 
     @Test
     public void findAllModuleReferencesPageSizeInvalidTest() throws IOException {
-
         String moduleName = "AD";
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())

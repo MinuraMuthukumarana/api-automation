@@ -32,16 +32,13 @@ public class EmailController extends BaseClass {
 
     @Test(priority = 1)
     public void createValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-email-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-email-valid.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
@@ -50,40 +47,32 @@ public class EmailController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
 
     }
-
     @Test
     public void createInvalidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-email-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-email-invalid.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 2)
     public void modifyValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("modify-email-valid.json"))
+                .body(getGeneratedString("\\admin\\"+"modify-email-valid.json"))
                 .when()
                 .put(modifyEndPoint)
                 .then()
@@ -92,36 +81,28 @@ public class EmailController extends BaseClass {
                 .body("message", equalTo("Data updated successfully"));
 
     }
-
     @Test
     public void modifyInvalidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("modify-email-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"modify-email-invalid.json"))
                 .when()
                 .put(modifyEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 3)
     public void getOneValidTest() throws IOException {
-
-        int id = 1;
+        int id = 10;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -130,17 +111,12 @@ public class EmailController extends BaseClass {
                 .get(getOneEndPoint, id)
                 .then()
                 .assertThat().statusCode(200);
-
     }
-
     @Test
     public void getOneInvalidTest() throws IOException {
-
         String id = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -151,17 +127,13 @@ public class EmailController extends BaseClass {
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 4)
     public void deleteValidTest() throws IOException {
-
-        int id = 1;
+        int id = 10;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -172,17 +144,12 @@ public class EmailController extends BaseClass {
                 .assertThat().statusCode(200)
                 .and()
                 .body("message", equalTo("Data deleted successfully"));
-
     }
-
     @Test
     public void deleteInvalidTest() throws IOException {
-
         String id = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -193,17 +160,13 @@ public class EmailController extends BaseClass {
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 5)
     public void getOneTemplateWithChildrenValidTest() throws IOException {
-
         int id = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -211,20 +174,14 @@ public class EmailController extends BaseClass {
                 .when()
                 .get(getOneTemplateWithChildrenEndPoint, id)
                 .then()
-                .assertThat().statusCode(200)
-                .and()
-                .body("code", equalTo("template1"));
+                .assertThat().statusCode(200);
 
     }
-
     @Test
     public void getOneTemplateWithChildrenInvalidTest() throws IOException {
-
         String id = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -235,17 +192,13 @@ public class EmailController extends BaseClass {
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 6)
     public void getOneTemplateParentValidTest() throws IOException {
-
         int id = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -253,20 +206,13 @@ public class EmailController extends BaseClass {
                 .when()
                 .get(getOneTemplateParentEndPoint, id)
                 .then()
-                .assertThat().statusCode(200)
-                .and()
-                .body("name", equalTo("email-template1"));
-
+                .assertThat().statusCode(200);
     }
-
     @Test
     public void getOneTemplateParentInvalidTest() throws IOException {
-
         String id = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -277,17 +223,12 @@ public class EmailController extends BaseClass {
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
-
 
     @Test(priority = 7)
     public void getAllTemplatesWithChildrenValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -297,20 +238,15 @@ public class EmailController extends BaseClass {
                 .then()
                 .assertThat().statusCode(200)
                 .and()
-                .body("[0].code", equalTo("template1"))
-                .and()
-                .body("[1].code", equalTo("template2"));
-
+                .body("date[0].appEmailConfId", equalTo("template1"));
+//                .and()
+//                .body("[1].code", equalTo("template2"));
     }
-
 
     @Test(priority = 8)
     public void getAllTemplateParentsEndPointValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -318,11 +254,11 @@ public class EmailController extends BaseClass {
                 .when()
                 .get(getAllTemplateParentsEndPoint)
                 .then()
-                .assertThat().statusCode(200)
-                .and()
-                .body("[0].name", equalTo("email-template1"))
-                .and()
-                .body("[1].name", equalTo("email-template2"));
+                .assertThat().statusCode(200);
+//                .and()
+//                .body("[0].name", equalTo("email-template1"))
+//                .and()
+//                .body("[1].name", equalTo("email-template2"));
 
     }
 }

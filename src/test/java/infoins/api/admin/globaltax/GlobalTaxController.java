@@ -9,14 +9,12 @@ import java.io.IOException;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-
 /**
  * @author : Eranda Kodagoda
  *  * @date : August 10, 2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
-
 public class GlobalTaxController extends BaseClass {
     String baseURL;
 
@@ -24,20 +22,16 @@ public class GlobalTaxController extends BaseClass {
     public void createGlobalTax() throws IOException {
         baseURL = getURL();
         String createGlobalTaxEndpoint = "/global-taxes";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the create request and success response
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-global-tax-success.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-global-tax-success.json"))
                 .when()
                 .post(createGlobalTaxEndpoint)
-
                 .then()
                 .assertThat().statusCode(201)
                 .and()
@@ -48,18 +42,14 @@ public class GlobalTaxController extends BaseClass {
     public void getBulk() throws IOException {
         baseURL = getURL();
         String getBulkEndpoint = "/global-taxes/bulk";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
-
                 .when()
                 .get(getBulkEndpoint)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -82,11 +72,9 @@ public class GlobalTaxController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("modify-global-tax-valid.json"))
-
+                .body(getGeneratedString("\\admin\\"+"modify-global-tax-valid.json"))
                 .when()
                 .put(modifyGlobalTaxEndpoint)
-
                 .then()
                 .assertThat().statusCode(200)
                 .and()
@@ -98,7 +86,6 @@ public class GlobalTaxController extends BaseClass {
         baseURL = getURL();
         String id = "1";
         String getOneEndpoint = "/global-taxes/{id}";
-
         //Setting up Base URL
         baseURI = baseURL;
 
@@ -106,10 +93,8 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
-
                 .when()
                 .get(getOneEndpoint, id)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -124,18 +109,14 @@ public class GlobalTaxController extends BaseClass {
         baseURL = getURL();
         String id = "1";
         String deleteOneEndpoint = "/global-taxes/{id}";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
-
                 .when()
                 .delete(deleteOneEndpoint, id)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -149,20 +130,16 @@ public class GlobalTaxController extends BaseClass {
     public void createMultipleGlobalTax() throws IOException {
         baseURL = getURL();
         String createMultipleGlobalTaxEndpoint = "/global-taxes/multiple";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the create request and success response
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-multiple-global-tax-success.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-multiple-global-tax-success.json"))
                 .when()
                 .post(createMultipleGlobalTaxEndpoint)
-
                 .then()
                 .assertThat().statusCode(201)
                 .and()
@@ -174,18 +151,14 @@ public class GlobalTaxController extends BaseClass {
         baseURL = getURL();
         String idList = "1,2,3";
         String deleteOneEndpoint = "/global-taxes/all/{ids}";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
-
                 .when()
                 .delete(deleteOneEndpoint, idList)
-
                 .then()
                 .assertThat()
                 .statusCode(200)

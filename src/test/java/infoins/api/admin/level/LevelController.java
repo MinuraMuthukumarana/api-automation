@@ -23,20 +23,15 @@ public class LevelController extends BaseClass {
     @Test (priority = 1)
     public void createLevelConfig() throws IOException {
         baseURL = getURL();
-
         String createLevelConfigEndpoint = "/level-configs";
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-level-success.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-level-success.json"))
                 .when()
                 .post(createLevelConfigEndpoint)
-
                 .then()
                 .assertThat()
                 .statusCode(201)
@@ -47,18 +42,13 @@ public class LevelController extends BaseClass {
     @Test (priority = 2)
     public void getBulkLevelConfigs() throws IOException {
         baseURL = getURL();
-
         String getBulkLevelConfigEndpoint = "/level-configs/bulk";
-
         baseURI = baseURL;
-
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .get(getBulkLevelConfigEndpoint)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -68,20 +58,15 @@ public class LevelController extends BaseClass {
     @Test(priority = 3)
     public void modifyInvalidLevelConfig() throws IOException {
         baseURL = getURL();
-
         String createLevelConfigEndpoint = "/level-configs";
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-level-invalid.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-level-invalid.json"))
                 .when()
                 .put(createLevelConfigEndpoint)
-
                 .then()
                 .assertThat()
                 .statusCode(400)
@@ -91,20 +76,15 @@ public class LevelController extends BaseClass {
     @Test(priority = 4)
     public void modifyLevelConfig() throws IOException {
         baseURL = getURL();
-
         String createLevelConfigEndpoint = "/level-configs";
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-level-modify.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-level-modify.json"))
                 .when()
                 .put(createLevelConfigEndpoint)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -114,19 +94,14 @@ public class LevelController extends BaseClass {
     @Test(priority = 5)
     public void getOneLevelConfig() throws IOException {
         baseURL = getURL();
-
         String levelId = "1";
         String getLevelConfigEndpoint = "/level-configs/{id}";
-
         baseURI = baseURL;
-
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .get(getLevelConfigEndpoint,levelId)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -136,19 +111,14 @@ public class LevelController extends BaseClass {
     @Test(priority = 6)
     public void deleteLevelConfig() throws IOException {
         baseURL = getURL();
-
         String levelId = "1";
         String deleteLevelConfigEndpoint = "/level-configs/{id}";
-
         baseURI = baseURL;
-
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .delete(deleteLevelConfigEndpoint,levelId)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -160,16 +130,12 @@ public class LevelController extends BaseClass {
         baseURL = getURL();
         String levelIds = "2,3";
         String deleteBulkLevelConfigEndpoint = "/level-configs/all/{ids}";
-
         baseURI = baseURL;
-
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .delete(deleteBulkLevelConfigEndpoint,levelIds)
-
                 .then()
                 .assertThat()
                 .statusCode(200)

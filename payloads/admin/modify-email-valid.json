@@ -1,6 +1,6 @@
 {
-  "appEmailConfId": 1,
-  "emlTmpltId": 7,
+  "appEmailConfId": 10,
+  "emlTmpltId": 1,
   "isAutoBccToRtnEml": "y",
   "nameAppear": "Andrew",
   "outEmlSignature": "sig16",

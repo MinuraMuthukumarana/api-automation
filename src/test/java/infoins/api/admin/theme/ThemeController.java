@@ -24,42 +24,33 @@ public class ThemeController extends BaseClass {
     public void createThemeConfig() throws IOException {
         baseURL = getURL();
         String createThemeEndpoint = "/app-themes";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-theme-success.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-theme-success.json"))
                 .when()
                 .post(createThemeEndpoint)
-
                 .then()
                 .assertThat().statusCode(201)
                 .and()
                 .body("message",equalTo("Data added successfully"));
     }
-
     @Test(priority = 2)
     public void getBulk() throws IOException {
         baseURL = getURL();
         String getBulkEndpoint = "/app-themes/bulk";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .get(getBulkEndpoint)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -72,20 +63,16 @@ public class ThemeController extends BaseClass {
     public void modifyInvalidTheme() throws IOException {
         baseURL = getURL();
         String modifyThemeEndpoint = "/app-themes";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("modify-theme-invalid.json"))
-
+                .body(getGeneratedString("\\admin\\"+"modify-theme-invalid.json"))
                 .when()
                 .put(modifyThemeEndpoint)
-
                 .then()
                 .assertThat().statusCode(400);
 //                .and()
@@ -95,20 +82,16 @@ public class ThemeController extends BaseClass {
     public void modifyTheme() throws IOException {
         baseURL = getURL();
         String modifyThemeEndpoint = "/app-themes";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("modify-theme-success.json"))
-
+                .body(getGeneratedString("\\admin\\"+"modify-theme-success.json"))
                 .when()
                 .put(modifyThemeEndpoint)
-
                 .then()
                 .assertThat().statusCode(200)
                 .and()
@@ -119,18 +102,14 @@ public class ThemeController extends BaseClass {
         baseURL = getURL();
         String id = "1";
         String getOneEndpoint = "/app-themes/{id}";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .get(getOneEndpoint,id)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -144,18 +123,14 @@ public class ThemeController extends BaseClass {
         baseURL = getURL();
         String id ="1";
         String deleteOneEndpoint = "/app-themes/{id}";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .delete(deleteOneEndpoint,id)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -168,20 +143,16 @@ public class ThemeController extends BaseClass {
     public void createMultipleTheme() throws IOException {
         baseURL = getURL();
         String createMultipleThemeEndpoint = "/app-themes/multiple";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-multiple-theme-success.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-multiple-theme-success.json"))
                 .when()
                 .post(createMultipleThemeEndpoint)
-
                 .then()
                 .assertThat().statusCode(201)
                 .and()
@@ -192,18 +163,14 @@ public class ThemeController extends BaseClass {
         baseURL = getURL();
         String idList = "1,2,3";
         String deleteBulkEndpoint = "/app-themes/all/{ids}";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .delete(deleteBulkEndpoint,idList)
-
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -216,20 +183,16 @@ public class ThemeController extends BaseClass {
     public void createInvalidTheme() throws IOException {
         baseURL = getURL();
         String createThemesEndpoint = "/app-themes";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("create-theme-invalid.json"))
-
+                .body(getGeneratedString("\\admin\\"+"create-theme-invalid.json"))
                 .when()
                 .post(createThemesEndpoint)
-
                 .then()
                 .assertThat().statusCode(400);
 //                .and()
@@ -240,18 +203,14 @@ public class ThemeController extends BaseClass {
         baseURL = getURL();
         String id ="-190";
         String deleteOneEndpoint = "/app-themes/{id}";
-
         //Setting up Base URL
         baseURI = baseURL;
-
         //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
-
                 .when()
                 .delete(deleteOneEndpoint,id)
-
                 .then()
                 .assertThat()
                 .statusCode(400);

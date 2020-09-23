@@ -1,4 +1,4 @@
-package infoins.api.admin.genericRest;
+package infoins.api.client.corporate;
 
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
@@ -9,122 +9,115 @@ import java.io.IOException;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-
 /**
- * @author : Eranda Kodagoda
- *  * @date : August 10, 2020
+ * @author : Minura Muthukumarana
+ *  * @date : September 22, 2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
-
-public class GenericRestController extends BaseClass {
-
+public class corporateController extends BaseClass {
     String baseURL;
-    String saveEndPoint = "/microller/generic";
-    String updateEndPoint = "/microller/generic";
-    String deleteEndPoint = "/microller/generic";
-    String findAllEndPoint = "/microller/generic/findAll";
-    String findAllPaginationEndPoint = "/microller/generic/findAll/paginate";
-    String findByEndPoint = "/microller/generic/findBy/reference";
-    String findByIdEndPoint = "/microller/generic/findById";
+    String createEndPoint ="/cm/corporate";
+    String updateEndPoint="/cm/corporate";
+    String getOneEndPoint="/cm/corporate/{id}";
+    String findAllPaginationEndPoint="/cm/corporate/all/pagination";
+    String getBulkEndPoint= "/cm/corporate/bulk";
+    String getViewOneEndPoint="/cm/corporate/view/{clientId}";
+    String getViewAllEndPoint="/cm/corporate/view/all";
+    String deleteEndPoint = "/cm/corporate/{id}";
 
     @Test(priority = 1)
-    public void saveValidTest() throws IOException {
+    public void  createCorporateValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("model", "AD")
-                .body(getGeneratedString("\\admin\\"+"generic-rest-save-valid.json"))
+                .body(getGeneratedString("\\client\\"+"corporate-create-corporate-valid.json"))
                 .when()
-                .post(saveEndPoint)
+                .post(createEndPoint)
                 .then()
-                .assertThat().statusCode(201);
-
+                .assertThat().statusCode(201)
+                .and()
+                .body("message", equalTo("Data added successfully"));
     }
     @Test
-    public void saveInvalidTest() throws IOException {
+    public void createCorporateInvalidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("model", -1)
-                .body(getGeneratedString("\\admin\\"+"generic-rest-save-valid.json"))
+                .body(getGeneratedString("\\client\\"+"corporate-create-corporate-invalid.json"))
                 .when()
-                .post(saveEndPoint)
+                .post(createEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 2)
-    public void updateValidTest() throws IOException {
+    public void  updateCorporateValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("model", "AD")
-                .body(getGeneratedString("\\admin\\"+"generic-rest-update-valid.json"))
+                .body(getGeneratedString("\\client\\"+"corporate-update-corporate-valid.json"))
                 .when()
                 .put(updateEndPoint)
                 .then()
-                .assertThat().statusCode(200);
-
+                .assertThat().statusCode(200)
+                .and()
+                .body("message", equalTo("Data updated successfully"));
     }
     @Test
-    public void updateInvalidTest() throws IOException {
+    public void  updateCorporateInvalidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("model", -1)
-                .body(getGeneratedString("\\admin\\"+"generic-rest-update-valid.json"))
+                .body(getGeneratedString("\\client\\"+"corporate-update-corporate-invalid.json"))
                 .when()
                 .put(updateEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
-
     }
 
     @Test(priority = 3)
-    public void deleteValidTest() throws IOException {
+    public void getOneCorporateValidTest() throws IOException {
+        int Id = 1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("model", "AD")
-                .body(getGeneratedString("\\admin\\"+"generic-rest-delete-valid.json"))
                 .when()
-                .delete(deleteEndPoint)
+                .get(getOneEndPoint, Id)
                 .then()
                 .assertThat().statusCode(200);
+
     }
     @Test
-    public void deleteInvalidTest() throws IOException {
+    public void getOneCorporateInvalidTest() throws IOException {
+        int Id = 1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("model", -1)
-                .body(getGeneratedString("\\admin\\"+"generic-rest-delete-valid.json"))
                 .when()
-                .delete(deleteEndPoint)
+                .get(getOneEndPoint, Id)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
@@ -133,47 +126,13 @@ public class GenericRestController extends BaseClass {
     }
 
     @Test(priority = 4)
-    public void findAllValidTest() throws IOException {
+    public void getAllWithPaginationCorporateValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("model", "AD")
-                .when()
-                .get(findAllEndPoint)
-                .then()
-                .assertThat().statusCode(200);
-
-    }
-    @Test
-    public void findAllInvalidTest() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .queryParam("model", -1)
-                .when()
-                .get(findAllEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-
-    @Test(priority = 5)
-    public void findAllPaginationValidTest() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .queryParam("model", "AD")
                 .queryParam("pageNo", 1)
                 .queryParam("pageSize", 10)
                 .queryParam("sortBy", "branchId")
@@ -181,19 +140,18 @@ public class GenericRestController extends BaseClass {
                 .get(findAllPaginationEndPoint)
                 .then()
                 .assertThat().statusCode(200);
-
     }
     @Test
-    public void findAllPaginationInvalidTest() throws IOException {
+    public void getAllWithPaginationCorporateInvalidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("id", 1)
-                .queryParam("model", "AD")
-                .queryParam("reference", "1")
+                .queryParam("pageNo", 1)
+                .queryParam("pageSize", 10)
+                .queryParam("sortBy", "InvalidbranchId")
                 .when()
                 .get(findAllPaginationEndPoint)
                 .then()
@@ -202,35 +160,47 @@ public class GenericRestController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
     }
 
-    @Test(priority = 6)
-    public void findByValidTest() throws IOException {
+    @Test(priority = 5)
+    public void getBulkCorporateValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("id", 1)
-                .queryParam("model", "AD")
-                .queryParam("reference", "1")
                 .when()
-                .get(findByEndPoint)
+                .get(getBulkEndPoint)
+                .then()
+                .assertThat().statusCode(200)
+                .and()
+                .body("[0].name", equalTo("email-template1"));
+    }
+
+    @Test(priority = 6)
+    public void getViewOneCorporateValidTest() throws IOException{
+        int clientId = 1;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getViewOneEndPoint, clientId)
                 .then()
                 .assertThat().statusCode(200);
     }
     @Test
-    public void findByInvalidTest() throws IOException {
+    public void getViewOneCorporateInvalidTest() throws IOException{
+        String clientId = "Id";
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("id", "id")
-                .queryParam("model", -1)
-                .queryParam("reference", -1)
                 .when()
-                .get(findByEndPoint)
+                .get(getViewOneEndPoint, clientId)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
@@ -238,35 +208,53 @@ public class GenericRestController extends BaseClass {
     }
 
     @Test(priority = 7)
-    public void findByIdValidTest() throws IOException {
+    public void getViewAllCorporateValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("id", 1)
-                .queryParam("model", "AD")
                 .when()
-                .get(findByIdEndPoint)
+                .get(getViewAllEndPoint)
                 .then()
-                .assertThat().statusCode(200);
+                .assertThat().statusCode(200)
+                .and()
+                .body("[0].name", equalTo("email-template1"));
+    }
+
+    @Test(priority = 8)
+    public void deleteCorporateValidTest() throws IOException{
+        int id = 1;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(deleteEndPoint, id)
+                .then()
+                .assertThat().statusCode(200)
+                .and()
+                .body("message", equalTo("Data deleted successfully"));
+
     }
     @Test
-    public void findByIdInvalidTest() throws IOException {
+    public void deleteCorporateInvalidTest() throws IOException{
+        String id = "id";
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("id", "id")
-                .queryParam("model", -1)
                 .when()
-                .get(findByIdEndPoint)
+                .delete(deleteEndPoint, id)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
+
     }
 }
