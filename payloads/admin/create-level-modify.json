@@ -8,7 +8,8 @@
   "isTax": "Y",
   "isUpr": "Y",
   "levelCode": "LEVEL01",
+  "levelConfigId" : 1,
   "levelDesc": "Test Level Description",
-  "levelName": "Level 0001",
-  "levelConfigId" : 1
+  "levelName": "Level 0001"
+
 }

@@ -31,12 +31,9 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 1)
     public void createValidTest() throws IOException {
-
         String entityName = "entity1";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -48,15 +45,12 @@ public class ReferenceController extends BaseClass {
                 .assertThat().statusCode(201);
 
     }
-
     @Test
     public void createEntityNameInvalidTest() throws IOException {
 
         int entityName = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -70,15 +64,11 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void createPayLoadInvalidTest() throws IOException {
-
         String entityName = "entity1";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -95,12 +85,9 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 2)
     public void updateReferenceDataValidTest() throws IOException {
-
         String entityName = "entity1";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -112,15 +99,12 @@ public class ReferenceController extends BaseClass {
                 .assertThat().statusCode(201);
 
     }
-
     @Test
     public void updateReferenceDataEntityNameInvalidTest() throws IOException {
 
         int entityName = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -134,7 +118,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void updateReferenceDataPayLoadInvalidTest() throws IOException {
         String entityName = "entity1";
@@ -187,7 +170,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void deleteReferenceDataPayLoadInvalidTest() throws IOException {
         String entityName = "entity1";
@@ -225,7 +207,6 @@ public class ReferenceController extends BaseClass {
                 .assertThat().statusCode(200);
 
     }
-
     @Test
     public void findReferenceDataByEntityAndFkEntityNameInvalidTest() throws IOException {
         int entityName = 1;
@@ -245,7 +226,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void findReferenceDataByEntityAndFkIdInvalidTest() throws IOException {
         String entityName = "entity1";
@@ -284,6 +264,7 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
+
     @Test(priority = 5)
     public void findAllDataByEntityNameValidTest() throws IOException {
         String entityName = "entity1";
@@ -321,7 +302,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void findAllDataByEntityNamePageNoInvalidTest() throws IOException {
         String entityName = "entity1";
@@ -342,7 +322,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void findAllDataByEntityNamePageSizeInvalidTest() throws IOException {
         String entityName = "entity1";
@@ -363,7 +342,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void findAllDataByEntityNameRequestTypeInvalidTest() throws IOException {
         String entityName = "entity1";
@@ -401,7 +379,6 @@ public class ReferenceController extends BaseClass {
                 .assertThat().statusCode(200);
 
     }
-
     @Test
     public void findDetailedDataByEntityAndIdEntityNameInvalidTest() throws IOException {
         int entityName = 1;
@@ -420,7 +397,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void findDetailedDataByEntityAndIdIDInvalidTest() throws IOException {
         String entityName = "entity1";
@@ -459,7 +435,6 @@ public class ReferenceController extends BaseClass {
                 .body("total", equalTo(20));
 
     }
-
     @Test
     public void findAllModuleReferencesModuleNameInvalidTest() throws IOException {
         int moduleName = 1;
@@ -477,7 +452,6 @@ public class ReferenceController extends BaseClass {
                 .assertThat().statusCode(204);
 
     }
-
     @Test
     public void findAllModuleReferencesPageNoInvalidTest() throws IOException {
         String moduleName = "AD";
@@ -497,7 +471,6 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void findAllModuleReferencesPageSizeInvalidTest() throws IOException {
         String moduleName = "AD";
@@ -517,4 +490,5 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
+
 }

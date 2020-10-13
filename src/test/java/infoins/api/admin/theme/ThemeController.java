@@ -19,14 +19,19 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class ThemeController extends BaseClass {
     String baseURL;
+    String createThemeEndpoint = "/app-themes";
+    String getBulkEndpoint = "/app-themes/bulk";
+    String modifyThemeEndpoint = "/app-themes";
+    String getOneEndpoint = "/app-themes/{id}";
+    String deleteOneEndpoint = "/app-themes/{id}";
+    String createMultipleThemeEndpoint = "/app-themes/multiple";
+    String deleteBulkEndpoint = "/app-themes/all/{ids}";
+    String createThemesEndpoint = "/app-themes";
 
     @Test(priority = 1)
     public void createThemeConfig() throws IOException {
         baseURL = getURL();
-        String createThemeEndpoint = "/app-themes";
-        //Setting up Base URL
         baseURI = baseURL;
-        //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -39,13 +44,11 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message",equalTo("Data added successfully"));
     }
+
     @Test(priority = 2)
     public void getBulk() throws IOException {
         baseURL = getURL();
-        String getBulkEndpoint = "/app-themes/bulk";
-        //Setting up Base URL
         baseURI = baseURL;
-        //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -59,13 +62,11 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("[0].appThemeId", equalTo(1));
     }
+
     @Test(priority = 3)
     public void modifyInvalidTheme() throws IOException {
         baseURL = getURL();
-        String modifyThemeEndpoint = "/app-themes";
-        //Setting up Base URL
         baseURI = baseURL;
-        //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -78,13 +79,12 @@ public class ThemeController extends BaseClass {
 //                .and()
 //                .body("message",equalTo("Data updated successfully"));
     }
+
     @Test(priority = 4)
     public void modifyTheme() throws IOException {
         baseURL = getURL();
         String modifyThemeEndpoint = "/app-themes";
-        //Setting up Base URL
         baseURI = baseURL;
-        //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -97,14 +97,12 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message",equalTo("Data updated successfully"));
     }
+
     @Test(priority = 5)
     public void getOneTheme() throws IOException {
-        baseURL = getURL();
         String id = "1";
-        String getOneEndpoint = "/app-themes/{id}";
-        //Setting up Base URL
+        baseURL = getURL();
         baseURI = baseURL;
-        //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -118,14 +116,12 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("taxAmount", equalTo(60));
     }
+
     @Test(priority = 6)
     public void deleteOneTheme() throws IOException {
-        baseURL = getURL();
         String id ="1";
-        String deleteOneEndpoint = "/app-themes/{id}";
-        //Setting up Base URL
+        baseURL = getURL();
         baseURI = baseURL;
-        //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -139,13 +135,11 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data deleted successfully"));
     }
+
     @Test(priority = 7)
     public void createMultipleTheme() throws IOException {
         baseURL = getURL();
-        String createMultipleThemeEndpoint = "/app-themes/multiple";
-        //Setting up Base URL
         baseURI = baseURL;
-        //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -158,14 +152,12 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message",equalTo("Data added successfully"));
     }
+
     @Test(priority = 8)
     public void deleteBulkTheme() throws IOException {
-        baseURL = getURL();
         String idList = "1,2,3";
-        String deleteBulkEndpoint = "/app-themes/all/{ids}";
-        //Setting up Base URL
+        baseURL = getURL();
         baseURI = baseURL;
-        //Verifying the Status code & response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -179,13 +171,11 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data deleted successfully"));
     }
+
     @Test(priority = 9)
     public void createInvalidTheme() throws IOException {
         baseURL = getURL();
-        String createThemesEndpoint = "/app-themes";
-        //Setting up Base URL
         baseURI = baseURL;
-        //Verifying the create request and success response
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())
@@ -198,14 +188,14 @@ public class ThemeController extends BaseClass {
 //                .and()
 //                .body("message",equalTo("Data added successfully"));
     }
+
     @Test(priority = 10)
     public void deleteInvalidTheme() throws IOException {
-        baseURL = getURL();
         String id ="-190";
         String deleteOneEndpoint = "/app-themes/{id}";
-        //Setting up Base URL
+        baseURL = getURL();
         baseURI = baseURL;
-        //Verifying the Status code & response
+
         given()
                 .header("accept","*/*")
                 .header("authorization",getBearerToken())

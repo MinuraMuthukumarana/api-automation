@@ -168,7 +168,6 @@ public class UserController extends BaseClass {
                 .assertThat().statusCode(200);
 
     }
-
     @Test
     public void getOneInvalidTest() throws IOException {
 
@@ -208,7 +207,6 @@ public class UserController extends BaseClass {
                 .assertThat().statusCode(200);
 
     }
-
     @Test
     public void deleteInvalidTest() throws IOException {
 

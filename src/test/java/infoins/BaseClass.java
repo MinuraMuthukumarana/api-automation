@@ -27,9 +27,7 @@ public class BaseClass {
         FileInputStream fileInputStream = new FileInputStream(userdir + propertydir);
         properties.load(fileInputStream);
         RestAssured.proxy("192.168.15.5",8080);
-
         url = properties.getProperty("url");
-
         return url;
     }
 
@@ -43,4 +41,5 @@ public class BaseClass {
         String filePath = System.getProperty("user.dir") + "\\payloads\\" + file;
         return new String(Files.readAllBytes(Paths.get(filePath)));
     }
+
 }

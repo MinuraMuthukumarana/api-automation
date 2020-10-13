@@ -7,7 +7,7 @@
   "isParent": "Y",
   "isTax": "Y",
   "isUpr": "Y",
-  "levelCode": "LVL01",
-  "levelDesc": "Test Level Description",
-  "levelName": "Level 01"
+  "levelCode": "L01",
+  "levelDesc": "L01 default config",
+  "levelName": "Level "
 }

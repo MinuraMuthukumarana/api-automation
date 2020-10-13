@@ -1,8 +1,8 @@
 {
   "countryId": 1,
-  "currencyId": 2,
-  "endDate": "2020-07-22T18:24:22.859Z",
-  "stDate": "2020-07-22T18:24:22.859Z",
-  "taxAmount": 30,
-  "taxTypeId": 2
+  "endDate": "2022-09-14",
+  "stDate": "2022-09-14",
+  "taxAmount": 100,
+  "taxRate": 0,
+  "taxTypeId": 1
 }

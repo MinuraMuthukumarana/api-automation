@@ -4,7 +4,7 @@
 
     <test name = "AdminModule">
         <classes>
-            <class name = "infoins.api.admin.reference.ReferenceController"/>
+            <class name ="infoins.api.admin.reference.ReferenceController"/>
             <class name="infoins.api.admin.level.LevelController"/>
             <class name="infoins.api.admin.branch.BranchController"/>
             <class name="infoins.api.admin.email.EmailController"/>

@@ -35,7 +35,6 @@ public class UserAdditionalInfoController  extends BaseClass {
                 .then()
                 .assertThat().statusCode(200);
 
-
     }
     @Test(priority = 2)
     public void deleteUserAdditionalValidTest() throws IOException{
