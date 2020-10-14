@@ -26,6 +26,7 @@ public class GlobalTaxController extends BaseClass {
     String getOneEndpoint = "/global-taxes/{id}";
     String deleteOneEndpoint = "/global-taxes/{id}";
     String getAllPaginationEndPoint="/global-taxes/all/pagination";
+    String createMultipleGlobalTaxEndpoint = "/global-taxes/multiple";
 
 
     @Test(priority = 1)
@@ -82,13 +83,15 @@ public class GlobalTaxController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body("  \"countryId\": 1,\n" +
+                .body("{\n" +
+                        "  \"countryId\": 1,\n" +
                         "  \"endDate\": \"2022-09-14\",\n" +
                         "  \"globalTaxId\": "+x+",\n" +
-                        "  \"stDate\": \"2020-09-14\",\n" +
+                        "  \"stDate\": \"2022-09-14\",\n" +
                         "  \"taxAmount\": 0,\n" +
                         "  \"taxRate\": 10,\n" +
-                        "  \"taxTypeId\": 1")
+                        "  \"taxTypeId\":1\n" +
+                        "}")
                 .when()
                 .put(modifyGlobalTaxEndpoint)
                 .then()
@@ -102,7 +105,7 @@ public class GlobalTaxController extends BaseClass {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
-
+        Response response=
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -113,8 +116,10 @@ public class GlobalTaxController extends BaseClass {
                 .statusCode(200)
                 .and()
                 .contentType(ContentType.JSON)
-                .and()
-                .body("taxAmount", equalTo(60));
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("GetOne Data List: " + jsonStr);
     }
 
     @Test(priority = 5)
@@ -160,10 +165,7 @@ public class GlobalTaxController extends BaseClass {
     @Test(priority = 7)
     public void createMultipleGlobalTax() throws IOException {
         baseURL = getURL();
-        String createMultipleGlobalTaxEndpoint = "/global-taxes/multiple";
-        //Setting up Base URL
         baseURI = baseURL;
-        //Verifying the create request and success response
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -177,23 +179,23 @@ public class GlobalTaxController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
     }
 
-    @Test(priority = 8)
-    public void deleteBulkGlobalTax() throws IOException {
-        baseURL = getURL();
-        String idList = "1,2,3";
-        String deleteOneEndpoint = "/global-taxes/all/{ids}";
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .when()
-                .delete(deleteOneEndpoint, idList)
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .and()
-                .contentType(ContentType.JSON)
-                .and()
-                .body("message", equalTo("Data deleted successfully"));
-    }
+//    @Test(priority = 8)
+//    public void deleteBulkGlobalTax() throws IOException {
+//        baseURL = getURL();
+//        String idList = "1,2,3";
+//        String deleteOneEndpoint = "/global-taxes/all/{ids}";
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", getBearerToken())
+//                .when()
+//                .delete(deleteOneEndpoint, idList)
+//                .then()
+//                .assertThat()
+//                .statusCode(200)
+//                .and()
+//                .contentType(ContentType.JSON)
+//                .and()
+//                .body("message", equalTo("Data deleted successfully"));
+//    }
 }

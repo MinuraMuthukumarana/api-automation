@@ -154,6 +154,7 @@ public class ExchangeController extends BaseClass {
         int Id = 2;
         baseURL = getURL();
         baseURI = baseURL;
+        Response response=
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -161,7 +162,11 @@ public class ExchangeController extends BaseClass {
                 .when()
                 .get(getOneEndPoint, Id)
                 .then()
-                .assertThat().statusCode(200);
+                .assertThat().statusCode(200)
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("GetOne Data List: " + jsonStr);
 
 
     }
@@ -200,7 +205,7 @@ public class ExchangeController extends BaseClass {
                 .and().extract().response();
 
         String jsonStr = response.getBody().asString();
-        System.out.println("Data List:" + jsonStr);
+        System.out.println("GetBulk Data List:" + jsonStr);
 
     }
 

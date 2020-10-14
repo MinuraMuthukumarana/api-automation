@@ -30,11 +30,8 @@ public class UserController extends BaseClass {
 
     @Test(priority = 1)
     public void createValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -46,14 +43,10 @@ public class UserController extends BaseClass {
                 .assertThat().statusCode(201);
 
     }
-
     @Test
     public void createInvalidDataType1Test() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -67,14 +60,10 @@ public class UserController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void createInvalidDataType2Test() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -91,11 +80,8 @@ public class UserController extends BaseClass {
 
     @Test(priority = 2)
     public void modifyValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -107,14 +93,10 @@ public class UserController extends BaseClass {
                 .assertThat().statusCode(201);
 
     }
-
     @Test
     public void modifyInvalidDataTpe1Test() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -128,14 +110,10 @@ public class UserController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void modifyInvalidDataTpe2Test() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -152,12 +130,9 @@ public class UserController extends BaseClass {
 
     @Test(priority = 3)
     public void getOneValidTest() throws IOException {
-
         int id = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -170,12 +145,9 @@ public class UserController extends BaseClass {
     }
     @Test
     public void getOneInvalidTest() throws IOException {
-
         String id = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -191,12 +163,9 @@ public class UserController extends BaseClass {
 
     @Test(priority = 4)
     public void deleteValidTest() throws IOException {
-
         int id = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -209,12 +178,9 @@ public class UserController extends BaseClass {
     }
     @Test
     public void deleteInvalidTest() throws IOException {
-
         String id = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -230,12 +196,9 @@ public class UserController extends BaseClass {
 
     @Test(priority = 5)
     public void deleteAllValidTest() throws IOException {
-
         String ids = "1,2";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -246,15 +209,11 @@ public class UserController extends BaseClass {
                 .assertThat().statusCode(200);
 
     }
-
     @Test
     public void deleteAllInvalidTest() throws IOException {
-
         int ids = 1;
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -270,11 +229,8 @@ public class UserController extends BaseClass {
 
     @Test(priority = 6)
     public void getAllWithPaginationValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -288,14 +244,10 @@ public class UserController extends BaseClass {
                 .assertThat().statusCode(200);
 
     }
-
     @Test
     public void getAllWithPaginationPageNoInvalidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -311,14 +263,10 @@ public class UserController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void getAllWithPaginationPageSizeInvalidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -334,14 +282,10 @@ public class UserController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-
     @Test
     public void getAllWithPaginationSortByInvalidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -360,11 +304,8 @@ public class UserController extends BaseClass {
 
     @Test(priority = 7)
     public void getBulkValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())

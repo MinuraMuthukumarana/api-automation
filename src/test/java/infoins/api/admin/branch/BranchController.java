@@ -234,35 +234,35 @@ BranchController extends BaseClass {
                 .assertThat().statusCode(200);
     }
 
-    @Test(priority = 7)
-    public void deleteAllValidTest() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"delete-all-branch-valid.json"))
-                .when()
-                .delete(deleteAllEndPoint)
-                .then()
-                .assertThat().statusCode(200);
-
-    }
-    @Test
-    public void deleteAllInvalidTest() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"delete-all-branch-invalid.json"))
-                .when()
-                .delete(deleteAllEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .body("error", equalTo("Bad Request"));
-
-    }
+//    @Test(priority = 7)
+//    public void deleteAllValidTest() throws IOException {
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", getBearerToken())
+//                .contentType(ContentType.JSON)
+//                .body(getGeneratedString("\\admin\\"+"delete-all-branch-valid.json"))
+//                .when()
+//                .delete(deleteAllEndPoint)
+//                .then()
+//                .assertThat().statusCode(200);
+//
+//    }
+//    @Test
+//    public void deleteAllInvalidTest() throws IOException {
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", getBearerToken())
+//                .contentType(ContentType.JSON)
+//                .body(getGeneratedString("\\admin\\"+"delete-all-branch-invalid.json"))
+//                .when()
+//                .delete(deleteAllEndPoint)
+//                .then()
+//                .assertThat().statusCode(400)
+//                .body("error", equalTo("Bad Request"));
+//
+//    }
 }

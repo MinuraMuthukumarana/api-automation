@@ -39,7 +39,7 @@ public class test extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void getAll() throws IOException {
+    public void getAllWithPagination() throws IOException {
             String getAllPaginationEndPoint = "/app-email-configs/all/pagination";
             baseURL = getURL();
             baseURI = baseURL;

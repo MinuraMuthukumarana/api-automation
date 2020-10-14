@@ -25,11 +25,8 @@ public class UserProfileController extends BaseClass {
 
     @Test(priority = 1)
     public void modifyValidTest() throws IOException {
-
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -61,7 +58,6 @@ public class UserProfileController extends BaseClass {
 
     @Test(priority = 2)
     public void getOneValidTest() throws IOException {
-
         int id = 1;
         baseURL = getURL();
         baseURI = baseURL;

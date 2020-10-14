@@ -134,7 +134,7 @@ public class DateController extends BaseClass {
                 .extract().response();
 
         String jsonStr = response.getBody().asString();
-        System.out.println("Response Body:" + jsonStr);
+        System.out.println("GetOne Data set:" + jsonStr);
 
 
     }
@@ -162,6 +162,7 @@ public class DateController extends BaseClass {
     public void getBulkValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
+        Response response =
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -170,8 +171,10 @@ public class DateController extends BaseClass {
                 .get(getBulkEndPoint)
                 .then()
                 .assertThat().statusCode(200)
-                .and()
-                .body("data[1].dateConfigId", equalTo(2));
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("GetBulk Data List: " + jsonStr);
     }
     @Test
     public void getBulkInvalidTest() throws IOException{
