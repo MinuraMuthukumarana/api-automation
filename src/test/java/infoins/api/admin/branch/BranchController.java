@@ -117,12 +117,9 @@ BranchController extends BaseClass {
     }
     @Test
     public void getAllBranchTaxesByBranchIdInvalidTest() throws IOException {
-
         String branchId = "id";
         baseURL = getURL();
-
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())

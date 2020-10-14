@@ -140,7 +140,6 @@ public class DateController extends BaseClass {
     }
     @Test
     public void getOneInvalidTest() throws IOException {
-
         int Id = 0;
         baseURL = getURL();
         baseURI = baseURL;
@@ -176,21 +175,21 @@ public class DateController extends BaseClass {
         String jsonStr = response.getBody().asString();
         System.out.println("GetBulk Data List: " + jsonStr);
     }
-    @Test
-    public void getBulkInvalidTest() throws IOException{
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                 .header("accept", "*/*")
-                 .header("authorization", getBearerToken())
-                 .contentType(ContentType.JSON)
-                 .when()
-                 .get(getBulkEndPoint)
-                 .then()
-                 .assertThat().statusCode(200)
-                 .and()
-                 .body("data[1].dateConfigId", equalTo("Invalid"));
-
-    }
+//    @Test
+//    public void getBulkInvalidTest() throws IOException{
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                 .header("accept", "*/*")
+//                 .header("authorization", getBearerToken())
+//                 .contentType(ContentType.JSON)
+//                 .when()
+//                 .get(getBulkEndPoint)
+//                 .then()
+//                 .assertThat().statusCode(200)
+//                 .and()
+//                 .body("data[1].dateConfigId", equalTo("Invalid"));
+//
+//    }
 
 }

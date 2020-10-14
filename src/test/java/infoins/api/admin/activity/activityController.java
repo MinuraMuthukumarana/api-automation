@@ -2,6 +2,7 @@ package infoins.api.admin.activity;
 
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class activityController extends BaseClass {
     public void getFindAllActivityByDateActivityValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
+        Response response=
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -36,8 +38,11 @@ public class activityController extends BaseClass {
                 .get(findAllActivityByDateEndPoint)
                 .then()
                 .assertThat().statusCode(200)
-                .and()
-                .body("data[0].activityId", equalTo(1));
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("findAllActivityByDate Data List: " + jsonStr);
+
     }
     @Test
     public void getFindAllActivityByDateActivityInvalidTest() throws IOException{
@@ -47,7 +52,7 @@ public class activityController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("endXDate", "2020-09-14")
+                .queryParam("endXDate", "2020-13-32")
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)
                 .queryParam("startDate", "2020-01-01")
