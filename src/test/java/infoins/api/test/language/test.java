@@ -114,4 +114,55 @@ public class test extends BaseClass {
                 .and()
                 .body("message", equalTo("Data deleted successfully"));
     }
+    @Test(priority = 5)
+    public void deleteValidTest1() throws IOException {
+        String deleteEndPoint = "/app-email-configs/{id}";
+        int id = x;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(deleteEndPoint, id)
+                .then()
+                .assertThat().statusCode(200)
+                .and()
+                .body("message", equalTo("Data deleted successfully"));
+    }
+        @Test(priority = 6)
+        public void deleteValidTest2() throws IOException {
+            String deleteEndPoint = "/app-email-configs/{id}";
+            int id = x;
+            baseURL = getURL();
+            baseURI = baseURL;
+            given()
+                    .header("accept", "*/*")
+                    .header("authorization", getBearerToken())
+                    .contentType(ContentType.JSON)
+                    .when()
+                    .delete(deleteEndPoint, id)
+                    .then()
+                    .assertThat().statusCode(200)
+                    .and()
+                    .body("message", equalTo("Data deleted successfully"));
+        }
+            @Test(priority = 7)
+            public void deleteValidTest3() throws IOException {
+                String deleteEndPoint = "/app-email-configs/{id}";
+                int id = x;
+                baseURL = getURL();
+                baseURI = baseURL;
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .delete(deleteEndPoint, id)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and()
+                        .body("message", equalTo("Data deleted successfully"));
+            }
 }
