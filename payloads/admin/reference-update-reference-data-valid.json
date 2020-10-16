@@ -1,10 +1,10 @@
 [
   {
-    "paramName": "name",
-    "value": "CLZname"
+    "paramName": "keyArea",
+    "value": "dd-mm-yyyy"
   },
   {
-    "paramName": "code",
-    "value": "CLZ"
+    "paramName": "dateValue",
+    "value": "Global date format simple"
   }
 ]

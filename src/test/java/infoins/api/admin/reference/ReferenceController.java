@@ -2,14 +2,16 @@ package infoins.api.admin.reference;
 
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
+
 
 /**
  * @author : Eranda Kodagoda
@@ -19,7 +21,7 @@ import static org.hamcrest.Matchers.isEmptyOrNullString;
  *  */
 
 public class ReferenceController extends BaseClass {
-
+    private int x;
     String baseURL;
     String saveReferenceDataEndPoint = "/microller/references/{entityName}";
     String updateReferenceDataEndPoint = "/microller/references/{entityName}";
@@ -31,7 +33,7 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 1)
     public void createValidTest() throws IOException {
-        String entityName = "entity1";
+        String entityName = "SyDrDateConfig";
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -85,7 +87,7 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 2)
     public void updateReferenceDataValidTest() throws IOException {
-        String entityName = "entity1";
+        String entityName = "SyDrDateConfig";
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -96,7 +98,9 @@ public class ReferenceController extends BaseClass {
                 .when()
                 .put(updateReferenceDataEndPoint, entityName)
                 .then()
-                .assertThat().statusCode(201);
+                .assertThat().statusCode(200)
+                .and()
+                .body("message", equalTo("Operation Success"));
 
     }
     @Test
@@ -138,149 +142,26 @@ public class ReferenceController extends BaseClass {
     }
 
     @Test(priority = 3)
-    public void deleteReferenceDataValidTest() throws IOException {
-        String entityName = "entity1";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
-                .when()
-                .delete(deleteReferenceDataEndPoint, entityName)
-                .then()
-                .assertThat().statusCode(200);
-    }
-    @Test
-    public void deleteReferenceDataEntityNameInvalidTest() throws IOException {
-        int entityName = 1;
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
-                .when()
-                .delete(deleteReferenceDataEndPoint, entityName)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-    @Test
-    public void deleteReferenceDataPayLoadInvalidTest() throws IOException {
-        String entityName = "entity1";
-        baseURL = getURL();
-        baseURI = baseURL;
-
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-invalid.json"))
-                .when()
-                .delete(deleteReferenceDataEndPoint, entityName)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-
-    @Test(priority = 4)
-    public void findReferenceDataByEntityAndFkValidTest() throws IOException {
-        String entityName = "entity1";
-        int id = 1;
-        String reference = "1";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
-                .then()
-                .assertThat().statusCode(200);
-
-    }
-    @Test
-    public void findReferenceDataByEntityAndFkEntityNameInvalidTest() throws IOException {
-        int entityName = 1;
-        int id = 1;
-        String reference = "1";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-    @Test
-    public void findReferenceDataByEntityAndFkIdInvalidTest() throws IOException {
-        String entityName = "entity1";
-        String id = "id";
-        int reference = 1;
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-    @Test
-    public void findReferenceDataByEntityAndFkReferenceInvalidTest() throws IOException {
-        String entityName = "entity1";
-        int id = 1;
-        String reference = "reference";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-
-    @Test(priority = 5)
     public void findAllDataByEntityNameValidTest() throws IOException {
-        String entityName = "entity1";
+        String entityName = "SyDrDateConfig";
         baseURL = getURL();
         baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .queryParam("pageNo", 1)
-                .queryParam("pageSize", 10)
-                .queryParam("requestType", "bypass")
-                .contentType(ContentType.JSON)
-                .when()
-                .get(findAllDataByEntityNameEndPoint, entityName)
-                .then()
-                .assertThat().statusCode(200);
+        Response response=
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .queryParam("pageNo", 0)
+                        .queryParam("pageSize", 100)
+                        .queryParam("requestType", "")
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(findAllDataByEntityNameEndPoint, entityName)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
     }
     @Test
     public void findAllDataByEntityNameENameInvalidTest() throws IOException {
@@ -363,20 +244,25 @@ public class ReferenceController extends BaseClass {
 
     }
 
-    @Test(priority = 6)
+    @Test(priority = 4)
     public void findDetailedDataByEntityAndIdValidTest() throws IOException {
-        String entityName = "entity1";
-        int id = 1;
+        String entityName = "SyDrDateConfig";
+        int id = 2;
         baseURL = getURL();
         baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(findDetailedDataByEntityAndIdEndPoint, entityName, id)
-                .then()
-                .assertThat().statusCode(200);
+        Response response =
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(findDetailedDataByEntityAndIdEndPoint, entityName, id)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data "+x+" List: " + jsonStr);
 
     }
     @Test
@@ -416,23 +302,81 @@ public class ReferenceController extends BaseClass {
 
     }
 
-    @Test(priority = 7)
-    public void findAllModuleReferencesValidTest() throws IOException {
-        String moduleName = "AD";
+    @Test(priority = 5)
+    public void deleteReferenceDataValidTest() throws IOException {
+        String entityName = "SyDrDateConfig";
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .queryParam("pageNo", 1)
-                .queryParam("pageSize", 10)
+                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
+                .when()
+                .delete(deleteReferenceDataEndPoint, entityName)
+                .then()
+                .assertThat().statusCode(200)
+                .and()
+                .body("message", equalTo("Operation Success"));
+    }
+    @Test
+    public void deleteReferenceDataEntityNameInvalidTest() throws IOException {
+        int entityName = 1;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
+                .when()
+                .delete(deleteReferenceDataEndPoint, entityName)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+
+    }
+    @Test
+    public void deleteReferenceDataPayLoadInvalidTest() throws IOException {
+        String entityName = "entity1";
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-invalid.json"))
+                .when()
+                .delete(deleteReferenceDataEndPoint, entityName)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+
+    }
+
+    @Test(priority = 6)
+    public void findAllModuleReferencesValidTest() throws IOException {
+        String moduleName = "AD";
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response=
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .queryParam("pageNo", 0)
+                .queryParam("pageSize", 100)
                 .when()
                 .get(findAllModuleReferencesEndPoint, moduleName)
                 .then()
                 .assertThat().statusCode(200)
-                .and()
-                .body("total", equalTo(20));
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
 
     }
     @Test
@@ -484,6 +428,81 @@ public class ReferenceController extends BaseClass {
                 .queryParam("pageSize", "pSize")
                 .when()
                 .get(findAllModuleReferencesEndPoint, moduleName)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+
+    }
+
+    @Test(priority = 7)
+    public void findReferenceDataByEntityAndFkValidTest() throws IOException {
+        String entityName = "entity1";
+        int id = 1;
+        String reference = "1";
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
+                .then()
+                .assertThat().statusCode(200);
+
+    }
+    @Test
+    public void findReferenceDataByEntityAndFkEntityNameInvalidTest() throws IOException {
+        int entityName = 1;
+        int id = 1;
+        String reference = "1";
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+
+    }
+    @Test
+    public void findReferenceDataByEntityAndFkIdInvalidTest() throws IOException {
+        String entityName = "entity1";
+        String id = "id";
+        int reference = 1;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+
+    }
+    @Test
+    public void findReferenceDataByEntityAndFkReferenceInvalidTest() throws IOException {
+        String entityName = "entity1";
+        int id = 1;
+        String reference = "reference";
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
                 .then()
                 .assertThat().statusCode(400)
                 .and()

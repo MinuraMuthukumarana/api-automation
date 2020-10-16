@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
+
 public class UserAdditionalInfoController  extends BaseClass {
 
     String baseURL;
