@@ -2,9 +2,11 @@ package infoins.api.admin.branch;
 
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -19,14 +21,17 @@ import static org.hamcrest.Matchers.*;
 public class
 BranchController extends BaseClass {
 
+    private int x;
     String baseURL;
     String addNewBranchEndPoint = "/branches";
     String updateBranchEndPoint = "/branches";
-    String getAllBranchTaxesByBranchIdEndPoint = "branches/{branchId}";
+    String getAllWithPaginationEndPoint = "/branches/all/pagination";
+    String getOneEndPoint = "/branches/{id}";
+    String getCountryByBranchIdEndPoint ="/branches/branchId/{branchId}";
+    String getChangeActiveStatusEndPoint="/branches/changeActiveStatus/{branchId}";
+    String getAllBranchMappersEndPoint = "/branches/getAllBranchMappers";
     String deleteBranchEndPoint = "/branches/{branchId}";
-    String setActiveStatusEndPoint = "/branches/active-status/{status}/{branchId}";
-    String getAllEndPoint = "/branches/all";
-    String deleteAllEndPoint = "/branches/all";
+
 
     @Test(priority = 1)
     public void addNewBranchValidTest() throws IOException {
@@ -40,9 +45,9 @@ BranchController extends BaseClass {
                 .when()
                 .post(addNewBranchEndPoint)
                 .then()
-                .assertThat().statusCode(200)
+                .assertThat().statusCode(201)
                 .and()
-                .body("[0].branchCode", equalTo("br16"));
+                .body("message", equalTo("Data added successfully"));
 
     }
     @Test
@@ -64,78 +69,154 @@ BranchController extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void updateBranchValidTest() throws IOException {
+    public void getAllWithPaginationValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
+        Response response =
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"update-branch-valid.json"))
+                .queryParam("pageNo", 0)
+                .queryParam("pageSize", 100)
+                .queryParam("sortBy", "branchId")
                 .when()
-                .put(updateBranchEndPoint)
+                .get(getAllWithPaginationEndPoint)
                 .then()
                 .assertThat().statusCode(200)
-                .and()
-                .body("[0].abrvName", equalTo("abName16"));
+                .and().extract().response();
 
-    }
-    @Test
-    public void updateBranchInvalidTest() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"update-branch-invalid.json"))
-                .when()
-                .put(updateBranchEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
 
+        int size = response.jsonPath().getList("data.branchId").size();
+        System.out.println("Data Size: " + size);
+
+        List<Integer> ids = response.jsonPath().getList("data.branchId");
+        x= ids.get(size-1);
+        System.out.println("Last index:" +x);
+        for (Integer i : ids) {
+            System.out.print(i);
+        }
     }
 
-    @Test(priority = 3)
-    public void getAllBranchTaxesByBranchIdValidTest() throws IOException {
-        int branchId = 1;
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getAllBranchTaxesByBranchIdEndPoint, branchId)
-                .then()
-                .assertThat().statusCode(200)
-                .and()
-                .body("taxAmount", equalTo("12"));
-
-    }
-    @Test
-    public void getAllBranchTaxesByBranchIdInvalidTest() throws IOException {
-        String branchId = "id";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getAllBranchTaxesByBranchIdEndPoint, branchId)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
+//    @Test(priority = 3)
+//    public void updateBranchValidTest() throws IOException {
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", getBearerToken())
+//                .contentType(ContentType.JSON)
+//                .body(getGeneratedString("\\admin\\"+"update-branch-valid.json"))
+//                .when()
+//                .put(updateBranchEndPoint)
+//                .then()
+//                .assertThat().statusCode(200)
+//                .and()
+//                .body("message", equalTo("Data updated successfully"));
+//
+//    }
+//    @Test
+//    public void updateBranchInvalidTest() throws IOException {
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", getBearerToken())
+//                .contentType(ContentType.JSON)
+//                .body(getGeneratedString("\\admin\\"+"update-branch-invalid.json"))
+//                .when()
+//                .put(updateBranchEndPoint)
+//                .then()
+//                .assertThat().statusCode(400)
+//                .and()
+//                .body("error", equalTo("Bad Request"));
+//
+//    }
 
     @Test(priority = 4)
+    public void getOneValidTest() throws IOException {
+        int id = x;
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response=
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(getOneEndPoint, id)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("GetOne Data List: " + jsonStr);
+    }
+
+    @Test(priority = 5)
+    public void getCountryByBranchIdValidTest() throws IOException {
+        int id = x;
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response=
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(getCountryByBranchIdEndPoint, id)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("GetCountryByBranchId Data List: " + jsonStr);
+    }
+
+    @Test(priority = 6)
+    public void getChangeActiveStatusValidTest() throws IOException {
+        int id = x;
+        baseURL = getURL();
+        baseURI = baseURL;
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(getChangeActiveStatusEndPoint, id)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and()
+                        .body("message", equalTo("Data updated successfully"));
+
+    }
+
+    @Test(priority = 7)
+    public void getAllBranchMappersValidTest() throws IOException {
+        int branchId = x;
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response=
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getAllBranchMappersEndPoint, branchId)
+                .then()
+                .assertThat().statusCode(200)
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("getAllBranchMappers Data List: " + jsonStr);
+
+    }
+
+    @Test(priority = 8)
     public void deleteBranchValidTest() throws IOException {
-        int branchId = 1;
+        int branchId = x;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -145,7 +226,9 @@ BranchController extends BaseClass {
                 .when()
                 .delete(deleteBranchEndPoint, branchId)
                 .then()
-                .assertThat().statusCode(200);
+                .assertThat().statusCode(200)
+                .and()
+                .body("message", equalTo("Data deleted successfully"));
 
     }
     @Test
@@ -166,100 +249,4 @@ BranchController extends BaseClass {
 
     }
 
-    @Test(priority = 5)
-    public void setActiveStatusValidTest() throws IOException {
-        int branchId = 1;
-        String status = "y";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .post(setActiveStatusEndPoint, status, branchId)
-                .then()
-                .assertThat().statusCode(200);
-
-    }
-    @Test
-    public void setActiveStatusInvalidBranchIdTest() throws IOException {
-        String branchId = "id";
-        String status = "y";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .post(setActiveStatusEndPoint, status, branchId)
-                .then()
-                .assertThat().statusCode(400)
-                .body("error", equalTo("Bad Request"));
-
-    }
-    @Test
-    public void setActiveStatusInvalidStatusTest() throws IOException {
-        int branchId = 1;
-        int status = 1;
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .post(setActiveStatusEndPoint, status, branchId)
-                .then()
-                .assertThat().statusCode(400)
-                .body("error", equalTo("Bad Request"));
-
-    }
-
-    @Test(priority = 6)
-    public void getAllValidTest() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getAllEndPoint)
-                .then()
-                .assertThat().statusCode(200);
-    }
-
-//    @Test(priority = 7)
-//    public void deleteAllValidTest() throws IOException {
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        given()
-//                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
-//                .contentType(ContentType.JSON)
-//                .body(getGeneratedString("\\admin\\"+"delete-all-branch-valid.json"))
-//                .when()
-//                .delete(deleteAllEndPoint)
-//                .then()
-//                .assertThat().statusCode(200);
-//
-//    }
-//    @Test
-//    public void deleteAllInvalidTest() throws IOException {
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        given()
-//                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
-//                .contentType(ContentType.JSON)
-//                .body(getGeneratedString("\\admin\\"+"delete-all-branch-invalid.json"))
-//                .when()
-//                .delete(deleteAllEndPoint)
-//                .then()
-//                .assertThat().statusCode(400)
-//                .body("error", equalTo("Bad Request"));
-//
-//    }
 }

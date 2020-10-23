@@ -120,8 +120,8 @@ public class ExchangeController extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"branchId\": 2,\n" +
-                        "  \"exchangeRate\": 10,\n" +
-                        "  \"exchangeRateDate\": \"2020-10-30\",\n" +
+                        "  \"exchangeRate\": 15,\n" +
+                        "  \"exchangeRateDate\": \"2020-12-31\",\n" +
                         "  \"exchangeRateId\": "+x+"\n" +
                         "}")
                 .when()
@@ -151,7 +151,7 @@ public class ExchangeController extends BaseClass {
 
     @Test(priority = 4)
     public void getOneExchangeRateValidTest() throws IOException {
-        int Id = 2;
+        int Id = x;
         baseURL = getURL();
         baseURI = baseURL;
         Response response=
@@ -208,6 +208,5 @@ public class ExchangeController extends BaseClass {
         System.out.println("GetBulk Data List:" + jsonStr);
 
     }
-
 
 }
