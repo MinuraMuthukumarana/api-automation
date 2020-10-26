@@ -1,4 +1,4 @@
-package infoins.api.admin.date;
+package infoins.api.admin.dateService;
 
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
@@ -11,22 +11,60 @@ import java.util.List;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+
 /**
  * @author : Minura Muthukumarana
- *  * @date : September 18, 2020
+ *  * @date : October 26, 2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
-public class DateController extends BaseClass {
+
+public class DateService extends BaseClass {
     private int x;
     String baseURL;
-    String updateEndPoint="/date-configs";
-    String getOneEndPoint="/date-configs/{id}";
-    String getAllWithPaginationEndPoint="/date-configs/all/pagination";
-    String getBulkEndPoint="date-configs/bulk";
+    String createEndPoint= "/";
+    String getAllPaginationEndPoint="/all/pagination";
+    String modifyEndPoint="/";
+    String getOneEndPoint= "/{id}";
+    String getBulkEndPoint ="/bulk";
+    String deleteEndPoint = "/{id}";
 
     @Test(priority = 1)
-    public void getAllWithPaginationValidTest() throws IOException {
+    public void createDataServiceValidTest() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-date-service-valid.json"))
+                .when()
+                .post(createEndPoint)
+                .then()
+                .assertThat().statusCode(201)
+                .and()
+                .body("message", equalTo("Data added successfully"));
+
+    }
+    @Test
+    public void createDateServiceInvalidTest() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", getBearerToken())
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-date-service-invalid.json"))
+                .when()
+                .post(createEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+    }
+
+    @Test(priority = 2)
+    public void getAllPaginationDataServiceValidInput() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -38,11 +76,10 @@ public class DateController extends BaseClass {
                         .queryParam("pageSize", 100)
                         .queryParam("sortBy", "dateConfigId")
                         .when()
-                        .get(getAllWithPaginationEndPoint)
+                        .get(getAllPaginationEndPoint)
                         .then()
                         .assertThat().statusCode(200)
-                        .and()
-                        .extract().response();
+                        .and().extract().response();
 
         String jsonStr = response.getBody().asString();
         System.out.println("Data List: " + jsonStr);
@@ -56,50 +93,31 @@ public class DateController extends BaseClass {
         for (Integer i : ids) {
             System.out.print(i);
         }
-  }
-    @Test
-    public void getAllWithPaginationInvalidTest() throws IOException{
-        baseURL = getURL();
-        baseURI = baseURL;
-
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .queryParam("pageNo", 0)
-                .queryParam("pageSize", 10)
-                .queryParam("sortBy", "invalidTestId")
-                .when()
-                .get(getAllWithPaginationEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
     }
 
-    @Test(priority = 2)
-    public void updateDateControllerValidTest() throws IOException{
+    @Test(priority = 3)
+    public void modifyDateServiceValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"dateConfigId\": "+x+",\n" +
-                        "  \"dateValue\": \"DD-MM-YYYY\",\n" +
-                        "  \"keyArea\": \"Global date format Capital Update\"\n" +
+                        "  \"dateValue\": \"dd-mm-yyyy\",\n" +
+                        "  \"keyArea\": \"Global date format Simple Update\"\n" +
                         "}")
                 .when()
-                .put(updateEndPoint)
+                .put(modifyEndPoint)
                 .then()
                 .assertThat().statusCode(200)
                 .and()
                 .body("message", equalTo("Data updated successfully"));
+
     }
     @Test
-    public void updateDateControllerInvalidTest() throws IOException {
+    public void modifyDateServiceInvalidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -108,7 +126,7 @@ public class DateController extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"modify-date-invalid.json"))
                 .when()
-                .put(updateEndPoint)
+                .put(modifyEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
@@ -116,22 +134,22 @@ public class DateController extends BaseClass {
 
     }
 
-    @Test(priority = 3)
-    public void getOneValidTest() throws IOException {
+    @Test(priority = 4)
+    public void getOneDateServiceValidTest() throws IOException {
         int Id = x;
         baseURL = getURL();
         baseURI = baseURL;
         Response response=
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getOneEndPoint, Id)
-                .then()
-                .assertThat().statusCode(200)
-                .and()
-                .extract().response();
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(getOneEndPoint, Id)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and()
+                        .extract().response();
 
         String jsonStr = response.getBody().asString();
         System.out.println("GetOne Data set:" + jsonStr);
@@ -154,42 +172,44 @@ public class DateController extends BaseClass {
                 .and()
                 .body("error", equalTo("Bad Request"));
 
-
     }
 
-    @Test(priority = 4)
-    public void getBulkValidTest() throws IOException {
+    @Test(priority = 5)
+    public void getBulkDateServiceTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", getBearerToken())
+                        .contentType(ContentType.JSON)
+                        .when()
+                        .get(getBulkEndPoint)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("GetBulk Data List: " + jsonStr);
+    }
+
+    @Test(priority = 6)
+    public void deleteDataServiceValidTest() throws IOException {
+        int id = x;
+        baseURL = getURL();
+        baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .contentType(ContentType.JSON)
                 .when()
-                .get(getBulkEndPoint)
+                .delete(deleteEndPoint, id)
                 .then()
                 .assertThat().statusCode(200)
-                .and().extract().response();
-
-        String jsonStr = response.getBody().asString();
-        System.out.println("GetBulk Data List: " + jsonStr);
+                .and()
+                .body("message", equalTo("Data deleted successfully"));
     }
-//    @Test
-//    public void getBulkInvalidTest() throws IOException{
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        given()
-//                 .header("accept", "*/*")
-//                 .header("authorization", getBearerToken())
-//                 .contentType(ContentType.JSON)
-//                 .when()
-//                 .get(getBulkEndPoint)
-//                 .then()
-//                 .assertThat().statusCode(200)
-//                 .and()
-//                 .body("data[1].dateConfigId", equalTo("Invalid"));
-//
-//    }
+
 
 }
+
