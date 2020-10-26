@@ -32,10 +32,11 @@ public class ReferenceController extends BaseClass {
     String findAllModuleReferencesEndPoint = "/microller/references/module-references/{moduleName}";
 
     @Test(priority = 1)
-    public void createValidTest() throws IOException {
-        String entityName = "SyDrDateConfig";
+    public void createReferenceValidTest() throws IOException {
+        String entityName = "SyDrClass";
         baseURL = getURL();
         baseURI = baseURL;
+        Response response =
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
@@ -44,11 +45,15 @@ public class ReferenceController extends BaseClass {
                 .when()
                 .post(saveReferenceDataEndPoint, entityName)
                 .then()
-                .assertThat().statusCode(201);
+                .assertThat().statusCode(201)
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Created ID: " + jsonStr);
 
     }
     @Test
-    public void createEntityNameInvalidTest() throws IOException {
+    public void createReferenceInValidTest() throws IOException {
 
         int entityName = 1;
         baseURL = getURL();
@@ -87,7 +92,7 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 2)
     public void updateReferenceDataValidTest() throws IOException {
-        String entityName = "SyDrDateConfig";
+        String entityName = "SyDrClass";
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -105,7 +110,6 @@ public class ReferenceController extends BaseClass {
     }
     @Test
     public void updateReferenceDataEntityNameInvalidTest() throws IOException {
-
         int entityName = 1;
         baseURL = getURL();
         baseURI = baseURL;
@@ -124,7 +128,7 @@ public class ReferenceController extends BaseClass {
     }
     @Test
     public void updateReferenceDataPayLoadInvalidTest() throws IOException {
-        String entityName = "entity1";
+        String entityName = "SyDrClass";
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -143,7 +147,7 @@ public class ReferenceController extends BaseClass {
 
     @Test(priority = 3)
     public void findAllDataByEntityNameValidTest() throws IOException {
-        String entityName = "SyDrDateConfig";
+        String entityName = "SyDrClass";
         baseURL = getURL();
         baseURI = baseURL;
         Response response=
@@ -172,7 +176,7 @@ public class ReferenceController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .queryParam("pageNo", 1)
-                .queryParam("pageSize", 10)
+                .queryParam("pageSize", 100)
                 .queryParam("requestType", "bypass")
                 .contentType(ContentType.JSON)
                 .when()
@@ -185,14 +189,14 @@ public class ReferenceController extends BaseClass {
     }
     @Test
     public void findAllDataByEntityNamePageNoInvalidTest() throws IOException {
-        String entityName = "entity1";
+        String entityName = "SyDrClass";
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", getBearerToken())
                 .queryParam("pageNo", "pNo")
-                .queryParam("pageSize", 10)
+                .queryParam("pageSize", 100)
                 .queryParam("requestType", "bypass")
                 .contentType(ContentType.JSON)
                 .when()
@@ -205,7 +209,7 @@ public class ReferenceController extends BaseClass {
     }
     @Test
     public void findAllDataByEntityNamePageSizeInvalidTest() throws IOException {
-        String entityName = "entity1";
+        String entityName = "SyDrClass";
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -223,30 +227,30 @@ public class ReferenceController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
-    @Test
-    public void findAllDataByEntityNameRequestTypeInvalidTest() throws IOException {
-        String entityName = "entity1";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", getBearerToken())
-                .queryParam("pageNo", 1)
-                .queryParam("pageSize", 10)
-                .queryParam("requestType", 1)
-                .contentType(ContentType.JSON)
-                .when()
-                .get(findAllDataByEntityNameEndPoint, entityName)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
+//    @Test
+//    public void findAllDataByEntityNameRequestTypeInvalidTest() throws IOException {
+//        String entityName = "SyDrClass";
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", getBearerToken())
+//                .queryParam("pageNo", 1)
+//                .queryParam("pageSize", 100)
+//                .queryParam("requestType", 1)
+//                .contentType(ContentType.JSON)
+//                .when()
+//                .get(findAllDataByEntityNameEndPoint, entityName)
+//                .then()
+//                .assertThat().statusCode(400)
+//                .and()
+//                .body("error", equalTo("Bad Request"));
+//
+//    }
 
     @Test(priority = 4)
     public void findDetailedDataByEntityAndIdValidTest() throws IOException {
-        String entityName = "SyDrDateConfig";
+        String entityName = "SyDrClass";
         int id = 2;
         baseURL = getURL();
         baseURI = baseURL;

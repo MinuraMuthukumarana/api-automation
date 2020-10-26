@@ -1,10 +1,14 @@
 [
   {
-    "paramName": "keyArea",
-    "value": "Global date format Capital"
+    "paramName": "name",
+    "value": "Class Name"
   },
   {
-    "paramName": "dateValue",
-    "value": "DD-MM-YYYY"
+    "paramName": "code",
+    "value": "CLZ1"
+  },
+  {
+    "paramName": "category",
+    "value": "CAT2"
   }
 ]

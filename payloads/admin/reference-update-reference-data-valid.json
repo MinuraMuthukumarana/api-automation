@@ -1,10 +1,14 @@
 [
   {
-    "paramName": "keyArea",
-    "value": "dd-mm-yyyy"
+    "paramName": "name",
+    "value": "Class Name Update "
   },
   {
-    "paramName": "dateValue",
-    "value": "Global date format simple"
+    "paramName": "code",
+    "value": "CLZ1"
+  },
+  {
+    "paramName": "category",
+    "value": "CAT1"
   }
 ]

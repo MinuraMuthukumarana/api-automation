@@ -1,10 +1,14 @@
 [
   {
-    "paramName": "",
+    "paramName": "name",
     "value": ""
   },
   {
-    "paramName": "",
+    "paramName": "code",
+    "value": ""
+  },
+  {
+    "paramName": "category",
     "value": ""
   }
 ]
