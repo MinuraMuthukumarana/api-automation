@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
-import io.restassured.RestAssured;
+
 
 /**
  * @author : Eranda Kodagoda
@@ -26,15 +26,17 @@ public class BaseClass {
         String propertydir = "\\src\\test\\java\\infoins\\global.properties";
         FileInputStream fileInputStream = new FileInputStream(userdir + propertydir);
         properties.load(fileInputStream);
-        RestAssured.proxy("192.168.15.5",8080);
+        //RestAssured.proxy("192.168.15.5",8080);
         url = properties.getProperty("url");
         return url;
     }
 
-    public String getBearerToken() throws IOException {
-        getURL();
-        String bearerToken = properties.getProperty("bearerToken");
-        return bearerToken;
+    public void getBearerToken(String clientId, String secret) throws IOException {
+        if (AccessTokenHolder.access_token == null) {
+            SecurityHandler securityHandler = new SecurityHandler();
+            AccessTokenHolder.access_token = securityHandler.obtainAccessToken(clientId,secret);
+        }
+
     }
 
     public static String getGeneratedString(String file) throws IOException {

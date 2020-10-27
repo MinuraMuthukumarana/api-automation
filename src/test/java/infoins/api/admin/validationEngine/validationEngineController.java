@@ -1,7 +1,9 @@
 package infoins.api.admin.validationEngine;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -24,6 +26,10 @@ public class validationEngineController extends BaseClass {
     String getBulkEndPoint="/validation-engine/bulk";
     String deleteEndPoint ="/validation-engine/{id}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
     @Test(priority = 1)
     public void createValidationEngineValidTest() throws IOException{
         baseURL = getURL();
@@ -31,7 +37,7 @@ public class validationEngineController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-validation-engine-valid.json"))
                 .when()
@@ -48,7 +54,7 @@ public class validationEngineController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-validation-engine-invalid.json"))
                 .when()
@@ -66,7 +72,7 @@ public class validationEngineController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"update-validation-engine-valid.json"))
                 .when()
@@ -83,7 +89,7 @@ public class validationEngineController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"update-validation-engine-valid.json"))
                 .when()
@@ -101,7 +107,7 @@ public class validationEngineController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -115,7 +121,7 @@ public class validationEngineController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -132,7 +138,7 @@ public class validationEngineController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)
@@ -149,7 +155,7 @@ public class validationEngineController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)
@@ -169,7 +175,7 @@ public class validationEngineController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getBulkEndPoint)
@@ -186,7 +192,7 @@ public class validationEngineController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -202,7 +208,7 @@ public class validationEngineController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)

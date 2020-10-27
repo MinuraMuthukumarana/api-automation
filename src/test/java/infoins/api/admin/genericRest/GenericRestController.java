@@ -1,7 +1,9 @@
 package infoins.api.admin.genericRest;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -28,13 +30,18 @@ public class GenericRestController extends BaseClass {
     String findByEndPoint = "/microller/generic/findBy/reference";
     String findByIdEndPoint = "/microller/generic/findById";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test(priority = 1)
     public void saveValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", "AD")
                 .body(getGeneratedString("\\admin\\"+"generic-rest-save-valid.json"))
@@ -50,7 +57,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", -1)
                 .body(getGeneratedString("\\admin\\"+"generic-rest-save-valid.json"))
@@ -69,7 +76,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", "AD")
                 .body(getGeneratedString("\\admin\\"+"generic-rest-update-valid.json"))
@@ -85,7 +92,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", -1)
                 .body(getGeneratedString("\\admin\\"+"generic-rest-update-valid.json"))
@@ -104,7 +111,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", "AD")
                 .body(getGeneratedString("\\admin\\"+"generic-rest-delete-valid.json"))
@@ -119,7 +126,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", -1)
                 .body(getGeneratedString("\\admin\\"+"generic-rest-delete-valid.json"))
@@ -138,7 +145,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", "AD")
                 .when()
@@ -153,7 +160,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", -1)
                 .when()
@@ -171,7 +178,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("model", "AD")
                 .queryParam("pageNo", 1)
@@ -189,7 +196,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("id", 1)
                 .queryParam("model", "AD")
@@ -208,7 +215,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("id", 1)
                 .queryParam("model", "AD")
@@ -224,7 +231,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("id", "id")
                 .queryParam("model", -1)
@@ -243,7 +250,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("id", 1)
                 .queryParam("model", "AD")
@@ -258,7 +265,7 @@ public class GenericRestController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("id", "id")
                 .queryParam("model", -1)

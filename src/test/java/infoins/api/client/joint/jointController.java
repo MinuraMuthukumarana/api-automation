@@ -1,5 +1,6 @@
 package infoins.api.client.joint;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import org.testng.annotations.Test;
@@ -32,7 +33,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\client\\"+"joint-create-joint-valid.json"))
                 .when()
@@ -48,7 +49,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\client\\"+"joint-create-joint-invalid.json"))
                 .when()
@@ -65,7 +66,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\client\\"+"joint-update-joint-valid.json"))
                 .when()
@@ -81,7 +82,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\client\\"+"joint-update-joint-invalid.json"))
                 .when()
@@ -99,7 +100,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -113,7 +114,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -129,7 +130,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 1)
                 .queryParam("pageSize", 10)
@@ -145,7 +146,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)
@@ -164,7 +165,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("filter", 1)
                 .queryParam("filterBy", 10)
@@ -182,7 +183,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("filter", 1)
                 .queryParam("filterBy", 10)
@@ -204,7 +205,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewOneEndPoint, clientId)
@@ -219,7 +220,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewOneEndPoint, clientId)
@@ -236,7 +237,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewAllEndPoint)
@@ -253,7 +254,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -270,7 +271,7 @@ public class jointController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)

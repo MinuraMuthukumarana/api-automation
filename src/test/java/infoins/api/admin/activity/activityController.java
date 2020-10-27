@@ -1,8 +1,10 @@
 package infoins.api.admin.activity;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -13,6 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * @author : Minura Muthukumarana
  *  * @date : September 21, 2020
+ *  *Updated )ctober 27,2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
@@ -21,6 +24,11 @@ public class activityController extends BaseClass {
     String findAllActivityByDateEndPoint="/activity/find-by-date";
     String findAllActivityByUserEndPoint= "/activity/find-by-user/{userName}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test(priority = 1)
     public void getFindAllActivityByDateActivityValidTest() throws IOException{
         baseURL = getURL();
@@ -28,7 +36,7 @@ public class activityController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("endDate", "2020-12-31")
                 .queryParam("pageNo", 0)
@@ -50,7 +58,7 @@ public class activityController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("endXDate", "2020-13-32")
                 .queryParam("pageNo", 0)
@@ -71,7 +79,7 @@ public class activityController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)
@@ -87,7 +95,7 @@ public class activityController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)

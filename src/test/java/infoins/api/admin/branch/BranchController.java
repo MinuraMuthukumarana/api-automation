@@ -1,8 +1,10 @@
 package infoins.api.admin.branch;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -12,7 +14,8 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
 /**
- * @author : Eranda Kodagoda
+ * @author : Eranda Kodagoda, Minura Muthukumarana
+ * * Added new meths for new json input
  *  * @date : August 10, 2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
@@ -32,6 +35,10 @@ BranchController extends BaseClass {
     String getAllBranchMappersEndPoint = "/branches/getAllBranchMappers";
     String deleteBranchEndPoint = "/branches/{branchId}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
 
     @Test(priority = 1)
     public void addNewBranchValidTest() throws IOException {
@@ -39,7 +46,7 @@ BranchController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"add-new-branch-valid.json"))
                 .when()
@@ -56,7 +63,7 @@ BranchController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"add-new-branch-invalid.json"))
                 .when()
@@ -75,7 +82,7 @@ BranchController extends BaseClass {
         Response response =
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 100)
@@ -106,7 +113,7 @@ BranchController extends BaseClass {
 //        baseURI = baseURL;
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .contentType(ContentType.JSON)
 //                .body(getGeneratedString("\\admin\\"+"update-branch-valid.json"))
 //                .when()
@@ -123,7 +130,7 @@ BranchController extends BaseClass {
 //        baseURI = baseURL;
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .contentType(ContentType.JSON)
 //                .body(getGeneratedString("\\admin\\"+"update-branch-invalid.json"))
 //                .when()
@@ -143,7 +150,7 @@ BranchController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getOneEndPoint, id)
@@ -163,7 +170,7 @@ BranchController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getCountryByBranchIdEndPoint, id)
@@ -182,7 +189,7 @@ BranchController extends BaseClass {
         baseURI = baseURL;
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getChangeActiveStatusEndPoint, id)
@@ -201,7 +208,7 @@ BranchController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getAllBranchMappersEndPoint, branchId)
@@ -221,7 +228,7 @@ BranchController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteBranchEndPoint, branchId)
@@ -238,7 +245,7 @@ BranchController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteBranchEndPoint, branchId)

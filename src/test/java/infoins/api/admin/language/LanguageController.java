@@ -1,8 +1,10 @@
 package infoins.api.admin.language;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -32,13 +34,18 @@ public class LanguageController extends BaseClass {
     String createMultipleEndPoint = "/app-languages/multiple";
     String getAllPaginationEndPoint = "/app-languages/all/pagination";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test(priority = 1)
     public void createValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-valid.json"))
                 .when()
@@ -55,7 +62,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-invalid.json"))
                 .when()
@@ -74,7 +81,7 @@ public class LanguageController extends BaseClass {
         Response response =
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -105,7 +112,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"appLanguageId\":"+x+",\n" +
@@ -125,7 +132,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"modify-language-invalid.json"))
                 .when()
@@ -145,7 +152,7 @@ public class LanguageController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -164,7 +171,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -182,7 +189,7 @@ public class LanguageController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getBulkEndPoint)
@@ -202,7 +209,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -219,7 +226,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -236,7 +243,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-multiple-valid.json"))
                 .when()
@@ -253,7 +260,7 @@ public class LanguageController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-multiple-invalid.json"))
                 .when()

@@ -1,8 +1,10 @@
 package infoins.api.admin.level;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -28,13 +30,18 @@ public class LevelController extends BaseClass {
     String deleteLevelConfigEndpoint = "/level-configs/{id}";
     String getBulkLevelConfigEndpoint = "/level-configs/bulk";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test (priority = 1)
     public void createLevelConfig() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-level-success.json"))
                 .when()
@@ -53,7 +60,7 @@ public class LevelController extends BaseClass {
         Response response =
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -85,7 +92,7 @@ public class LevelController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"isCurrency\": \"Y\",\n" +
@@ -116,7 +123,7 @@ public class LevelController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-level-invalid.json"))
                 .when()
@@ -137,7 +144,7 @@ public class LevelController extends BaseClass {
         Response response=
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .get(getLevelConfigEndpoint,levelId)
                 .then()
@@ -156,7 +163,7 @@ public class LevelController extends BaseClass {
         Response response =
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .get(getBulkLevelConfigEndpoint)
                 .then()
@@ -176,7 +183,7 @@ public class LevelController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .delete(deleteLevelConfigEndpoint,levelId)
                 .then()

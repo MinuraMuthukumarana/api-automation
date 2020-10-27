@@ -1,8 +1,10 @@
 package infoins.api.admin.exchangeRate;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -26,13 +28,18 @@ public class ExchangeController extends BaseClass {
     String getAllWithPaginationEndPoint ="/exchange-rates/all/pagination";
     String getBulkEndPoint ="/exchange-rates/bulk";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test(priority = 1)
     public void createExchangeRateValidTest() throws IOException    {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-exchange-rate-valid.json"))
                 .when()
@@ -49,7 +56,7 @@ public class ExchangeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid.json"))
                 .when()
@@ -68,7 +75,7 @@ public class ExchangeController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -98,7 +105,7 @@ public class ExchangeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 5)
                 .queryParam("pageSize", 10)
@@ -116,7 +123,7 @@ public class ExchangeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"branchId\": 2,\n" +
@@ -137,7 +144,7 @@ public class ExchangeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"modify-exchange-rates-invalid.json"))
                 .when()
@@ -157,7 +164,7 @@ public class ExchangeController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -178,7 +185,7 @@ public class ExchangeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -196,7 +203,7 @@ public class ExchangeController extends BaseClass {
         Response response =
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getBulkEndPoint)

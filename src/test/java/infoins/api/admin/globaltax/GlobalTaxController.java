@@ -1,8 +1,10 @@
 package infoins.api.admin.globaltax;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -12,7 +14,8 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 /**
- * @author : Eranda Kodagoda
+ * @author : Eranda Kodagoda, Minura Muthukumarana
+ * * Modify
  *  * @date : August 10, 2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
@@ -28,6 +31,10 @@ public class GlobalTaxController extends BaseClass {
     String getAllPaginationEndPoint="/global-taxes/all/pagination";
     String createMultipleGlobalTaxEndpoint = "/global-taxes/multiple";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
 
     @Test(priority = 1)
     public void createGlobalTax() throws IOException {
@@ -35,7 +42,7 @@ public class GlobalTaxController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-global-tax-success.json"))
                 .when()
@@ -53,7 +60,7 @@ public class GlobalTaxController extends BaseClass {
         Response response =
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -81,7 +88,7 @@ public class GlobalTaxController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"countryId\": 1,\n" +
@@ -108,7 +115,7 @@ public class GlobalTaxController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .get(getOneEndpoint, id)
                 .then()
@@ -130,7 +137,7 @@ public class GlobalTaxController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .delete(deleteOneEndpoint, id)
                 .then()
@@ -149,7 +156,7 @@ public class GlobalTaxController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .get(getBulkEndpoint)
                 .then()
@@ -168,7 +175,7 @@ public class GlobalTaxController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-multiple-global-tax-success.json"))
                 .when()
@@ -187,7 +194,7 @@ public class GlobalTaxController extends BaseClass {
 //        baseURI = baseURL;
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .when()
 //                .delete(deleteOneEndpoint, idList)
 //                .then()

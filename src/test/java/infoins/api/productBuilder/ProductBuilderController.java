@@ -1,8 +1,10 @@
 package infoins.api.productBuilder;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -29,6 +31,12 @@ public class ProductBuilderController extends BaseClass {
     String getOneEndPoint = "/product-builder/{id}";
     String deleteEndPoint = "/product-builder/{id}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("product-builder","5d55b498-67f4-4a2b-87dc-3adb82ca93a4");
+    }
+
+
     @Test(priority = 1)
     public void createProductBuilderValidTest() throws IOException {
         baseURL = getURL();
@@ -38,7 +46,7 @@ public class ProductBuilderController extends BaseClass {
         int randomInt1 = randomGenerator.nextInt(100);
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"claimsAfter\": 124567,\n" +
@@ -245,7 +253,7 @@ public class ProductBuilderController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization",AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\productbuilder\\"+"productbuilder-create-product-builder-invalid.json"))
                 .when()
@@ -264,7 +272,7 @@ public class ProductBuilderController extends BaseClass {
         Response response =
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -297,7 +305,7 @@ public class ProductBuilderController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization",AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getOneEndPoint, productId)
@@ -315,7 +323,7 @@ public class ProductBuilderController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization",AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -334,7 +342,7 @@ public class ProductBuilderController extends BaseClass {
         int randomInt2 = randomGenerator.nextInt(100);
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization",AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"claimsAfter\": 1,\n" +
@@ -536,7 +544,7 @@ public class ProductBuilderController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\productbuilder\\"+"productbuilder-modify-product-builder-invalid.json"))
                 .when()
@@ -555,7 +563,7 @@ public class ProductBuilderController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization",AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getOneEndPoint, id)
@@ -573,7 +581,7 @@ public class ProductBuilderController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization",AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -590,7 +598,7 @@ public class ProductBuilderController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)

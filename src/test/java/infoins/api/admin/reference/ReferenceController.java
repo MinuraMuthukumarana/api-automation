@@ -1,8 +1,10 @@
 package infoins.api.admin.reference;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -31,6 +33,11 @@ public class ReferenceController extends BaseClass {
     String findDetailedDataByEntityAndIdEndPoint = "/microller/references/data/find-one/{entityName}/{id}";
     String findAllModuleReferencesEndPoint = "/microller/references/module-references/{moduleName}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test(priority = 1)
     public void createReferenceValidTest() throws IOException {
         String entityName = "SyDrClass";
@@ -39,7 +46,7 @@ public class ReferenceController extends BaseClass {
         Response response =
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-save-reference-data-valid.json"))
                 .when()
@@ -60,7 +67,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-save-reference-data-valid.json"))
                 .when()
@@ -78,7 +85,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-save-reference-data-invalid.json"))
                 .when()
@@ -97,7 +104,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-update-reference-data-valid.json"))
                 .when()
@@ -115,7 +122,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-update-reference-data-valid.json"))
                 .when()
@@ -133,7 +140,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-update-reference-data-invalid.json"))
                 .when()
@@ -153,7 +160,7 @@ public class ReferenceController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
                         .queryParam("requestType", "")
@@ -174,7 +181,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .queryParam("pageNo", 1)
                 .queryParam("pageSize", 100)
                 .queryParam("requestType", "bypass")
@@ -194,7 +201,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .queryParam("pageNo", "pNo")
                 .queryParam("pageSize", 100)
                 .queryParam("requestType", "bypass")
@@ -214,7 +221,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .queryParam("pageNo", 1)
                 .queryParam("pageSize", "pSize")
                 .queryParam("requestType", "bypass")
@@ -234,7 +241,7 @@ public class ReferenceController extends BaseClass {
 //        baseURI = baseURL;
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .queryParam("pageNo", 1)
 //                .queryParam("pageSize", 100)
 //                .queryParam("requestType", 1)
@@ -257,7 +264,7 @@ public class ReferenceController extends BaseClass {
         Response response =
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(findDetailedDataByEntityAndIdEndPoint, entityName, id)
@@ -277,7 +284,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(findDetailedDataByEntityAndIdEndPoint, entityName, id)
@@ -295,7 +302,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(findDetailedDataByEntityAndIdEndPoint, entityName, id)
@@ -313,7 +320,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
                 .when()
@@ -330,7 +337,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-valid.json"))
                 .when()
@@ -349,7 +356,7 @@ public class ReferenceController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"reference-delete-reference-data-invalid.json"))
                 .when()
@@ -369,7 +376,7 @@ public class ReferenceController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 100)
@@ -390,7 +397,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 1)
                 .queryParam("pageSize", 10)
@@ -407,7 +414,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", "pNo")
                 .queryParam("pageSize", 10)
@@ -426,7 +433,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 1)
                 .queryParam("pageSize", "pSize")
@@ -448,7 +455,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
@@ -465,7 +472,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
@@ -484,7 +491,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)
@@ -503,7 +510,7 @@ public class ReferenceController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(findReferenceDataByEntityAndFkEndPoint, entityName, reference, id)

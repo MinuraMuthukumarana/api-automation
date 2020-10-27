@@ -1,7 +1,9 @@
 package infoins.api.admin.userAdditionalInfo;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -22,6 +24,11 @@ public class UserAdditionalInfoController  extends BaseClass {
     String getAllInfoEndPoint ="/userAdditionalInfo/{userId}";
     String deleteEndPoint ="/userAdditionalInfo/{id}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test(priority = 1)
     public void getAllInfoUserAdditionalValidTest() throws IOException{
         int Id = 3;
@@ -29,7 +36,7 @@ public class UserAdditionalInfoController  extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getAllInfoEndPoint, Id)
@@ -46,7 +53,7 @@ public class UserAdditionalInfoController  extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(getAllInfoEndPoint, Id)
@@ -63,7 +70,7 @@ public class UserAdditionalInfoController  extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)

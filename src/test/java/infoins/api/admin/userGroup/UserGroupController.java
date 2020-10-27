@@ -1,8 +1,10 @@
 package infoins.api.admin.userGroup;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -27,6 +29,10 @@ public class UserGroupController extends BaseClass {
     String getAllGroupBranchesByGroupIdNameOrReferenceEndPoint="/user-groups/branches/{search-criteria}";
     String getAllGroupLimitsByGroupIdNameOrReferenceEndPoint = "/user-groups/limits/{search-criteria}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
 
     @Test(priority = 1)
     public void createUserGroupValidTest() throws IOException{
@@ -34,7 +40,7 @@ public class UserGroupController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-user-group-valid.json"))
                 .when()
@@ -50,7 +56,7 @@ public class UserGroupController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-user-group-invalid.json"))
                 .when()
@@ -68,7 +74,7 @@ public class UserGroupController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 100)
@@ -99,7 +105,7 @@ public class UserGroupController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)
@@ -118,7 +124,7 @@ public class UserGroupController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"countryCode\": \"SL\",\n" +
@@ -154,7 +160,7 @@ public class UserGroupController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"update-user-group-invalid.json"))
                 .when()
@@ -175,7 +181,7 @@ public class UserGroupController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -194,7 +200,7 @@ public class UserGroupController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -215,7 +221,7 @@ public class UserGroupController extends BaseClass {
 //        Response response=
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .contentType(ContentType.JSON)
 //                .when()
 //                .get(getAllGroupBranchesByGroupIdNameOrReferenceEndPoint)
@@ -233,7 +239,7 @@ public class UserGroupController extends BaseClass {
 //
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .contentType(ContentType.JSON)
 //                .queryParam("search-criteria", "Invalid")
 //                .when()
@@ -251,7 +257,7 @@ public class UserGroupController extends BaseClass {
 //        baseURI = baseURL;
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .contentType(ContentType.JSON)
 //                .queryParam("search-criteria", "")
 //                .when()
@@ -267,7 +273,7 @@ public class UserGroupController extends BaseClass {
 //
 //        given()
 //                .header("accept", "*/*")
-//                .header("authorization", getBearerToken())
+//                .header("authorization", AccessTokenHolder.access_token)
 //                .contentType(ContentType.JSON)
 //                .queryParam("search-criteria", "Invalid")
 //                .when()

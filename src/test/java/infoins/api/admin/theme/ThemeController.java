@@ -1,8 +1,10 @@
 package infoins.api.admin.theme;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -36,13 +38,17 @@ public class ThemeController extends BaseClass {
     String getOneConfigThemeParent="/app-themes/config-theme/{id}/parent";
     String deleteBulkEndpoint = "/app-themes/all/{ids}";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
     @Test(priority = 1)
     public void createThemeConfig() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-theme-success.json"))
                 .when()
@@ -58,7 +64,7 @@ public class ThemeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-theme-invalid.json"))
                 .when()
@@ -76,7 +82,7 @@ public class ThemeController extends BaseClass {
         Response response =
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -108,7 +114,7 @@ public class ThemeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"appThemeId\": "+x+",\n" +
@@ -131,7 +137,7 @@ public class ThemeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"modify-theme-invalid.json"))
                 .when()
@@ -148,7 +154,7 @@ public class ThemeController extends BaseClass {
         Response response=
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .get(getOneEndpoint,id)
                 .then()
@@ -170,7 +176,7 @@ public class ThemeController extends BaseClass {
         Response response =
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .get(getBulkEndpoint)
                 .then()
@@ -191,7 +197,7 @@ public class ThemeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .delete(deleteOneEndpoint,id)
                 .then()
@@ -211,7 +217,7 @@ public class ThemeController extends BaseClass {
 
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .when()
                 .delete(deleteOneEndpoint,id)
                 .then()
@@ -231,7 +237,7 @@ public class ThemeController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneConfigThemeWithChildren, Id)
@@ -252,7 +258,7 @@ public class ThemeController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneConfigThemeParent, Id)
@@ -271,7 +277,7 @@ public class ThemeController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getAllConfigThemesWithChildren)
@@ -290,7 +296,7 @@ public class ThemeController extends BaseClass {
         Response response=
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getAllConfigThemeParents)
@@ -308,7 +314,7 @@ public class ThemeController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
-                .header("authorization",getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-multiple-theme-success.json"))
                 .when()

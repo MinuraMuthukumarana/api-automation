@@ -1,5 +1,6 @@
 package infoins.api.test.language;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -26,7 +27,7 @@ public class test extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-email-valid.json"))
                 .when()
@@ -46,7 +47,7 @@ public class test extends BaseClass {
             Response response =
                     given()
                             .header("accept", "*/*")
-                            .header("authorization", getBearerToken())
+                            .header("authorization", AccessTokenHolder.access_token)
                             .contentType(ContentType.JSON)
                             .queryParam("pageNo", 0)
                             .queryParam("pageSize", 100)
@@ -78,7 +79,7 @@ public class test extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"appEmailConfId\": "+x+",\n" +
@@ -105,7 +106,7 @@ public class test extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -123,7 +124,7 @@ public class test extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -141,7 +142,7 @@ public class test extends BaseClass {
             baseURI = baseURL;
             given()
                     .header("accept", "*/*")
-                    .header("authorization", getBearerToken())
+                    .header("authorization", AccessTokenHolder.access_token)
                     .contentType(ContentType.JSON)
                     .when()
                     .delete(deleteEndPoint, id)
@@ -159,7 +160,7 @@ public class test extends BaseClass {
                 baseURI = baseURL;
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .when()
                         .delete(deleteEndPoint, id)

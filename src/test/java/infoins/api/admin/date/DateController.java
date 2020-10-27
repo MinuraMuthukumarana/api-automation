@@ -1,8 +1,10 @@
 package infoins.api.admin.date;
 
+import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -25,6 +27,11 @@ public class DateController extends BaseClass {
     String getAllWithPaginationEndPoint="/date-configs/all/pagination";
     String getBulkEndPoint="date-configs/bulk";
 
+    @BeforeTest
+    void setUp() throws Exception {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+
     @Test(priority = 1)
     public void getAllWithPaginationValidTest() throws IOException {
         baseURL = getURL();
@@ -32,7 +39,7 @@ public class DateController extends BaseClass {
         Response response =
                 given()
                         .header("accept", "*/*")
-                        .header("authorization", getBearerToken())
+                        .header("authorization", AccessTokenHolder.access_token)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -64,7 +71,7 @@ public class DateController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 10)
@@ -84,7 +91,7 @@ public class DateController extends BaseClass {
 
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"dateConfigId\": "+x+",\n" +
@@ -104,7 +111,7 @@ public class DateController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"modify-date-invalid.json"))
                 .when()
@@ -124,7 +131,7 @@ public class DateController extends BaseClass {
         Response response=
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -145,7 +152,7 @@ public class DateController extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -164,7 +171,7 @@ public class DateController extends BaseClass {
         Response response =
         given()
                 .header("accept", "*/*")
-                .header("authorization", getBearerToken())
+                .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getBulkEndPoint)
@@ -175,21 +182,5 @@ public class DateController extends BaseClass {
         String jsonStr = response.getBody().asString();
         System.out.println("GetBulk Data List: " + jsonStr);
     }
-//    @Test
-//    public void getBulkInvalidTest() throws IOException{
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        given()
-//                 .header("accept", "*/*")
-//                 .header("authorization", getBearerToken())
-//                 .contentType(ContentType.JSON)
-//                 .when()
-//                 .get(getBulkEndPoint)
-//                 .then()
-//                 .assertThat().statusCode(200)
-//                 .and()
-//                 .body("data[1].dateConfigId", equalTo("Invalid"));
-//
-//    }
 
 }
