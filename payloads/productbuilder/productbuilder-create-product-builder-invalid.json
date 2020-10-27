@@ -1,0 +1,191 @@
+{
+  "claimsAfter": "",
+  "classId": "",
+  "coverNotePeriod": "",
+  "crossFunds": [
+    {
+      "fundId": "",
+      "funds": [
+        {
+          "fundPct": "",
+          "fundTypeId": "",
+          "perilId": ""
+        },
+        {
+          "fundPct": "",
+          "fundTypeId": "",
+          "perilId": ""
+        }
+      ]
+    }
+  ],
+  "crossSections": [
+    {
+      "additionalInformations": [
+        {
+          "dataTypeId": "",
+          "length": "",
+          "levelAppl": "",
+          "name": "",
+          "sectionId": "",
+          "serialNo": "",
+          "isMandatoryPolicy": "",
+          "isMandatoryQuotn": ""
+        },
+        {
+          "dataTypeId": "",
+          "length": "",
+          "levelAppl": "",
+          "name": "",
+          "prodInfoId": "",
+          "sectionId": "",
+          "serialNo":"" ,
+          "isMandatoryPolicy": "",
+          "isMandatoryQuotn": ""
+        }
+      ],
+      "perils": [
+        {
+          "amount": "",
+          "calculation": "",
+          "excessPct": "",
+          "excessRate": "",
+          "excessTypeId": "",
+          "isCosAppl": "",
+          "isNcbAppl": "",
+          "perilClassId": "",
+          "perilId": "",
+          "riSumInsurId": "",
+          "riskCalcMethId": "",
+          "sectionId": "",
+          "serialNo": ""
+        }
+      ],
+      "sectionId": 1
+    }
+  ],
+  "crossStatementLabels": [
+    {
+      "statementLabels": [
+        {
+          "displayName": "",
+          "isMandatory": "",
+          "perilId": "",
+          "stmtDesc": "",
+          "stmtLabelId": "",
+          "stmtName": "Agreed Value",
+          "stmtStatusId": 7
+        }
+      ],
+      "stmtDisplayName": "Clauses",
+      "stmtLabelId": 1
+    }
+  ],
+  "dfltAddId": 1,
+  "endDateId": 1,
+  "isBackdateAppl": "",
+  "isCoinsuranceReq": "",
+  "isDocumensReq": "",
+  "isDriveLicenseReq": "",
+  "isFinInterestReq": "",
+  "isNicReq": "",
+  "isNoclaimAppl": "",
+  "isPolicyAddlInfoReq": "",
+  "isPolicyInfoReq": "",
+  "isReinsuranceReq": "",
+  "isRenewable": "",
+  "isRiskAddlInfoReq": "",
+  "isRiskInfoReq": "",
+  "isSpecialTaxAppl": "",
+  "isSumInsuredReq": "",
+  "isSurveyReq": "",
+  "isUsed": "",
+  "labels": [
+    {
+      "displayName": "",
+      "stmtLabelId": 1
+    },
+    {
+      "displayName": "",
+      "stmtLabelId": 2
+    }
+  ],
+  "noClaims": [
+    {
+      "calcBasisId": "",
+      "calcMethId": "",
+      "endYearLimit": 1,
+      "noAccidents": "1",
+      "noClaimPct": "",
+      "noClaimRate": "",
+      "operatorId": "",
+      "serialNo": "",
+      "startYearLimit": ""
+    },
+    {
+      "calcBasisId": 2,
+      "calcMethId": "",
+      "endYearLimit": 1,
+      "noAccidents": "2",
+      "noClaimPct": 0,
+      "noClaimRate": "",
+      "operatorId": "",
+      "serialNo": "",
+      "startYearLimit": 0
+    }
+  ],
+  "otherCharges": [
+    {
+      "isEditable": "",
+      "isQuotnAppl": "",
+      "othChrgFreqId": 2,
+      "othChargeId": 1,
+      "othChrgStatusId": 7,
+      "plusMinus": "P",
+      "taxPct": 100,
+      "taxRate": 0,
+      "tranTypeId": 1
+    },
+    {
+      "isEditable": "Y",
+      "isQuotnAppl": "Y",
+      "othChrgFreqId": 1,
+      "othChargeId": 2,
+      "othChrgStatusId": 7,
+      "plusMinus": "M",
+      "taxPct": "",
+      "taxRate": 0,
+      "tranTypeId": 1
+    }
+  ],
+  "prodStatusId": 7,
+  "productCode": "",
+  "productName": "",
+  "riAutoAuthAppl": "",
+  "riClaimAutoAuth": "",
+  "riUwAutoAuth": "Y",
+  "riskDupId": 2,
+  "shortName": "",
+  "specialTaxes": [
+    {
+      "calcType": "P",
+      "taxPct": "",
+      "taxRate": 0,
+      "taxTypeId": 1
+    },
+    {
+      "calcType": "",
+      "taxPct": " ",
+      "taxRate": " ",
+      "taxTypeId": " "
+    }
+  ],
+  "taxes": [
+    {
+      "calcType": " ",
+      "taxPct": " ",
+      "taxRate": " ",
+      "taxTypeId": " "
+    }
+  ]
+}
