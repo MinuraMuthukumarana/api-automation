@@ -32,6 +32,7 @@ public class BaseClass {
     }
 
     public void getBearerToken(String clientId, String secret) throws IOException {
+        //ModifyCode
         if (AccessTokenHolder.access_token == null) {
             SecurityHandler securityHandler = new SecurityHandler();
             AccessTokenHolder.access_token = securityHandler.obtainAccessToken(clientId,secret);
