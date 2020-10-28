@@ -25,10 +25,7 @@ public class UserProfileController extends BaseClass {
     String modifyEndPoint = "/user-profiles";
     String getOneEndPoint = "/user-profiles/{id}";
 
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
+
     @Test(priority = 1)
     public void modifyValidTest() throws IOException {
         baseURL = getURL();

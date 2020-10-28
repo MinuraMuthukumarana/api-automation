@@ -29,10 +29,7 @@ public class UserGroupController extends BaseClass {
     String getAllGroupBranchesByGroupIdNameOrReferenceEndPoint="/user-groups/branches/{search-criteria}";
     String getAllGroupLimitsByGroupIdNameOrReferenceEndPoint = "/user-groups/limits/{search-criteria}";
 
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
+
 
     @Test(priority = 1)
     public void createUserGroupValidTest() throws IOException{

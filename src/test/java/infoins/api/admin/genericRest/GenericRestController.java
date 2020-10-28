@@ -30,10 +30,7 @@ public class GenericRestController extends BaseClass {
     String findByEndPoint = "/microller/generic/findBy/reference";
     String findByIdEndPoint = "/microller/generic/findById";
 
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
+
 
     @Test(priority = 1)
     public void saveValidTest() throws IOException {

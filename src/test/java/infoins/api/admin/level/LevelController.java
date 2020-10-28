@@ -30,10 +30,7 @@ public class LevelController extends BaseClass {
     String deleteLevelConfigEndpoint = "/level-configs/{id}";
     String getBulkLevelConfigEndpoint = "/level-configs/bulk";
 
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
+
 
     @Test (priority = 1)
     public void createLevelConfig() throws IOException {

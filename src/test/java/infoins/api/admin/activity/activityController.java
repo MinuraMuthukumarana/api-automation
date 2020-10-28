@@ -24,10 +24,6 @@ public class activityController extends BaseClass {
     String findAllActivityByDateEndPoint="/activity/find-by-date";
     String findAllActivityByUserEndPoint= "/activity/find-by-user/{userName}";
 
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
 
     @Test(priority = 1)
     public void getFindAllActivityByDateActivityValidTest() throws IOException{

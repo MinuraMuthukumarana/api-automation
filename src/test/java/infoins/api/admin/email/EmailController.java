@@ -37,10 +37,7 @@ public class EmailController extends BaseClass {
     String getAllTemplatesWithChildrenEndPoint = "/app-email-configs/template/all/children";
     String getAllTemplateParentsEndPoint = "/app-email-configs/template/all/parent";
 
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
+
 
     @Test(priority = 1)
     public void createValidTest() throws IOException {

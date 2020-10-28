@@ -21,6 +21,7 @@ import static org.hamcrest.Matchers.equalTo;
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
+
 public class ProductBuilderController extends BaseClass {
 
     private int x;
@@ -30,12 +31,6 @@ public class ProductBuilderController extends BaseClass {
     String modifyEndPoint = "/product-builder";
     String getOneEndPoint = "/product-builder/{id}";
     String deleteEndPoint = "/product-builder/{id}";
-
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("product-builder","5d55b498-67f4-4a2b-87dc-3adb82ca93a4");
-    }
-
 
     @Test(priority = 1)
     public void createProductBuilderValidTest() throws IOException {

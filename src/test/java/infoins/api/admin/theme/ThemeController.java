@@ -38,10 +38,7 @@ public class ThemeController extends BaseClass {
     String getOneConfigThemeParent="/app-themes/config-theme/{id}/parent";
     String deleteBulkEndpoint = "/app-themes/all/{ids}";
 
-    @BeforeTest
-    void setUp() throws Exception {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
+
     @Test(priority = 1)
     public void createThemeConfig() throws IOException {
         baseURL = getURL();

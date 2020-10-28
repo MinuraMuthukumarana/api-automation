@@ -1,5 +1,7 @@
 package infoins;
 
+import org.testng.annotations.BeforeClass;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,6 +18,8 @@ import java.util.Properties;
 
 public class BaseClass {
     public String url;
+    public String ClientId;
+    public String SecretKey;
     public String bearerAdminToken = null;
     Properties properties;
 
@@ -32,13 +36,24 @@ public class BaseClass {
     }
 
     public void getBearerToken(String clientId, String secret) throws IOException {
-        //ModifyCode
         if (AccessTokenHolder.access_token == null) {
             SecurityHandler securityHandler = new SecurityHandler();
             AccessTokenHolder.access_token = securityHandler.obtainAccessToken(clientId,secret);
         }
-
     }
+    //Admin Service
+    @BeforeClass
+    public void setUpAdmin() throws IOException {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
+    //Umbrella Service
+
+    //ProductBuilder Service
+//    @BeforeClass
+//    public void setUpProductBuilder() throws IOException {
+//        getBearerToken("product-builder","5d55b498-67f4-4a2b-87dc-3adb82ca93a4");
+//    }
+
 
     public static String getGeneratedString(String file) throws IOException {
         String filePath = System.getProperty("user.dir") + "\\payloads\\" + file;
