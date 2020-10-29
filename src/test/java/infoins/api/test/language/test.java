@@ -27,6 +27,7 @@ public class test extends BaseClass {
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
+              //  .header("authorization", getBearerToken())
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-email-valid.json"))
