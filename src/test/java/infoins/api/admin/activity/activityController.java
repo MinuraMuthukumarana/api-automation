@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 /**
  * @author : Minura Muthukumarana
  *  * @date : September 21, 2020
- *  *Updated )ctober 27,2020
+ *  *Updated )ctober 27,29,2020
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
@@ -73,16 +73,21 @@ public class activityController extends BaseClass {
         String userName = "qaUser";
         baseURL = getURL();
         baseURI = baseURL;
+        Response response=
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
-                .queryParam("pageSize", 10)
+                .queryParam("pageSize", 100)
                 .when()
                 .get(findAllActivityByUserEndPoint,userName)
                 .then()
-                .assertThat().statusCode(200);
+                .assertThat().statusCode(200)
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("findAllActivityByUser Data List: " + jsonStr);
     }
     @Test
     public void getFindAllActivityByUserActivityInvalidTest() throws IOException{
@@ -94,7 +99,7 @@ public class activityController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
-                .queryParam("pageSize", 10)
+                .queryParam("pageSize", 1000)
                 .when()
                 .get(findAllActivityByUserEndPoint,userName)
                 .then()
