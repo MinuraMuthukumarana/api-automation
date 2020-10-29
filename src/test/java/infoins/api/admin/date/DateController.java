@@ -69,7 +69,7 @@ public class DateController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
-                .queryParam("pageSize", 10)
+                .queryParam("pageSize", 100)
                 .queryParam("sortBy", "invalidTestId")
                 .when()
                 .get(getAllWithPaginationEndPoint)
@@ -132,12 +132,10 @@ public class DateController extends BaseClass {
                 .get(getOneEndPoint, Id)
                 .then()
                 .assertThat().statusCode(200)
-                .and()
-                .extract().response();
+                .and().extract().response();
 
         String jsonStr = response.getBody().asString();
         System.out.println("GetOne Data set:" + jsonStr);
-
 
     }
     @Test
