@@ -1,4 +1,4 @@
-package infoins.api.client.account;
+package infoins.api.client.commissionStructure;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
@@ -11,29 +11,28 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class AccountController extends BaseClass {
+public class CommissionStructureController extends BaseClass {
     String baseURL;
-    String createEndPoint ="/sales/account";
-    String updatedEndPoint ="/sales/account";
-    String getViewOneEndPoint="/sales/account/{id}";
-    String deleteEndPoint ="/sales/account/{id}";
-    String getPaginationEndPoint ="/sales/account/all/pagination";
-    String getFilterAccountEndPoint ="/sales/account/filterAccounts";
-    String getSearchAccountEndPoint ="/sales/account/searchAccounts";
-    String getAccountIdEndPoint="/sales/account/view/{accountId}";
-    String getViewAllEndPoint="/sales/account/view/all";
-    String getAllWithPaginationEndPoint= "/sales/account/view/viewAllWithPagination";
+    String createEndPoint = "/sales/structure";
+    String updatedEndPoint= "/sales/structure";
+    String getViewOneEndPoint = "/sales/structure/{id}";
+    String deleteEndPoint="/sales/structure/{id}";
+    String getPaginationEndPoint= "/sales/structure/all/pagination";
+    String getViewHistoryEndPoint="/sales/structure/history/{commStrucId}";
+    String getCommStrucIdEndPoint = "/sales/structure/view/{commStrucId}";
+    String getViewAllEndPoint = "/sales/structure/view/all";
+    String getAllWithPaginationEndPoint = "/sales/structure/view/viewAllWithPagination";
 
-
+    //API to create a Commission Structure
     @Test(priority = 1)
-    public void createAccountValidTest() throws IOException {
+    public void createCommissionStructureValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\umbrella\\"+"account-create-account-valid.json"))
+                .body(getGeneratedString("\\umbrella\\"+"commission-create-commission-structure-valid.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
@@ -42,14 +41,14 @@ public class AccountController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
     }
     @Test
-    public void createAccountInvalidTest() throws IOException {
+    public void createCommissionStructureInvalidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\client\\"+"account-create-account-invalid.json"))
+                .body(getGeneratedString("\\client\\"+"commission-create-commission-structure-invalid.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
@@ -58,15 +57,16 @@ public class AccountController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
     }
 
+    //API to update an existing Commission Structure
     @Test(priority = 2)
-    public void updateAccountValidTest() throws IOException {
+    public void updateCommissionStructureValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\umbrella\\"+"account-modify-account-invalid.json"))
+                .body(getGeneratedString("\\umbrella\\"+"commission-modify-commission-structure-valid.json"))
                 .when()
                 .post(updatedEndPoint)
                 .then()
@@ -75,14 +75,14 @@ public class AccountController extends BaseClass {
                 .body("message", equalTo("Data updated successfully"));
     }
     @Test
-    public void updateAccountInvalidTest() throws IOException {
+    public void updateCommissionStructureInvalidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\client\\"+"account-modify-account-invalid.json"))
+                .body(getGeneratedString("\\umbrella\\"+"commission-modify-commission-structure-valid.json"))
                 .when()
                 .post(updatedEndPoint)
                 .then()
@@ -91,9 +91,9 @@ public class AccountController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
     }
 
-    //API to retrieve a Salesforce Account by AccountId
+    //API to retrieve a Commission Structure by CommissionStructureId
     @Test(priority = 3)
-    public void getOneAccountValidTest() throws IOException {
+    public void getOneIdCommissionStructureValidTest() throws IOException {
         int id = 1;
         baseURL = getURL();
         baseURI = baseURL;
@@ -107,7 +107,7 @@ public class AccountController extends BaseClass {
                 .assertThat().statusCode(200);
     }
     @Test
-    public void getOneAccountInvalidTest() throws IOException {
+    public void getOneIdCommissionStructureInvalidTest() throws IOException {
         String clientId = "Id";
         baseURL = getURL();
         baseURI = baseURL;
@@ -124,8 +124,9 @@ public class AccountController extends BaseClass {
 
     }
 
+    //API to delete a Commission Structure by CommissionStructureId
     @Test(priority = 4)
-    public void deleteAccountValidTest() throws IOException{
+    public void deleteCommissionStructureValidTest() throws IOException{
         int id = 1;
         baseURL = getURL();
         baseURI = baseURL;
@@ -141,7 +142,7 @@ public class AccountController extends BaseClass {
                 .body("message", equalTo("Data deleted successfully"));
     }
     @Test
-    public void deleteAccountInvalidTest() throws IOException{
+    public void deleteCommissionStructureInvalidTest() throws IOException{
         String id = "id";
         baseURL = getURL();
         baseURI = baseURL;
@@ -157,9 +158,9 @@ public class AccountController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
     }
 
-    //API to retrieve all Salesforce Accounts with Pagination
+    //API to retrieve all Commission Structures with Pagination
     @Test(priority = 5)
-    public void getPaginationAccountValidTest() throws IOException {
+    public void getPaginationCommissionStructureValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
 
@@ -176,7 +177,7 @@ public class AccountController extends BaseClass {
                 .assertThat().statusCode(200);
     }
     @Test
-    public void getPaginationAccountInvalidTest() throws IOException {
+    public void getPaginationCommissionStructureInvalidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
 
@@ -195,126 +196,73 @@ public class AccountController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
     }
 
-    //API to filter a Salesforce Account by SalesChannelCode and Salesforce Account Status
+    //viewHistory
     @Test(priority = 6)
-    public void getAllWithFilterAccountValidTest() throws IOException {
+    public void getViewHistoryCommissionStructureValidTest() throws IOException {
+        int commStrucId = 1;
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .queryParam("chanlCode", 5)
-                .queryParam("pageNo", 10)
-                .queryParam("pageSize", "branchId")
-                .queryParam("sfStatus", 10)
-                .queryParam("sortBy", "branchId")
                 .when()
-                .get(getFilterAccountEndPoint)
+                .get(getViewHistoryEndPoint, commStrucId)
                 .then()
                 .assertThat().statusCode(200);
     }
     @Test
-    public void getAllWithFilterAccountInvalidTest() throws IOException {
+    public void getViewHistoryCommissionStructureInvalidTest() throws IOException {
+        String commStrucId = "Id";
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .queryParam("chanlCode", 5)
-                .queryParam("pageNo", 10)
-                .queryParam("pageSize", "branchId")
-                .queryParam("sfStatus", 10)
-                .queryParam("sortBy", "branchId")
                 .when()
-                .get(getFilterAccountEndPoint)
+                .get(getViewHistoryEndPoint, commStrucId)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
     }
 
-    //API to search a Salesforce Account by a SearchKey
+    //API to view a Commission Structure by CommissionStructureId
     @Test(priority = 7)
-    public void getAllWithSearchAccountValidTest() throws IOException {
+    public void getCommStrucIdCommissionStructureValidTest() throws IOException {
+        int commStrucId = 1;
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .queryParam("pageNo", 10)
-                .queryParam("pageSize", "branchId")
-                .queryParam("searchKey ", 10)
-                .queryParam("sortBy", "branchId")
                 .when()
-                .get(getSearchAccountEndPoint)
+                .get(getCommStrucIdEndPoint, commStrucId)
                 .then()
                 .assertThat().statusCode(200);
     }
     @Test
-    public void getAllWithSearchAccountInvalidTest() throws IOException {
+    public void getCommStrucIdCommissionStructureInvalidTest() throws IOException {
+        String commStrucId = "Id";
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .queryParam("pageNo", 10)
-                .queryParam("pageSize", "branchId")
-                .queryParam("searchKey", 10)
-                .queryParam("sortBy", "branchId")
                 .when()
-                .get(getSearchAccountEndPoint)
+                .get(getCommStrucIdEndPoint, commStrucId)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("error", equalTo("Bad Request"));
     }
 
-    //API to Activate / InActivate Account Status by AccountCode
-
-    //API to view a Salesforce Account by AccountId
+    //API to view all Commission Structures
     @Test(priority = 8)
-    public void getAccountIdValidTest() throws IOException {
-        int id = 1;
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getAccountIdEndPoint, id)
-                .then()
-                .assertThat().statusCode(200);
-    }
-    @Test
-    public void getAccountIdInvalidTest() throws IOException {
-        String clientId = "Id";
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getAccountIdEndPoint, clientId)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
-
-    //API to view all Salesforce Accounts
-    @Test(priority = 9)
-    public void viewAllAccountValidTest() throws IOException {
+    public void viewAllCommissionStructureValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -327,9 +275,9 @@ public class AccountController extends BaseClass {
                 .assertThat().statusCode(200);
     }
 
-    //API to view all Salesforce Accounts with pagination
-    @Test(priority = 10)
-    public void getAllWithPaginationAccountValidTest() throws IOException {
+    //API to view all Commission Structures with pagination
+    @Test(priority = 9)
+    public void getAllWithPaginationCommissionStructureValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
 
@@ -346,7 +294,7 @@ public class AccountController extends BaseClass {
                 .assertThat().statusCode(200);
     }
     @Test
-    public void getAllWithPaginationAccountInvalidTest() throws IOException {
+    public void getAllWithPaginationCommissionStructureInvalidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
 
