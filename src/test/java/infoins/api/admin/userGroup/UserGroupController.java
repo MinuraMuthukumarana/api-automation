@@ -172,7 +172,7 @@ public class UserGroupController extends BaseClass {
     @Test(priority = 4)
     public void getOneUserGroupValidTest() throws IOException{
 
-        int Id = x;
+        int id = x;
         baseURL = getURL();
         baseURI = baseURL;
         Response response=
@@ -181,7 +181,7 @@ public class UserGroupController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .when()
-                .get(getOneEndPoint, Id)
+                .get(getOneEndPoint, id)
                 .then()
                 .assertThat().statusCode(200)
                 .and().extract().response();
