@@ -34,7 +34,7 @@ public class GlobalTaxController extends BaseClass {
 
 
     @Test(priority = 1)
-    public void createGlobalTax() throws IOException {
+    public void createGlobalTaxValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -48,6 +48,57 @@ public class GlobalTaxController extends BaseClass {
                 .assertThat().statusCode(201)
                 .and()
                 .body("message", equalTo("Data added successfully"));
+    }
+    //StartDate grater than EndDate
+    @Test
+    public void createGlobalTaxInvalidTest1() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-email-invalid1.json"))
+                .when()
+                .post(createGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+    }
+    //TaxAmount and TaxRate
+    @Test
+    public void createGlobalTaxInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-email-invalid1.json"))
+                .when()
+                .post(createGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+    }
+    //Invalid Date format
+    @Test
+    public void createGlobalTaxInvalidTest3() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-email-invalid1.json"))
+                .when()
+                .post(createGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
     }
 
     @Test(priority = 2)

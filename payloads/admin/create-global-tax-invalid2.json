@@ -1,0 +1,8 @@
+{
+  "countryId": 1,
+  "endDate": "2022-09-14",
+  "stDate": "2022-09-14",
+  "taxAmount": 30,
+  "taxRate": 70,
+  "taxTypeId": 1
+}
