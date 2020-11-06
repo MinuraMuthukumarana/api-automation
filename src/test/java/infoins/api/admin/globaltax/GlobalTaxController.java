@@ -20,8 +20,9 @@ import static org.hamcrest.Matchers.*;
  *  * @version : 1.0
  *  * @copyright : © 2010-2019 Information International Limited. All Rights Reserved
  *  */
+
 public class GlobalTaxController extends BaseClass {
-    private int x;
+    public int x,y,z;
     String baseURL;
     String createGlobalTaxEndpoint = "/global-taxes";
     String getBulkEndpoint = "/global-taxes/bulk";
@@ -30,8 +31,7 @@ public class GlobalTaxController extends BaseClass {
     String deleteOneEndpoint = "/global-taxes/{id}";
     String getAllPaginationEndPoint="/global-taxes/all/pagination";
     String createMultipleGlobalTaxEndpoint = "/global-taxes/multiple";
-
-
+    String deleteAllEndpoint = "/global-taxes/all/{ids}";
 
     @Test(priority = 1)
     public void createGlobalTaxValidTest() throws IOException {
@@ -144,7 +144,7 @@ public class GlobalTaxController extends BaseClass {
                         "  \"globalTaxId\": "+x+",\n" +
                         "  \"stDate\": \"2022-09-14\",\n" +
                         "  \"taxAmount\": 0,\n" +
-                        "  \"taxRate\": 10,\n" +
+                        "  \"taxRate\": 50,\n" +
                         "  \"taxTypeId\":1\n" +
                         "}")
                 .when()
@@ -201,7 +201,7 @@ public class GlobalTaxController extends BaseClass {
     public void getBulk() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
-
+        Response response =
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
@@ -212,8 +212,10 @@ public class GlobalTaxController extends BaseClass {
                 .statusCode(200)
                 .and()
                 .contentType(ContentType.JSON)
-                .and()
-                .extract().response();
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
 
     }
 
@@ -234,23 +236,55 @@ public class GlobalTaxController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
     }
 
-//    @Test(priority = 8)
-//    public void deleteBulkGlobalTax() throws IOException {
-//        baseURL = getURL();
-//        String idList = "1,2,3";
-//        String deleteOneEndpoint = "/global-taxes/all/{ids}";
-//        baseURI = baseURL;
-//        given()
-//                .header("accept", "*/*")
-//                .header("authorization", AccessTokenHolder.access_token)
-//                .when()
-//                .delete(deleteOneEndpoint, idList)
-//                .then()
-//                .assertThat()
-//                .statusCode(200)
-//                .and()
-//                .contentType(ContentType.JSON)
-//                .and()
-//                .body("message", equalTo("Data deleted successfully"));
-//    }
+    @Test(priority = 8)
+    public void getAllWithPaginationAgain() throws IOException{
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response =
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", AccessTokenHolder.access_token)
+                        .contentType(ContentType.JSON)
+                        .queryParam("pageNo", 0)
+                        .queryParam("pageSize", 100)
+                        .queryParam("sortBy", "globalTaxId")
+                        .when()
+                        .get(getAllPaginationEndPoint)
+                        .then().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
+
+        int size = response.jsonPath().getList("data.globalTaxId").size();
+        System.out.println("Data Size: " + size);
+
+        List<Integer> ids = response.jsonPath().getList("data.globalTaxId");
+        y= ids.get(size-1);
+        System.out.println("Last n index:" +y);
+        z= ids.get(size-2);
+        System.out.println("Last n-1 index:" +z);
+        for (Integer i : ids) {
+            System.out.print(i);
+        }
+    }
+
+    @Test(priority = 9)
+    public void deleteBulkGlobalTax() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        String ids = ""+y+","+z+"";
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .when()
+                .delete(deleteAllEndpoint, ids)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .body("message", equalTo("Ids "+y+","+z+" deleted successfully."));
+    }
 }

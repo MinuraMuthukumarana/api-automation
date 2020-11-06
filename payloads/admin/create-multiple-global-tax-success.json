@@ -1,26 +1,18 @@
 [
   {
-    "countryId": 2,
-    "currencyId": 2,
-    "endDate": "2020-07-22T18:24:22.859Z",
-    "stDate": "2020-07-22T18:24:22.859Z",
-    "taxAmount": 30,
-    "taxTypeId": 2
+    "countryId": 1,
+    "endDate": "2022-09-14",
+    "stDate": "2022-09-14",
+    "taxAmount": 0,
+    "taxRate": 90,
+    "taxTypeId": 1
   },
   {
-    "countryId": 3,
-    "currencyId": 2,
-    "endDate": "2020-07-22T18:24:22.859Z",
-    "stDate": "2020-07-22T18:24:22.859Z",
-    "taxAmount": 130,
-    "taxTypeId": 2
-  },
-  {
-    "countryId": 4,
-    "currencyId": 2,
-    "endDate": "2020-07-22T18:24:22.859Z",
-    "stDate": "2020-07-22T18:24:22.859Z",
-    "taxAmount": 300,
-    "taxTypeId": 2
+    "countryId": 1,
+    "endDate": "2022-09-14",
+    "stDate": "2022-09-14",
+    "taxAmount": 90,
+    "taxRate": 0,
+    "taxTypeId": 1
   }
 ]
