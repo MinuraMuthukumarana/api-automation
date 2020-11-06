@@ -29,7 +29,6 @@ public class LanguageController extends BaseClass {
     String modifyEndPoint = "/app-languages";
     String getOneEndPoint = "/app-languages/{id}";
     String deleteEndPoint = "/app-languages/{id}";
-    String deleteAllEndPoint = "/app-languages/all/{ids}";
     String getBulkEndPoint = "/app-languages/bulk";
     String createMultipleEndPoint = "/app-languages/multiple";
     String getAllPaginationEndPoint = "/app-languages/all/pagination";
