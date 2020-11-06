@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class LanguageController extends BaseClass {
 
-    private int x;
+    private int x,y,z;
     String baseURL;
     String createEndPoint = "/app-languages";
     String modifyEndPoint = "/app-languages";
@@ -33,8 +33,7 @@ public class LanguageController extends BaseClass {
     String getBulkEndPoint = "/app-languages/bulk";
     String createMultipleEndPoint = "/app-languages/multiple";
     String getAllPaginationEndPoint = "/app-languages/all/pagination";
-
-
+    String deleteAllEndpoint ="/app-languages/all/{ids}";
 
     @Test(priority = 1)
     public void createValidTest() throws IOException {
@@ -269,5 +268,57 @@ public class LanguageController extends BaseClass {
 
     }
 
+    @Test(priority = 8)
+    public void getAllAgain() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response =
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", AccessTokenHolder.access_token)
+                        .contentType(ContentType.JSON)
+                        .queryParam("pageNo", 0)
+                        .queryParam("pageSize", 100)
+                        .queryParam("sortBy", "appLanguageId")
+                        .when()
+                        .get(getAllPaginationEndPoint)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
 
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
+
+        int size = response.jsonPath().getList("data.appLanguageId").size();
+        System.out.println("Data Size: " + size);
+
+        List<Integer> ids = response.jsonPath().getList("data.appLanguageId");
+        y= ids.get(size-1);
+        System.out.println("Last index:" +y);
+        z= ids.get(size-2);
+        System.out.println("Last index:" +z);
+        for (Integer i : ids) {
+            System.out.print(i);
+        }
+    }
+
+    @Test(priority = 9)
+    public void deleteMultiple() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        String ids = ""+y+","+z+"";
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .when()
+                .delete(deleteAllEndpoint, ids)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .body("message", equalTo("Ids "+y+","+z+" deleted successfully."));
+    }
 }
