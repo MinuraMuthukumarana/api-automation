@@ -293,9 +293,9 @@ public class LanguageController extends BaseClass {
 
         List<Integer> ids = response.jsonPath().getList("data.appLanguageId");
         y= ids.get(size-1);
-        System.out.println("Last index:" +y);
+        System.out.println("Last n index:" +y);
         z= ids.get(size-2);
-        System.out.println("Last index:" +z);
+        System.out.println("Last n-1 index:" +z);
         for (Integer i : ids) {
             System.out.print(i);
         }

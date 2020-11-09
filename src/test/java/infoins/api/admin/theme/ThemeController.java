@@ -22,7 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
  *  */
 
 public class ThemeController extends BaseClass {
-    private int x;
+    private int x,w,y,z;
     String baseURL;
     String createThemeEndpoint = "/app-themes";
     String getBulkEndpoint = "/app-themes/bulk";
@@ -322,24 +322,60 @@ public class ThemeController extends BaseClass {
                 .body("message",equalTo("Data added successfully"));
     }
 
-//    @Test(priority = 8)
-//    public void deleteBulkTheme() throws IOException {
-//        String idList = "1,2,3";
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        given()
-//                .header("accept","*/*")
-//                .header("authorization",getBearerToken())
-//                .when()
-//                .delete(deleteBulkEndpoint,idList)
-//                .then()
-//                .assertThat()
-//                .statusCode(200)
-//                .and()
-//                .contentType(ContentType.JSON)
-//                .and()
-//                .body("message", equalTo("Data deleted successfully"));
-//    }
+    @Test(priority = 12)
+    public void getAllWithPaginationAgain() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response =
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", AccessTokenHolder.access_token)
+                        .contentType(ContentType.JSON)
+                        .queryParam("pageNo", 0)
+                        .queryParam("pageSize", 100)
+                        .queryParam("sortBy", "appThemeId")
+                        .when()
+                        .get(getAllPaginationEndPoint)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
+
+        int size = response.jsonPath().getList("data.appThemeId").size();
+        System.out.println("Data Size: " + size);
+
+        List<Integer> ids = response.jsonPath().getList("data.appThemeId");
+        w= ids.get(size-1);
+        System.out.println("Last n index:" +w);
+        y= ids.get(size-2);
+        System.out.println("Last n-1 index:" +y);
+        z= ids.get(size-3);
+        System.out.println("Last n-2 index:" +z);
+        for (Integer i : ids) {
+            System.out.print(i);
+        }
+    }
+
+    @Test(priority = 13)
+    public void deleteBulkTheme() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        String ids = ""+w+","+y+","+z+"";
+        given()
+                .header("accept","*/*")
+                .header("authorization",AccessTokenHolder.access_token)
+                .when()
+                .delete(deleteBulkEndpoint,ids)
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .body("message", equalTo("Ids "+w+","+y+","+z+" deleted successfully."));
+    }
 
 
 }
