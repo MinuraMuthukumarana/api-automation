@@ -40,12 +40,13 @@ public class EmailController extends BaseClass {
 
 
     @Test(priority = 1)
-    public void createValidTest() throws IOException {
+    public void createEmailValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-email-valid.json"))
                 .when()
@@ -56,25 +57,45 @@ public class EmailController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
 
     }
+    //Incorrect email format
     @Test
-    public void createInvalidTest() throws IOException {
+    public void createEmailInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-email-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-email-invalid1.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Email must be a well-formed email address"));
+    }
+    //null value
+    @Test
+    public void createEmailInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-email-invalid2.json"))
+                .when()
+                .post(createEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Validation Error"));
     }
 
     @Test(priority = 2)
-    public void getAllPagination() throws IOException{
+    public void getAllPaginationEmailValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -104,22 +125,43 @@ public class EmailController extends BaseClass {
             System.out.print(i);
         }
     }
+    //minus Value
+    @Test
+    public void getAllPaginationEmailInvalidTest() throws IOException{
+        baseURL = getURL();
+        baseURI = baseURL;
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", AccessTokenHolder.access_token)
+                        .contentType(ContentType.JSON)
+                        .queryParam("pageNo", -1)
+                        .queryParam("pageSize", -100)
+                        .queryParam("sortBy", "appEmailConfId")
+                        .when()
+                        .get(getAllPaginationEndPoint)
+                        .then()
+                        .assertThat().statusCode(400)
+                        .and()
+                        .body("error_description", equalTo("Page index must not be less than zero!"));
+
+    }
 
     @Test(priority = 3)
-    public void modifyValidTest() throws IOException {
+    public void modifyEmailValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"appEmailConfId\": "+x+",\n" +
                         "  \"emlTmpltId\": 1,\n" +
-                        "  \"isAutoBccToRtnEml\": \"y\",\n" +
-                        "  \"nameAppear\": \"AndrewUPDATE\",\n" +
-                        "  \"outEmlSignature\": \"sig16UPDATE\",\n" +
-                        "  \"rtnEmlAdrs\": \"testUPDATE.test16@infoins.com\"\n" +
+                        "  \"isAutoBccToRtnEml\": true,\n" +
+                        "  \"nameAppear\": \"Andrew Update\",\n" +
+                        "  \"outEmlSignature\": \"Andrew signature update\",\n" +
+                        "  \"rtnEmlAdrs\": \"andrew.update@gmail.com\"\n" +
                         "}")
                 .when()
                 .put(modifyEndPoint)
@@ -129,25 +171,59 @@ public class EmailController extends BaseClass {
                 .body("message", equalTo("Data updated successfully"));
 
     }
+    //Modify the already deleted appEmailConfId
     @Test
-    public void modifyInvalidTest() throws IOException {
+    public void modifyEmailInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-email-invalid.json"))
+                .body("{\n" +
+                        "  \"appEmailConfId\": 10,\n" +
+                        "  \"emlTmpltId\": 1,\n" +
+                        "  \"isAutoBccToRtnEml\": true,\n" +
+                        "  \"nameAppear\": \"Andrew Update\",\n" +
+                        "  \"outEmlSignature\": \"Andrew signature update\",\n" +
+                        "  \"rtnEmlAdrs\": \"andrew.update@gmail.com\"\n" +
+                        "}")
                 .when()
                 .put(modifyEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
+    }
+    //Incorrect email format
+    @Test
+    public void modifyEmailInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body("{\n" +
+                        "  \"appEmailConfId\": "+x+",\n" +
+                        "  \"emlTmpltId\": 1,\n" +
+                        "  \"isAutoBccToRtnEml\": true,\n" +
+                        "  \"nameAppear\": \"Andrew Update\",\n" +
+                        "  \"outEmlSignature\": \"Andrew signature update\",\n" +
+                        "  \"rtnEmlAdrs\": \"andrew.updategmail.com\"\n" +
+                        "}")
+                .when()
+                .put(modifyEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Email must be a well-formed email address"));
     }
 
     @Test(priority = 4)
-    public void getOneValidTest() throws IOException {
+    public void getOneEmailValidTest() throws IOException {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -165,9 +241,10 @@ public class EmailController extends BaseClass {
         String jsonStr = response.getBody().asString();
         System.out.println("GetOne List: " + jsonStr);
     }
+    //minus Value
     @Test
-    public void getOneInvalidTest() throws IOException {
-        String id = "id";
+    public void getOneEmailInvalidTest1() throws IOException {
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -179,7 +256,24 @@ public class EmailController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
+    }
+    //check with already deleted id
+    @Test
+    public void getOneEmailInvalidTest2() throws IOException {
+        int id = 10;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getOneEndPoint, id)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("message", equalTo("Data not found"));
     }
 
     @Test(priority = 5)
@@ -204,7 +298,7 @@ public class EmailController extends BaseClass {
     }
     @Test
     public void getOneTemplateWithChildrenInvalidTest() throws IOException {
-        String id = "id";
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -216,11 +310,11 @@ public class EmailController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
     }
 
     @Test(priority = 6)
-    public void getOneTemplateParentValidTest() throws IOException {
+    public void getOneTemplateParentEmailValidTest() throws IOException {
         int id = 1;
         baseURL = getURL();
         baseURI = baseURL;
@@ -239,8 +333,8 @@ public class EmailController extends BaseClass {
         System.out.println("GetOne Parent Data List: " + jsonStr);
     }
     @Test
-    public void getOneTemplateParentInvalidTest() throws IOException {
-        String id = "id";
+    public void getOneTemplateParentEmailInvalidTest() throws IOException {
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -252,7 +346,7 @@ public class EmailController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
     }
 
     @Test(priority = 7)
@@ -296,7 +390,7 @@ public class EmailController extends BaseClass {
     }
 
     @Test(priority = 9)
-    public void deleteValidTest() throws IOException {
+    public void deleteEmailValidTest() throws IOException {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -311,9 +405,10 @@ public class EmailController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data deleted successfully"));
     }
+    //minus value
     @Test
-    public void deleteInvalidTest() throws IOException {
-        String id = "id";
+    public void deleteEmailInvalidTest() throws IOException {
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -325,6 +420,6 @@ public class EmailController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
     }
 }

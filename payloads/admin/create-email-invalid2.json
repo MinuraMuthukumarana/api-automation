@@ -1,6 +1,6 @@
 {
-  "emlTmpltId": "id",
-  "isAutoBccToRtnEml": "",
+  "emlTmpltId": 1,
+  "isAutoBccToRtnEml": true,
   "nameAppear": "",
   "outEmlSignature": "",
   "rtnEmlAdrs": ""
