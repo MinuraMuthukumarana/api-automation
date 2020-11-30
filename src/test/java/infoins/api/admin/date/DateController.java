@@ -28,7 +28,7 @@ public class DateController extends BaseClass {
     String getBulkEndPoint="date-configs/bulk";
 
     @Test(priority = 1)
-    public void getAllWithPaginationValidTest() throws IOException {
+    public void getAllWithPaginationDateValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -59,28 +59,29 @@ public class DateController extends BaseClass {
             System.out.print(i);
         }
   }
+    //minus Value
     @Test
-    public void getAllWithPaginationInvalidTest() throws IOException{
+    public void getAllPaginationDateInvalidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .queryParam("pageNo", 0)
-                .queryParam("pageSize", 100)
-                .queryParam("sortBy", "invalidTestId")
+                .queryParam("pageNo", -1)
+                .queryParam("pageSize", -100)
+                .queryParam("sortBy", "dateConfigId")
                 .when()
                 .get(getAllWithPaginationEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Page index must not be less than zero!"));
+
     }
 
     @Test(priority = 2)
-    public void updateDateControllerValidTest() throws IOException{
+    public void updateDateValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
 
@@ -100,26 +101,45 @@ public class DateController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data updated successfully"));
     }
+    //Verify with null ID
     @Test
-    public void updateDateControllerInvalidTest() throws IOException {
+    public void updateDateInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-date-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"modify-date-invalid1.json"))
                 .when()
                 .put(updateEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("ID cannot be null"));
+
+    }
+    //Verify with null
+    @Test
+    public void updateDateInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"modify-date-invalid2.json"))
+                .when()
+                .put(updateEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("ID cannot be null"));
 
     }
 
     @Test(priority = 3)
-    public void getOneValidTest() throws IOException {
+    public void getOneDateValidTest() throws IOException {
         int Id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -138,9 +158,10 @@ public class DateController extends BaseClass {
         System.out.println("GetOne Data set:" + jsonStr);
 
     }
+    //Minus value
     @Test
-    public void getOneInvalidTest() throws IOException {
-        int Id = 0;
+    public void getOneDateInvalidTest1() throws IOException {
+        int Id = -5;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -152,7 +173,7 @@ public class DateController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
 
 
     }
