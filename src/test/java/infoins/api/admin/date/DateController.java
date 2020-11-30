@@ -59,7 +59,7 @@ public class DateController extends BaseClass {
             System.out.print(i);
         }
   }
-    //minus Value
+    //Verify with Minus Value
     @Test
     public void getAllPaginationDateInvalidTest() throws IOException{
         baseURL = getURL();
@@ -137,6 +137,24 @@ public class DateController extends BaseClass {
                 .body("error_description", equalTo("ID cannot be null"));
 
     }
+    //Verify with invalid dateConfigId
+    @Test
+    public void updateDateInvalidTest3() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"modify-date-invalid3.json"))
+                .when()
+                .put(updateEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("message", equalTo("Data not found"));
+
+    }
 
     @Test(priority = 3)
     public void getOneDateValidTest() throws IOException {
@@ -175,11 +193,10 @@ public class DateController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data not found"));
 
-
     }
 
     @Test(priority = 4)
-    public void getBulkValidTest() throws IOException {
+    public void getBulkDateValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
