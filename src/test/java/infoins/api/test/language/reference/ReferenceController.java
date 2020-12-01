@@ -1,14 +1,12 @@
-package infoins.api.admin.reference;
+package infoins.api.test.language.reference;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
