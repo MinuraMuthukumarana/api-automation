@@ -40,7 +40,7 @@ public class ThemeController extends BaseClass {
 
 
     @Test(priority = 1)
-    public void createThemeConfig() throws IOException {
+    public void createThemeValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -55,25 +55,43 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message",equalTo("Data added successfully"));
     }
+    //Verify with null
     @Test
-    public void createInvalidTheme() throws IOException {
+    public void createThemeConfigInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-theme-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-theme-invalid1.json"))
                 .when()
                 .post(createThemesEndpoint)
                 .then()
-                .assertThat().statusCode(400);
-//                .and()
-//                .body("message",equalTo("Data added successfully"));
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description",equalTo("The given id must not be null!"));
+    }
+    //Verify with Start Date can be greater than End Date
+    @Test
+    public void createThemeConfigInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept","*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-theme-invalid2.json"))
+                .when()
+                .post(createThemesEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description",equalTo("Start Date cannot be greater than End Date"));
     }
 
     @Test(priority = 2)
-    public void getAllWithPagination() throws IOException {
+    public void getAllWithPaginationTheme() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -105,7 +123,7 @@ public class ThemeController extends BaseClass {
     }
 
     @Test(priority = 3)
-    public void modifyTheme() throws IOException {
+    public void modifyThemeValidTest() throws IOException {
         baseURL = getURL();
         String modifyThemeEndpoint = "/app-themes";
         baseURI = baseURL;
@@ -115,11 +133,9 @@ public class ThemeController extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"appThemeId\": "+x+",\n" +
-                        "  \"branchCode\": \"BC04\",\n" +
-                        "  \"endDate\": \"2022-09-10\",\n" +
-                        "  \"stDate\": \"2020-09-10\",\n" +
-                        "  \"themeId\": 4\n" +
-                        "\n" +
+                        "  \"endDate\": \"2020-12-31\",\n" +
+                        "  \"stDate\": \"2020-01-01\",\n" +
+                        "  \"themeId\": 1\n" +
                         "}")
                 .when()
                 .put(modifyThemeEndpoint)
@@ -128,23 +144,31 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message",equalTo("Data updated successfully"));
     }
+    //Verify with Start Date can be greater than End Date
     @Test
-    public void modifyInvalidTheme() throws IOException {
+    public void modifyThemeInvalidTheme() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-theme-invalid.json"))
+                .body("{\n" +
+                        "  \"appThemeId\": "+x+",\n" +
+                        "  \"endDate\": \"2020-10-31\",\n" +
+                        "  \"stDate\": \"2020-12-01\",\n" +
+                        "  \"themeId\": 1\n" +
+                        "}")
                 .when()
                 .put(modifyThemeEndpoint)
                 .then()
-                .assertThat().statusCode(400);
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description",equalTo("Start Date cannot be greater than End Date"));
     }
 
     @Test(priority = 4)
-    public void getOneTheme() throws IOException {
+    public void getOneThemeValidTest() throws IOException {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -165,9 +189,26 @@ public class ThemeController extends BaseClass {
         System.out.println("GetOneData Set: "+ jsonStr);
 
     }
+    @Test
+    public void getOneThemeInvalidTest() throws IOException {
+        int id = -1;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getOneEndpoint, id)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("message", equalTo("Data not found"));
+
+    }
 
     @Test(priority = 5)
-    public void getBulk() throws IOException {
+    public void getBulkTheme() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -188,7 +229,7 @@ public class ThemeController extends BaseClass {
     }
 
     @Test(priority = 6)
-    public void deleteOneTheme() throws IOException {
+    public void deleteOneThemeValidTest() throws IOException {
         int id =x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -206,12 +247,10 @@ public class ThemeController extends BaseClass {
                 .body("message", equalTo("Data deleted successfully"));
     }
     @Test
-    public void deleteInvalidTheme() throws IOException {
-        String id ="-190";
-        String deleteOneEndpoint = "/app-themes/{id}";
+    public void deleteInvalidThemeInvalidTest() throws IOException {
+        int id =-1;
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept","*/*")
                 .header("authorization", AccessTokenHolder.access_token)
@@ -219,11 +258,10 @@ public class ThemeController extends BaseClass {
                 .delete(deleteOneEndpoint,id)
                 .then()
                 .assertThat()
-                .statusCode(400);
-//                .and()
-//                .contentType(ContentType.JSON)
-//                .and()
-//                .body("message", equalTo("Data deleted successfully"));
+                .statusCode(400)
+                .and()
+                .body("message", equalTo("Data not found"));
+
     }
 
     @Test(priority = 7)
@@ -306,7 +344,7 @@ public class ThemeController extends BaseClass {
     }
 
     @Test(priority = 11)
-    public void createMultipleTheme() throws IOException {
+    public void createMultipleThemeValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -321,9 +359,41 @@ public class ThemeController extends BaseClass {
                 .and()
                 .body("message",equalTo("Data added successfully"));
     }
+    @Test
+    public void createMultipleThemeInvalidTest1() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept","*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-multiple-theme-invalid1.json"))
+                .when()
+                .post(createMultipleThemeEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description",equalTo("Start Date cannot be greater than End Date"));
+    }
+    @Test
+    public void createMultipleThemeInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept","*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-multiple-theme-invalid2.json"))
+                .when()
+                .post(createMultipleThemeEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description",equalTo("System cannot find result for (SyDcTheme)"));
+    }
 
     @Test(priority = 12)
-    public void getAllWithPaginationAgain() throws IOException {
+    public void getAllWithPaginationAgainTheme() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -359,7 +429,7 @@ public class ThemeController extends BaseClass {
     }
 
     @Test(priority = 13)
-    public void deleteBulkTheme() throws IOException {
+    public void deleteBulkThemeValid() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         String ids = ""+w+","+y+","+z+"";
