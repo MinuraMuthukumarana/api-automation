@@ -35,7 +35,7 @@ public class LanguageController extends BaseClass {
     String deleteAllEndpoint ="/app-languages/all/{ids}";
 
     @Test(priority = 1)
-    public void createValidTest() throws IOException {
+    public void createLanguageValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -51,8 +51,9 @@ public class LanguageController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
 
     }
+    //Verify duplicate records Id = 1
     @Test
-    public void createInvalidTest() throws IOException {
+    public void createLanguageInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -65,12 +66,12 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Duplicate records found for the reference."));
 
     }
 
     @Test(priority = 2)
-    public void getAll() throws IOException {
+    public void getAllWithPaginationLanguageValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -100,9 +101,29 @@ public class LanguageController extends BaseClass {
             System.out.print(i);
         }
     }
+    //Minus Value
+    @Test
+    public void getAllWithPaginationLanguageInvalidTest() throws IOException{
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .queryParam("pageNo", -1)
+                .queryParam("pageSize", -100)
+                .queryParam("sortBy", "appLanguageId")
+                .when()
+                .get(getAllPaginationEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Page index must not be less than zero!"));
+
+    }
 
     @Test(priority = 3)
-    public void modifyValidTest() throws IOException {
+    public void modifyLanguageValidLanguageTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -111,7 +132,7 @@ public class LanguageController extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"appLanguageId\":"+x+",\n" +
-                        "  \"languageId\": 1\n" +
+                        "  \"languageId\": 3\n" +
                         "}")
                 .when()
                 .put(modifyEndPoint)
@@ -122,14 +143,17 @@ public class LanguageController extends BaseClass {
 
     }
     @Test
-    public void modifyInvalidTest() throws IOException {
+    public void modifyLanguageInvalidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-language-invalid.json"))
+                .body("{\n" +
+                        "  \"appLanguageId\":"+x+",\n" +
+                        "  \"languageId\": 7\n" +
+                        "}")
                 .when()
                 .put(modifyEndPoint)
                 .then()
@@ -140,7 +164,7 @@ public class LanguageController extends BaseClass {
     }
 
     @Test(priority = 4)
-    public void getOneValidTest() throws IOException {
+    public void getOneLanguageValidTest() throws IOException {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -160,8 +184,8 @@ public class LanguageController extends BaseClass {
 
     }
     @Test
-    public void getOneInvalidTest() throws IOException {
-        String id = "id";
+    public void getOneLanguageInvalidTest() throws IOException {
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -173,12 +197,12 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
 
     }
 
     @Test(priority = 5)
-    public void getBulkValidTest() throws IOException {
+    public void getBulkLanguageValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response=
@@ -198,7 +222,7 @@ public class LanguageController extends BaseClass {
     }
 
     @Test(priority = 6)
-    public void deleteValidTest() throws IOException {
+    public void deleteLanguageValidTest() throws IOException {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -215,8 +239,8 @@ public class LanguageController extends BaseClass {
 
     }
     @Test
-    public void deleteInvalidTest() throws IOException {
-        String id = "id";
+    public void deleteLanguageInvalidTest() throws IOException {
+        int id = 25;
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -228,12 +252,12 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
 
     }
 
     @Test(priority = 7)
-    public void createMultipleValidTest() throws IOException {
+    public void createMultipleLanguageValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -246,11 +270,11 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(201)
                 .and()
-                .body("message", equalTo("Data added successfully"));
+                .body("message", equalTo("Reference Ids 4,5 saved successfully."));
 
     }
     @Test
-    public void createMultipleInvalidTest() throws IOException {
+    public void createMultipleLanguageInvalidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -263,12 +287,12 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("System cannot find result for (SyDrLanguage)"));
 
     }
 
     @Test(priority = 8)
-    public void getAllAgain() throws IOException {
+    public void getAllLanguageAgain() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -302,7 +326,7 @@ public class LanguageController extends BaseClass {
     }
 
     @Test(priority = 9)
-    public void deleteMultiple() throws IOException {
+    public void deleteMultipleValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
 
@@ -320,4 +344,5 @@ public class LanguageController extends BaseClass {
                 .and()
                 .body("message", equalTo("Ids "+y+","+z+" deleted successfully."));
     }
+
 }
