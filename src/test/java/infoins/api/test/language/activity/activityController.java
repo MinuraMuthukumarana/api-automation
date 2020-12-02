@@ -1,10 +1,9 @@
-package infoins.api.admin.activity;
+package infoins.api.test.language.activity;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
