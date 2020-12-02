@@ -1,7 +1,8 @@
 {
   "countryId": 1,
-  "endDate": "2022-09-14",
-  "stDate": "2022-10-14",
+  "endDate": "2050-09-14",
+  "isSpecial": true,
+  "stDate": "2050-10-14",
   "taxAmount": 20,
   "taxRate": 0,
   "taxTypeId": 1

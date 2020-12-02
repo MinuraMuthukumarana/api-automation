@@ -3,7 +3,7 @@
     "countryId": 1,
     "endDate": "2022-09-14",
     "isSpecial": true,
-    "stDate": "2022-09-14",
+    "stDate": "2023-09-14",
     "taxAmount": 0,
     "taxRate": 90,
     "taxTypeId": 1
@@ -12,7 +12,7 @@
     "countryId": 1,
     "endDate": "2022-09-14",
     "isSpecial": true,
-    "stDate": "2022-09-14",
+    "stDate": "2025-09-14",
     "taxAmount": 90,
     "taxRate": 0,
     "taxTypeId": 1

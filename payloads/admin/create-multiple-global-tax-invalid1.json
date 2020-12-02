@@ -4,7 +4,7 @@
     "endDate": "2022-09-14",
     "isSpecial": true,
     "stDate": "2022-09-14",
-    "taxAmount": 0,
+    "taxAmount": 10,
     "taxRate": 90,
     "taxTypeId": 1
   },
@@ -14,7 +14,7 @@
     "isSpecial": true,
     "stDate": "2022-09-14",
     "taxAmount": 90,
-    "taxRate": 0,
+    "taxRate": 10,
     "taxTypeId": 1
   }
 ]

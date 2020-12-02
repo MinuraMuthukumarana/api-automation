@@ -64,7 +64,7 @@ public class GlobalTaxController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Start Date cannot be greater than End Date"));
     }
     //TaxAmount and TaxRate
     @Test
@@ -81,28 +81,29 @@ public class GlobalTaxController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
-    }
-    //Invalid Date format
-    @Test
-    public void createGlobalTaxInvalidTest3() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-global-tax-invalid3.json"))
-                .when()
-                .post(createGlobalTaxEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Please enter either Tax Percentage or Tax Rate"));
     }
 
+//    //Invalid Date format
+//    @Test
+//    public void createGlobalTaxInvalidTest3() throws IOException {
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", AccessTokenHolder.access_token)
+//                .contentType(ContentType.JSON)
+//                .body(getGeneratedString("\\admin\\"+"create-global-tax-invalid3.json"))
+//                .when()
+//                .post(createGlobalTaxEndpoint)
+//                .then()
+//                .assertThat().statusCode(400)
+//                .and()
+//                .body("error", equalTo("Bad Request"));
+//    }
+
     @Test(priority = 2)
-    public void getAllWithPagination() throws IOException{
+    public void getAllWithPaginationGlobalTaxValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -129,9 +130,28 @@ public class GlobalTaxController extends BaseClass {
             System.out.print(i);
         }
     }
+    @Test
+    public void getAllPaginationGlobalTaxInvalidTest() throws IOException{
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .queryParam("pageNo", -1)
+                .queryParam("pageSize", -100)
+                .queryParam("sortBy", "globalTaxId")
+                .when()
+                .get(getAllPaginationEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Page index must not be less than zero!"));
+
+    }
 
     @Test(priority = 3)
-    public void modifyGlobalTax() throws IOException {
+    public void modifyGlobalTaxValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -140,12 +160,13 @@ public class GlobalTaxController extends BaseClass {
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"countryId\": 1,\n" +
-                        "  \"endDate\": \"2022-09-14\",\n" +
+                        "  \"endDate\": \"2021-10-25\",\n" +
                         "  \"globalTaxId\": "+x+",\n" +
-                        "  \"stDate\": \"2022-09-14\",\n" +
-                        "  \"taxAmount\": 0,\n" +
+                        "  \"isSpecial\": true,\n" +
+                        "  \"stDate\": \"2021-10-14\",\n" +
+                        "  \"taxAmount\":0 ,\n" +
                         "  \"taxRate\": 50,\n" +
-                        "  \"taxTypeId\":1\n" +
+                        "  \"taxTypeId\": 1\n" +
                         "}")
                 .when()
                 .put(modifyGlobalTaxEndpoint)
@@ -154,9 +175,61 @@ public class GlobalTaxController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data updated successfully"));
     }
+    //StartDate grater than EndDate
+    @Test
+    public void modifyGlobalTaxInvalidTest1() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body("{\n" +
+                        "  \"countryId\": 1,\n" +
+                        "  \"endDate\": \"2021-10-25\",\n" +
+                        "  \"globalTaxId\": "+x+",\n" +
+                        "  \"isSpecial\": true,\n" +
+                        "  \"stDate\": \"2021-12-14\",\n" +
+                        "  \"taxAmount\": 2,\n" +
+                        "  \"taxRate\": 0,\n" +
+                        "  \"taxTypeId\": 1\n" +
+                        "}")
+                .when()
+                .put(modifyGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Start Date cannot be greater than End Date"));
+    }
+    //TaxAmount and TaxRate
+    @Test
+    public void modifyGlobalTaxInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body("{\n" +
+                        "  \"countryId\": 1,\n" +
+                        "  \"endDate\": \"2021-10-25\",\n" +
+                        "  \"globalTaxId\": "+x+",\n" +
+                        "  \"isSpecial\": true,\n" +
+                        "  \"stDate\": \"2021-10-14\",\n" +
+                        "  \"taxAmount\": 25,\n" +
+                        "  \"taxRate\": 35,\n" +
+                        "  \"taxTypeId\": 1\n" +
+                        "}")
+                .when()
+                .put(modifyGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Please enter either Tax Percentage or Tax Rate"));
+    }
 
     @Test(priority = 4)
-    public void getOneGlobalTax() throws IOException {
+    public void getOneGlobalTaxValidTest() throws IOException {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -176,13 +249,29 @@ public class GlobalTaxController extends BaseClass {
         String jsonStr = response.getBody().asString();
         System.out.println("GetOne Data List: " + jsonStr);
     }
+    //minus Value
+    @Test
+    public void getOneGlobalTaxInvalidTest() throws IOException {
+        int id = -1;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getOneEndpoint, id)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("message", equalTo("Data not found"));
+    }
 
     @Test(priority = 5)
-    public void deleteOneGlobalTax() throws IOException {
+    public void deleteOneGlobalTaxValidTest() throws IOException {
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
@@ -196,9 +285,26 @@ public class GlobalTaxController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data deleted successfully"));
     }
+    //minus value
+    @Test
+    public void deleteOneGlobalTaxInvalidTest() throws IOException {
+        int id = -1;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(deleteOneEndpoint, id)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("message", equalTo("Data not found"));
+    }
 
     @Test(priority = 6)
-    public void getBulk() throws IOException {
+    public void getBulkGlobalTax() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Response response =
@@ -220,7 +326,7 @@ public class GlobalTaxController extends BaseClass {
     }
 
     @Test(priority = 7)
-    public void createMultipleGlobalTax() throws IOException {
+    public void createMultipleGlobalTaxValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -234,6 +340,40 @@ public class GlobalTaxController extends BaseClass {
                 .assertThat().statusCode(201)
                 .and()
                 .body("message", equalTo("Data added successfully"));
+    }
+    //TaxAmount and TaxRate
+    @Test
+    public void createMultipleGlobalTaxInvalidTest1() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-multiple-global-tax-invalid1.json"))
+                .when()
+                .post(createMultipleGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Please enter either Tax Percentage or Tax Rate"));
+    }
+    //StartDate grater than EndDate
+    @Test
+    public void createMultipleGlobalTaxInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-multiple-global-tax-invalid2.json"))
+                .when()
+                .post(createMultipleGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Start Date cannot be greater than End Date"));
     }
 
     @Test(priority = 8)
@@ -269,7 +409,7 @@ public class GlobalTaxController extends BaseClass {
     }
 
     @Test(priority = 9)
-    public void deleteBulkGlobalTax() throws IOException {
+    public void deleteBulkGlobalTaxValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
 
@@ -286,5 +426,23 @@ public class GlobalTaxController extends BaseClass {
                 .contentType(ContentType.JSON)
                 .and()
                 .body("message", equalTo("Ids "+y+","+z+" deleted successfully."));
+    }
+    @Test
+    public void deleteBulkGlobalTaxInvalidTest() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        int ids = -1;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .when()
+                .delete(deleteAllEndpoint, ids)
+                .then()
+                .assertThat()
+                .statusCode(400)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .body("message", equalTo("Data not found"));
     }
 }
