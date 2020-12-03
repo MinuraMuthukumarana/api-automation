@@ -10,7 +10,7 @@
     {
       "contactTypeId": 1,
       "isPrimary": true,
-      "phoneNo": "0719160090"
+      "phoneNo": "07191600"
     }
   ],
   "branchCurrencyIds": [
@@ -18,7 +18,7 @@
   ],
   "branchEmailCreateDtoList": [
     {
-      "email": "gayana@aa.com",
+      "email": "gayana@gmail.com",
       "emailTypeId": 1,
       "isPrimary": true
     }
