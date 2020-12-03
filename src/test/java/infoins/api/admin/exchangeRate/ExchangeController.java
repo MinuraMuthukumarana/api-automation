@@ -47,8 +47,9 @@ public class ExchangeController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
 
     }
+    //Verify with null ID
     @Test
-    public void createExchangeRateInvalidTest() throws IOException {
+    public void createExchangeRateInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
@@ -61,7 +62,43 @@ public class ExchangeController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("The given id must not be null!"));
+
+    }
+    //Verify with invalid Id
+    @Test
+    public void createExchangeRateInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid.json"))
+                .when()
+                .post(createEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("The given id must not be null!"));
+
+    }
+    ////Verify with incorrect date format
+    @Test
+    public void createExchangeRateInvalidTest3() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid.json"))
+                .when()
+                .post(createEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("The given id must not be null!"));
 
     }
 
@@ -104,14 +141,15 @@ public class ExchangeController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .queryParam("pageNo", 5)
+                .queryParam("pageNo", -1)
                 .queryParam("pageSize", 10)
+                .queryParam("sortBy", "exchangeRateId")
                 .when()
                 .get(getAllWithPaginationEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Page index must not be less than zero!"));
     }
 
     @Test(priority = 3)
@@ -123,9 +161,9 @@ public class ExchangeController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"branchId\": 2,\n" +
-                        "  \"exchangeRate\": 15,\n" +
-                        "  \"exchangeRateDate\": \"2020-12-31\",\n" +
+                        "  \"branchId\": 41,\n" +
+                        "  \"exchangeRate\": 45,\n" +
+                        "  \"exchangeRateDate\": \"2020-12-14\",\n" +
                         "  \"exchangeRateId\": "+x+"\n" +
                         "}")
                 .when()
@@ -135,15 +173,90 @@ public class ExchangeController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data updated successfully"));
     }
+    //Null Id
     @Test
-    public void updateExchangeRateInvalidTest() throws IOException {
+    public void updateExchangeRateInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-exchange-rates-invalid.json"))
+                .body("{\n" +
+                        "  \"branchId\": \"\",\n" +
+                        "  \"exchangeRate\": \"\",\n" +
+                        "  \"exchangeRateDate\": \"2020-09-17\",\n" +
+                        "  \"exchangeRateId\": \"\"\n" +
+                        "}")
+                .when()
+                .put(updateEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error_description", equalTo("Id can not be null"));
+
+    }
+    //Date format
+    @Test
+    public void updateExchangeRateInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body("{\n" +
+                        "  \"branchId\": 41,\n" +
+                        "  \"exchangeRate\": 45,\n" +
+                        "  \"exchangeRateDate\": \"2020- -14\",\n" +
+                        "  \"exchangeRateId\": "+x+"\n" +
+                        "}")
+                .when()
+                .put(updateEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+
+    }
+    //Invalid branch Id
+    @Test
+    public void updateExchangeRateInvalidTest3() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body("{\n" +
+                        "  \"branchId\": 35,\n" +
+                        "  \"exchangeRate\": 45,\n" +
+                        "  \"exchangeRateDate\": \"2020-08-14\",\n" +
+                        "  \"exchangeRateId\": "+x+"\n" +
+                        "}")
+                .when()
+                .put(updateEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .and()
+                .body("error", equalTo("Bad Request"));
+
+    }
+    //incorrect exchangeRateId
+    @Test
+    public void updateExchangeRateInvalidTest4() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .contentType(ContentType.JSON)
+                .body("{\n" +
+                        "  \"branchId\": 41,\n" +
+                        "  \"exchangeRate\": 45,\n" +
+                        "  \"exchangeRateDate\": \"2020-09-14\",\n" +
+                        "  \"exchangeRateId\":5 \n" +
+                        "}")
                 .when()
                 .put(updateEndPoint)
                 .then()
@@ -177,7 +290,7 @@ public class ExchangeController extends BaseClass {
     @Test
     public void getOneExchangeRateInvalidTest() throws IOException {
 
-        String Id = "Id";
+        int Id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
