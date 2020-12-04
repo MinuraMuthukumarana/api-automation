@@ -3,10 +3,12 @@ package infoins.api.admin.userProfile;
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
@@ -27,43 +29,92 @@ public class UserProfileController extends BaseClass {
 
 
     @Test(priority = 1)
-    public void modifyValidTest() throws IOException {
+    public void modifyProductBuilderValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
+        Random randomGenerator = new Random();
+        int RandomInt = randomGenerator.nextInt(100);
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-user-profile-valid.json"))
+                .body("{\n" +
+                        "  \"otherName\": \"Lucky"+RandomInt+"\",\n" +
+                        "  \"photo\": \"photo"+RandomInt+"\",\n" +
+                        "  \"signature\": \"signature"+RandomInt+"\",\n" +
+                        "  \"userId\": 40,\n" +
+                        "  \"userPrimaryEmail\": \"lucky"+RandomInt+"@gmail.com\",\n" +
+                        "  \"userPrimaryPhone\": \"07285615"+RandomInt+"\"\n" +
+                        "}")
                 .when()
                 .put(modifyEndPoint)
                 .then()
-                .assertThat().statusCode(201);
+                .assertThat().statusCode(200)
+                .body("message", equalTo("Data updated successfully"));
 
     }
+    //Verify invalid email
     @Test
-    public void modifyInvalidTest() throws IOException {
+    public void modifyProductBuilderInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
+        Random randomGenerator = new Random();
+        int RandomInt = randomGenerator.nextInt(100);
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-user-profile-invalid.json"))
+                .body("{\n" +
+                        "  \"otherName\": \"Lucky"+RandomInt+"\",\n" +
+                        "  \"photo\": \"photo"+RandomInt+"\",\n" +
+                        "  \"signature\": \"signature"+RandomInt+"\",\n" +
+                        "  \"userId\": 40,\n" +
+                        "  \"userPrimaryEmail\": \"lucky"+RandomInt+"gmail.com\",\n" +
+                        "  \"userPrimaryPhone\": \"07285615"+RandomInt+"\"\n" +
+                        "}")
                 .when()
                 .put(modifyEndPoint)
                 .then()
                 .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Email must be a well-formed email address"));
+
+    }
+    //Verify invalid contact
+    @Test
+    public void modifyProductBuilderInvalidTest2() throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        Random randomGenerator = new Random();
+        int RandomInt = randomGenerator.nextInt(100);
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body("{\n" +
+                        "  \"otherName\": \"Lucky"+RandomInt+"\",\n" +
+                        "  \"photo\": \"photo"+RandomInt+"\",\n" +
+                        "  \"signature\": \"signature"+RandomInt+"\",\n" +
+                        "  \"userId\": 40,\n" +
+                        "  \"userPrimaryEmail\": \"lucky"+RandomInt+"@gmail.com\",\n" +
+                        "  \"userPrimaryPhone\": \"07285615\"\n" +
+                        "}")
+                .when()
+                .put(modifyEndPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .body("error_description", equalTo("Invalid Phone Number"));
 
     }
 
     @Test(priority = 2)
     public void getOneValidTest() throws IOException {
-        int id = 1;
+        int id = 40;
         baseURL = getURL();
         baseURI = baseURL;
+        Response response=
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
@@ -71,11 +122,15 @@ public class UserProfileController extends BaseClass {
                 .when()
                 .get(getOneEndPoint, id)
                 .then()
-                .assertThat().statusCode(200);
+                .assertThat().statusCode(200)
+                .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("GetOne Data List: " + jsonStr);
     }
     @Test
     public void getOneInvalidTest() throws IOException {
-        String id = "id";
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()

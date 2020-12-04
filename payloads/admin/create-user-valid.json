@@ -2,60 +2,61 @@
   "civilStateId": 1,
   "departmentId": 1,
   "designationId": 1,
-  "dob": "2020-07-23T09:01:33.214Z",
-  "empNo": 16,
-  "firstName": -1,
+  "dob": "1992-10-06",
+  "empNo": 2,
+  "firstName": "Gayan",
   "genderId": 1,
-  "isActive": "y",
-  "isSupervisor": "y",
-  "lastName": "lName",
+  "isActive": true,
+  "isSupervisor": false,
+  "lastName": "Senavirathne",
   "nationalityId": 1,
-  "otherName": "oName",
-  "photo": "pic1",
-  "signature": "sig1",
-  "superviserId": 1,
+  "otherName": "gayan",
+  "photo": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAA6ADYDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUBAgQDB//EACsQAAICAQIEBAYDAAAAAAAAAAABAgMRBCESEzFRIlJhkRQ0QUKBkmJxcv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD0AAACG0llvCKK+pvHMj7mDUXO2b38K6I5ANyTDorWp8tvZ9DcAAAABD6MkrJcUXHusAKQLWVyrlwyW5UDrpfmIDMX6SpzsU/tixgAAAAAFLLIVrMngyWayT2rXCu76gW1+PB33MZMpOTzJtv1IAY6THw8fydxVXZOt5hJo1Va1PaxY9UBrAiMlJZi00AGCenvsm5Sju/U5umS6uKx/JDQ5uqt9a4v8AL+TPvH9kCom3hcLf8ApDDlV5zwR9gVcI7qEV/SAXct+aH7omNM5vEXGT9JJjDlV+SPsTGEVLKik+6QGWmvUVN4js/pkDaAH//Z",
+  "signature": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAA6ADYDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAUBAgQDB//EACsQAAICAQIEBAYDAAAAAAAAAAABAgMRBCESEzFRIlJhkRQ0QUKBkmJxcv/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD0AAACG0llvCKK+pvHMj7mDUXO2b38K6I5ANyTDorWp8tvZ9DcAAAABD6MkrJcUXHusAKQLWVyrlwyW5UDrpfmIDMX6SpzsU/tixgAAAAAFLLIVrMngyWayT2rXCu76gW1+PB33MZMpOTzJtv1IAY6THw8fydxVXZOt5hJo1Va1PaxY9UBrAiMlJZi00AGCenvsm5Sju/U5umS6uKx/JDQ5uqt9a4v8AL+TPvH9kCom3hcLf8ApDDlV5zwR9gVcI7qEV/SAXct+aH7omNM5vEXGT9JJjDlV+SPsTGEVLKik+6QGWmvUVN4js/pkDaAH//Z",
+  "superviserId": 0,
   "titleId": 1,
   "userBranchCreateDtos": [
     {
-      "action": "Finan",
-      "branchId": 1,
-      "isDefault": "y"
+      "action": "AAA",
+      "branchId": 10,
+      "isDefault": true
     }
   ],
   "userEmailCreateDtos": [
     {
-      "email": "test.test16@infoins.com",
+      "email": "pasasn@ggg.com",
       "emailTypeId": 1,
-      "isPrimary": "y"
+      "isPrimary": true
     }
   ],
   "userGroupIds": [
-    1
+    20
   ],
   "userLimitCreateDtos": [
     {
-      "action": "FinanLimit",
+      "action": "AAA",
       "groupLimitId": 1,
       "maxLimit": 100,
-      "minLimit": 50
+      "minLimit": 10
     }
   ],
   "userLocalCreateDto": {
-    "addressL1": "No 1",
-    "addressL2": "Nugegoda",
-    "addressL3": "Colombo",
-    "cityId": 1,
-    "countryId": 1,
+    "addressL1": "add1",
+    "addressL2": "add2",
+    "addressL3": "add3",
+    "cityId": 2,
+    "countryId": 2,
+    "postalcode": "21000",
     "stateId": 1,
     "suburbId": 1
   },
   "userPhoneCreateDtos": [
     {
       "contactTypeId": 1,
-      "isPrimary": "y",
-      "phoneNo": "0715927866"
+      "isPrimary": true,
+      "phoneNo": "0771236498"
     }
   ],
-  "userRefId": "1",
-  "username": "uName1"
+  "userRefId": "a5600a54-e8b7-4eae-ac43-5d38bc7f87e2",
+  "username": "gayan"
 }

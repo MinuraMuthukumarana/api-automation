@@ -31,7 +31,6 @@ public class UserController extends BaseClass {
     String getBulkEndPoint = "/users/bulk";
 
 
-
     @Test(priority = 1)
     public void createValidTest() throws IOException {
         baseURL = getURL();
@@ -39,6 +38,7 @@ public class UserController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-user-valid.json"))
                 .when()
