@@ -29,7 +29,7 @@ public class UserProfileController extends BaseClass {
 
 
     @Test(priority = 1)
-    public void modifyProductBuilderValidTest() throws IOException {
+    public void modifyUserProfileValidTest() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Random randomGenerator = new Random();
@@ -56,7 +56,7 @@ public class UserProfileController extends BaseClass {
     }
     //Verify invalid email
     @Test
-    public void modifyProductBuilderInvalidTest1() throws IOException {
+    public void modifyUserProfileInvalidTest1() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Random randomGenerator = new Random();
@@ -83,7 +83,7 @@ public class UserProfileController extends BaseClass {
     }
     //Verify invalid contact
     @Test
-    public void modifyProductBuilderInvalidTest2() throws IOException {
+    public void modifyUserProfileInvalidTest2() throws IOException {
         baseURL = getURL();
         baseURI = baseURL;
         Random randomGenerator = new Random();
@@ -110,7 +110,7 @@ public class UserProfileController extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void getOneValidTest() throws IOException {
+    public void getOneUserProfileValidTest() throws IOException {
         int id = 40;
         baseURL = getURL();
         baseURI = baseURL;
@@ -129,7 +129,7 @@ public class UserProfileController extends BaseClass {
         System.out.println("GetOne Data List: " + jsonStr);
     }
     @Test
-    public void getOneInvalidTest() throws IOException {
+    public void getOneUserProfileInvalidTest() throws IOException {
         int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
