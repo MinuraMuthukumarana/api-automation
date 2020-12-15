@@ -59,10 +59,10 @@ public class SalesChannelController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"chanlAbbr\": \"CA_2\",\n" +
-                        "  \"chanlCode\": \"CC_2\",\n" +
+                        "  \"chanlAbbr\": \"CA_4\",\n" +
+                        "  \"chanlCode\": \"CC_4\",\n" +
                         "  \"chanlDesc\": \"DIRECTER\",\n" +
-                        "  \"chanlName\": \"CN_2\",\n" +
+                        "  \"chanlName\": \"CN_4\",\n" +
                         "  \"chanlType\": \"D\"\n" +
                         "}")
                 .when()
@@ -82,10 +82,10 @@ public class SalesChannelController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"chanlAbbr\": \"CA_2\",\n" +
-                        "  \"chanlCode\": \"CC_99\",\n" +
+                        "  \"chanlAbbr\": \"CA_4\",\n" +
+                        "  \"chanlCode\": \"CC_9\",\n" +
                         "  \"chanlDesc\": \"DIRECTER\",\n" +
-                        "  \"chanlName\": \"CN_2\",\n" +
+                        "  \"chanlName\": \"CN_4\",\n" +
                         "  \"chanlType\": \"D\"\n" +
                         "}")
                 .when()
@@ -105,10 +105,10 @@ public class SalesChannelController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"chanlAbbr\": \"CA_2\",\n" +
-                        "  \"chanlCode\": \"CC_99\",\n" +
+                        "  \"chanlAbbr\": \"CA_4\",\n" +
+                        "  \"chanlCode\": \"CC_9\",\n" +
                         "  \"chanlDesc\": \"DIRECTER\",\n" +
-                        "  \"chanlName\": \"CN_99\",\n" +
+                        "  \"chanlName\": \"CN_9\",\n" +
                         "  \"chanlType\": \"D\"\n" +
                         "}")
                 .when()

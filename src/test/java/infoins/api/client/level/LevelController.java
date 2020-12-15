@@ -278,7 +278,7 @@ public class LevelController extends BaseClass {
     //API to delete a Level by LevelId
     @Test(priority = 7)
     public void deleteLevelValidTest() throws IOException{
-        int id = w;
+        int id = z;
         baseURL = getURL();
         baseURI = baseURL;
         given()
