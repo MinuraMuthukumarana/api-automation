@@ -4,16 +4,21 @@
 
     <test name = "AdminModule">
         <classes>
-            <class name ="infoins.api.test.language.reference.ReferenceController"/>
-            <class name="infoins.api.admin.level.LevelController"/>
-            <class name="infoins.api.admin.branch.BranchController"/>
+
+            <class name="infoins.api.admin.date.DateController"/>
             <class name="infoins.api.admin.email.EmailController"/>
-            <class name="infoins.api.admin.language.LanguageController"/>
-            <class name="infoins.api.admin.theme.ThemeController"/>
             <class name="infoins.api.admin.globaltax.GlobalTaxController"/>
+            <class name="infoins.api.admin.language.LanguageController"/>
+            <class name="infoins.api.admin.level.LevelController"/>
+            <class name="infoins.api.admin.theme.ThemeController"/>
+
+            <class name="infoins.api.admin.branch.BranchController"/>
+            <class name="infoins.api.admin.exchangeRate.ExchangeController"/>
+            <class name="infoins.api.admin.userGroup.UserGroupController"/>
+
             <class name="infoins.api.admin.user.UserController"/>
+            <class name="infoins.api.admin.userAdditionalInfo.UserAdditionalInfoController"/>
             <class name="infoins.api.admin.userProfile.UserProfileController"/>
-            <class name="infoins.api.test.language.genericRest.GenericRestController"/>
         </classes>
     </test>
 
