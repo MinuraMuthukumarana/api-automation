@@ -38,12 +38,13 @@ public class UserGroupController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-user-group-valid.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
-                .assertThat().statusCode(200)
+                .assertThat().statusCode(201)
                 .and()
                 .body("message", equalTo("Data added successfully"));
     }
@@ -54,6 +55,7 @@ public class UserGroupController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-user-group-invalid.json"))
                 .when()
@@ -61,7 +63,7 @@ public class UserGroupController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error", equalTo("Data not found."));
     }
 
     @Test(priority = 2)
@@ -72,6 +74,7 @@ public class UserGroupController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 100)
@@ -99,20 +102,20 @@ public class UserGroupController extends BaseClass {
     public void getAllWithPaginationUserGroupInvalidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
-
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .queryParam("pageNo", 0)
+                .queryParam("pageNo", -1)
                 .queryParam("pageSize", 10)
-                .queryParam("sortBy", "InvalidcountryCode")
+                .queryParam("sortBy", "countryCode")
                 .when()
                 .get(getAllWithPaginationEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Page index must not be less than zero!"));
     }
 
     @Test(priority = 3)
@@ -122,25 +125,26 @@ public class UserGroupController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"countryCode\": \"SL\",\n" +
                         "  \"groupId\": "+x+",\n" +
                         "  \"groupLimits\": [\n" +
                         "    {\n" +
-                        "      \"branchId\": 1,\n" +
+                        "      \"branchId\": 10,\n" +
                         "      \"classId\": 1,\n" +
                         "      \"functionId\": 1,\n" +
                         "      \"groupLimitId\": 1,\n" +
                         "      \"levelConfigId\": 1,\n" +
                         "      \"maxLimit\": 100,\n" +
-                        "      \"minLimit\": 15,\n" +
-                        "      \"productId\": 1\n" +
+                        "      \"minLimit\": 10,\n" +
+                        "      \"productId\": 2\n" +
                         "    }\n" +
                         "  ],\n" +
-                        "  \"groupRefId\": \"1\",\n" +
+                        "  \"groupRefId\": \"035b9a6e-59f4-4ac0-9e11-e264c86ed43d\",\n" +
                         "  \"grpBranchIds\": [\n" +
-                        "    1\n" +
+                        "    10\n" +
                         "  ]\n" +
                         "}")
                 .when()
@@ -158,8 +162,28 @@ public class UserGroupController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"update-user-group-invalid.json"))
+                .body("{\n" +
+                        "  \"countryCode\": \"SL\",\n" +
+                        "  \"groupId\": 10,\n" +
+                        "  \"groupLimits\": [\n" +
+                        "    {\n" +
+                        "      \"branchId\": 10,\n" +
+                        "      \"classId\": 1,\n" +
+                        "      \"functionId\": 1,\n" +
+                        "      \"groupLimitId\": 1,\n" +
+                        "      \"levelConfigId\": 1,\n" +
+                        "      \"maxLimit\": 100,\n" +
+                        "      \"minLimit\": 10,\n" +
+                        "      \"productId\": 2\n" +
+                        "    }\n" +
+                        "  ],\n" +
+                        "  \"groupRefId\": \"035b9a6e-59f4-4ac0-9e11-e264c86ed43d\",\n" +
+                        "  \"grpBranchIds\": [\n" +
+                        "    10\n" +
+                        "  ]\n" +
+                        "}")
                 .when()
                 .put(updateEndPoint)
                 .then()
@@ -179,6 +203,7 @@ public class UserGroupController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -192,19 +217,20 @@ public class UserGroupController extends BaseClass {
     @Test
     public void getOneUserGroupInvalidTest() throws IOException {
 
-        int Id = 0;
+        int Id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("message", equalTo("Data not found"));
 
 
     }

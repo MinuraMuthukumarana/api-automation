@@ -75,24 +75,25 @@ public class EmailController extends BaseClass {
                 .and()
                 .body("error_description", equalTo("Email must be a well-formed email address"));
     }
+
     //null value
-    @Test
-    public void createEmailInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-email-invalid2.json"))
-                .when()
-                .post(createEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Validation Error"));
-    }
+//    @Test
+//    public void createEmailInvalidTest2() throws IOException {
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", AccessTokenHolder.access_token)
+//                .header("CountryId", 1)
+//                .contentType(ContentType.JSON)
+//                .body(getGeneratedString("\\admin\\"+"create-email-invalid2.json"))
+//                .when()
+//                .post(createEndPoint)
+//                .then()
+//                .assertThat().statusCode(400)
+//                .and()
+//                .body("error", equalTo("Validation Error"));
+//    }
 
     @Test(priority = 2)
     public void getAllPaginationEmailValidTest() throws IOException{

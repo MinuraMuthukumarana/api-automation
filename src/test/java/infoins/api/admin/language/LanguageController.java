@@ -41,6 +41,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-valid.json"))
                 .when()
@@ -59,6 +60,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-invalid.json"))
                 .when()
@@ -78,6 +80,7 @@ public class LanguageController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -109,6 +112,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", -1)
                 .queryParam("pageSize", -100)
@@ -129,6 +133,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"appLanguageId\":"+x+",\n" +
@@ -149,9 +154,10 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"appLanguageId\":"+x+",\n" +
+                        "  \"appLanguageId\":50,\n" +
                         "  \"languageId\": 7\n" +
                         "}")
                 .when()
@@ -159,7 +165,7 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error", equalTo("Bad Request"));
+                .body("error_description", equalTo("Unable to find Language with id 7"));
 
     }
 
@@ -172,6 +178,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -191,6 +198,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -209,6 +217,7 @@ public class LanguageController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getBulkEndPoint)
@@ -229,6 +238,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -246,6 +256,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -263,6 +274,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-multiple-valid.json"))
                 .when()
@@ -280,6 +292,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-language-multiple-invalid.json"))
                 .when()
@@ -299,6 +312,7 @@ public class LanguageController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -334,6 +348,7 @@ public class LanguageController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .when()
                 .delete(deleteAllEndpoint, ids)
                 .then()

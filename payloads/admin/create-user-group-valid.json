@@ -1,17 +1,18 @@
 {
-  "countryCode": "AU",
+  "countryCode": "SL",
   "groupLimits": [
     {
-      "branchId": 1,
+      "branchId": 41,
       "classId": 1,
       "functionId": 1,
-      "maxLimit": 100,
-      "minLimit": 10,
-      "productId": 1
+      "levelConfigId": 1,
+      "maxLimit": 10,
+      "minLimit": 100,
+      "productId": 2
     }
   ],
-  "groupRefId": "1",
+  "groupRefId": "035b9a6e-59f4-4ac0-9e11-e264c86ed43d",
   "grpBranchIds": [
-    1
+    10
   ]
 }

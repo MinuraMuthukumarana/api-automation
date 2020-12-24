@@ -35,6 +35,7 @@ public class DateController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -67,6 +68,7 @@ public class DateController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", -1)
                 .queryParam("pageSize", -100)
@@ -88,6 +90,7 @@ public class DateController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"dateConfigId\": "+x+",\n" +
@@ -109,6 +112,7 @@ public class DateController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"modify-date-invalid1.json"))
                 .when()
@@ -119,7 +123,7 @@ public class DateController extends BaseClass {
                 .body("error_description", equalTo("ID cannot be null"));
 
     }
-    //Verify with null
+    //Verify with invalid dateConfigId
     @Test
     public void updateDateInvalidTest2() throws IOException {
         baseURL = getURL();
@@ -127,24 +131,7 @@ public class DateController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"modify-date-invalid2.json"))
-                .when()
-                .put(updateEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("ID cannot be null"));
-
-    }
-    //Verify with invalid dateConfigId
-    @Test
-    public void updateDateInvalidTest3() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"modify-date-invalid3.json"))
                 .when()
@@ -155,6 +142,24 @@ public class DateController extends BaseClass {
                 .body("message", equalTo("Data not found"));
 
     }
+    //Verify with null
+//    @Test
+//    public void updateDateInvalidTest3() throws IOException {
+//        baseURL = getURL();
+//        baseURI = baseURL;
+//        given()
+//                .header("accept", "*/*")
+//                .header("authorization", AccessTokenHolder.access_token)
+//                .contentType(ContentType.JSON)
+//                .body(getGeneratedString("\\admin\\"+"modify-date-invalid2.json"))
+//                .when()
+//                .put(updateEndPoint)
+//                .then()
+//                .assertThat().statusCode(400)
+//                .and()
+//                .body("error_description", equalTo("ID cannot be null"));
+//
+//    }
 
     @Test(priority = 3)
     public void getOneDateValidTest() throws IOException {
@@ -165,6 +170,7 @@ public class DateController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -179,12 +185,13 @@ public class DateController extends BaseClass {
     //Minus value
     @Test
     public void getOneDateInvalidTest1() throws IOException {
-        int Id = -5;
+        int Id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -203,6 +210,7 @@ public class DateController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getBulkEndPoint)

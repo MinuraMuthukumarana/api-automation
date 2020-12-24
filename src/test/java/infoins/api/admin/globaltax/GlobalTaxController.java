@@ -40,6 +40,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-global-tax-success.json"))
                 .when()
@@ -57,6 +58,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-global-tax-invalid1.json"))
                 .when()
@@ -74,6 +76,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-global-tax-invalid2.json"))
                 .when()
@@ -110,6 +113,7 @@ public class GlobalTaxController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -131,12 +135,13 @@ public class GlobalTaxController extends BaseClass {
         }
     }
     @Test
-    public void getAllPaginationGlobalTaxInvalidTest() throws IOException{
+    public void getAllWithPaginationGlobalTaxInvalidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", -1)
                 .queryParam("pageSize", -100)
@@ -157,6 +162,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"countryId\": 1,\n" +
@@ -183,6 +189,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"countryId\": 1,\n" +
@@ -209,6 +216,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"countryId\": 1,\n" +
@@ -237,6 +245,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .when()
                 .get(getOneEndpoint, id)
                 .then()
@@ -258,6 +267,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndpoint, id)
@@ -275,6 +285,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .when()
                 .delete(deleteOneEndpoint, id)
                 .then()
@@ -294,6 +305,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteOneEndpoint, id)
@@ -311,6 +323,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .when()
                 .get(getBulkEndpoint)
                 .then()
@@ -332,6 +345,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-multiple-global-tax-success.json"))
                 .when()
@@ -349,6 +363,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-multiple-global-tax-invalid1.json"))
                 .when()
@@ -366,6 +381,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-multiple-global-tax-invalid2.json"))
                 .when()
@@ -384,6 +400,7 @@ public class GlobalTaxController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -417,6 +434,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .when()
                 .delete(deleteAllEndpoint, ids)
                 .then()
@@ -435,6 +453,7 @@ public class GlobalTaxController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .when()
                 .delete(deleteAllEndpoint, ids)
                 .then()
@@ -445,4 +464,5 @@ public class GlobalTaxController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data not found"));
     }
+
 }

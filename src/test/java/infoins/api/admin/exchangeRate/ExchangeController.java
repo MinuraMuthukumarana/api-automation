@@ -28,8 +28,6 @@ public class ExchangeController extends BaseClass {
     String getAllWithPaginationEndPoint ="/exchange-rates/all/pagination";
     String getBulkEndPoint ="/exchange-rates/bulk";
 
-
-
     @Test(priority = 1)
     public void createExchangeRateValidTest() throws IOException    {
         baseURL = getURL();
@@ -37,6 +35,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body(getGeneratedString("\\admin\\"+"create-exchange-rate-valid.json"))
                 .when()
@@ -55,8 +54,9 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid1.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
@@ -73,8 +73,9 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid2.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
@@ -83,7 +84,7 @@ public class ExchangeController extends BaseClass {
                 .body("error_description", equalTo("The given id must not be null!"));
 
     }
-    ////Verify with incorrect date format
+    //Verify with incorrect date format
     @Test
     public void createExchangeRateInvalidTest3() throws IOException {
         baseURL = getURL();
@@ -91,14 +92,15 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid.json"))
+                .body(getGeneratedString("\\admin\\"+"create-exchange-rate-invalid3.json"))
                 .when()
                 .post(createEndPoint)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
-                .body("error_description", equalTo("The given id must not be null!"));
+                .body("error", equalTo("Bad request"));
 
     }
 
@@ -110,6 +112,7 @@ public class ExchangeController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -140,6 +143,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", -1)
                 .queryParam("pageSize", 10)
@@ -159,6 +163,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"branchId\": 41,\n" +
@@ -181,6 +186,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"branchId\": \"\",\n" +
@@ -204,6 +210,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"branchId\": 41,\n" +
@@ -227,6 +234,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"branchId\": 35,\n" +
@@ -250,6 +258,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"branchId\": 41,\n" +
@@ -275,6 +284,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -296,6 +306,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, Id)
@@ -314,6 +325,7 @@ public class ExchangeController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getBulkEndPoint)
