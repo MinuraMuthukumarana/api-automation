@@ -29,8 +29,9 @@ public class corporateController extends BaseClass {
     String getViewOneEndPoint="/client/corporate/view/{clientId}";
     String getViewAllEndPoint="/client/corporate/view/viewAllWithPagination";
     String deleteEndPoint = "/client/corporate/{id}";
+    String deleteAllEndPoint = "/client/corporate/all/{ids}";
 
-    //Create inactive CorporateClient  A=3, I=4
+    //Create active CorporateClient  A=3, I=4
     @Test(priority = 1)
     public void  createCorporateValidTest() throws IOException{
         baseURL = getURL();
@@ -385,7 +386,7 @@ public class corporateController extends BaseClass {
                         "  \"bankBranchId\": 1,\n" +
                         "  \"bankId\": 1,\n" +
                         "  \"cityId\": 1,\n" +
-                        "  \"clientStatusId\": 4\n" +
+                        "  \"clientStatusId\": 3\n" +
                         "}")
                 .when()
                 .put(updateEndPoint)
@@ -760,7 +761,28 @@ public class corporateController extends BaseClass {
                 .body("error_description", equalTo("Page index must not be less than zero!"));
     }
 
+    //Delete active client
     @Test(priority = 8)
+    public void deleteActiveCorporateValidTest() throws IOException{
+        int ids = x;
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(deleteAllEndPoint, ids)
+                .then()
+                .assertThat().statusCode(403)
+                .and()
+                .body("message", equalTo("Not permitted."));
+
+    }
+
+    //update client as a inactive
+    @Test(priority = 9)
     public void  updateAsAInactiveValidTest() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
@@ -827,8 +849,9 @@ public class corporateController extends BaseClass {
                 .body("message", equalTo("Data updated successfully"));
     }
 
-    @Test(priority = 9)
-    public void deleteCorporateValidTest() throws IOException{
+    //Delete inactive client
+    @Test(priority = 10)
+    public void deleteInactiveCorporateValidTest() throws IOException{
         int id = x;
         baseURL = getURL();
         baseURI = baseURL;
@@ -846,7 +869,7 @@ public class corporateController extends BaseClass {
 
     }
     @Test
-    public void deleteCorporateInvalidTest() throws IOException{
+    public void deleteInactiveCorporateInvalidTest() throws IOException{
         int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
