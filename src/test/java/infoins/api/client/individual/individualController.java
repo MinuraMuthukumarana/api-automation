@@ -34,7 +34,7 @@ public class individualController extends BaseClass {
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\client\\"+"individual-create-individual-valid.json"))
+                .body("")
                 .when()
                 .post(createEndPoint)
                 .then()
@@ -241,4 +241,5 @@ public class individualController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
+
 }

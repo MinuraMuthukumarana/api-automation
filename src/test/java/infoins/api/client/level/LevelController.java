@@ -34,6 +34,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 100)
@@ -68,6 +69,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"levelDesc\": \"LevelDesc_"+y+"\",\n" +
@@ -90,6 +92,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"levelDesc\": \"LevelDesc_1\",\n" +
@@ -111,6 +114,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"levelDesc\": \"LevelDesc_99\",\n" +
@@ -134,6 +138,7 @@ public class LevelController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -176,6 +181,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"levelDesc\": \"LevelDescUp_"+w+"\",\n" +
@@ -198,6 +204,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"levelDesc\": \"LevelDescUp_99\",\n" +
@@ -223,6 +230,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getLevelIdEndPoint, id)
@@ -241,6 +249,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getLevelIdEndPoint, id)
@@ -259,6 +268,7 @@ public class LevelController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -284,6 +294,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteLevelIdEndPoint, id)
@@ -300,6 +311,7 @@ public class LevelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteLevelIdEndPoint, id)

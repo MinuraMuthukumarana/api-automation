@@ -33,6 +33,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"chanlAbbr\": \"CA_"+randomNo+"\",\n" +
@@ -57,6 +58,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"chanlAbbr\": \"CA_4\",\n" +
@@ -80,6 +82,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"chanlAbbr\": \"CA_4\",\n" +
@@ -103,6 +106,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"chanlAbbr\": \"CA_4\",\n" +
@@ -128,6 +132,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 100)
@@ -159,6 +164,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", -1)
                 .queryParam("pageSize", -100)
@@ -182,6 +188,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"chanlAbbr\": \"CAU"+randomNo2+"\",\n" +
@@ -205,6 +212,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"chanlAbbr\": \"CAU98\",\n" +
@@ -232,6 +240,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getSalesChannelIdEndPoint, id)
@@ -250,6 +259,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getSalesChannelIdEndPoint, id)
@@ -269,6 +279,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -285,6 +296,7 @@ public class SalesChannelController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)

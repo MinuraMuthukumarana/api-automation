@@ -42,16 +42,16 @@ public class BaseClass {
         }
     }
     //Admin Service
-    @BeforeClass
-    public void setUpAdmin() throws IOException {
-        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-    }
+//    @BeforeClass
+//    public void setUpAdmin() throws IOException {
+//        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+//    }
 
     //Umbrella Service
-//    @BeforeClass
-//    public void setUpUmbrella() throws IOException {
-//        getBearerToken("umbrella-service","f9d8762e-6629-46d5-920b-676784c54067");
-//    }
+    @BeforeClass
+    public void setUpUmbrella() throws IOException {
+        getBearerToken("umbrella-service","f9d8762e-6629-46d5-920b-676784c54067");
+    }
 
     //ProductBuilder Service
 //    @BeforeClass

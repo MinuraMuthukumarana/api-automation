@@ -34,6 +34,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 //SalesChannelId 2,3,5 //LeveId 1,7,41
                 .body("{\n" +
@@ -74,6 +75,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 //SalesChannelId 2 //LeveId 1
                 .body("{\n" +
@@ -114,6 +116,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 //SalesChannelId 2 //LeveId 7
                 .body("{\n" +
@@ -156,6 +159,7 @@ public class CommissionStructureController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -188,6 +192,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"commStrucDtls\": [\n" +
@@ -225,6 +230,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
                         "  \"commStrucDtls\": [\n" +
@@ -266,6 +272,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewOneEndPoint, id)
@@ -284,6 +291,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewOneEndPoint, id)
@@ -304,6 +312,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewHistoryEndPoint,commStrucId)
@@ -323,6 +332,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewHistoryEndPoint, commStrucId)
@@ -342,6 +352,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getCommStrucIdEndPoint, commStrucId)
@@ -361,6 +372,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getCommStrucIdEndPoint, commStrucId)
@@ -379,6 +391,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getViewAllEndPoint)
@@ -400,6 +413,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", 0)
                 .queryParam("pageSize", 100)
@@ -421,6 +435,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .queryParam("pageNo", -1)
                 .queryParam("pageSize", 100)
@@ -442,6 +457,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
@@ -458,6 +474,7 @@ public class CommissionStructureController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
