@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name = "Regression">
 
-    <test name = "SalesForce">
+    <test name = "SalesForceModule">
         <classes>
             <class name ="infoins.api.client.level.LevelController"/>
             <class name ="infoins.api.client.salesChannel.SalesChannelController"/>
