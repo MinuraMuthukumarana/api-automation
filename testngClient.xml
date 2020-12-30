@@ -5,7 +5,9 @@
     <test name = "ClientModule">
         <classes>
             <class name ="infoins.api.client.individual.individualController"/>
-
+            <class name ="infoins.api.client.corporate.corporateController"/>
+            <class name ="infoins.api.client.joint.jointController"/>
+            <class name ="infoins.api.client.blackListed.blackListedController"/>
 
         </classes>
     </test>
