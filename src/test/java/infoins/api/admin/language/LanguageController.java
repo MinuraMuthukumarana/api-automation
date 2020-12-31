@@ -157,7 +157,7 @@ public class LanguageController extends BaseClass {
                 .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"appLanguageId\":50,\n" +
+                        "  \"appLanguageId\":162,\n" +
                         "  \"languageId\": 7\n" +
                         "}")
                 .when()
@@ -282,7 +282,7 @@ public class LanguageController extends BaseClass {
                 .then()
                 .assertThat().statusCode(201)
                 .and()
-                .body("message", equalTo("Reference Ids 4,5 saved successfully."));
+                .body("message", equalTo("Reference Ids 4,6 saved successfully."));
 
     }
     @Test
