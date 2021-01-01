@@ -32,6 +32,7 @@ public class UserAdditionalInfoController  extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getAllInfoEndPoint, Id)
@@ -42,13 +43,13 @@ public class UserAdditionalInfoController  extends BaseClass {
 
     @Test(priority = 2)
     public void deleteUserAdditionalValidTest() throws IOException{
-
         int Id = 3;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(getAllInfoEndPoint, Id)
@@ -60,12 +61,13 @@ public class UserAdditionalInfoController  extends BaseClass {
     }
     @Test
     public void deleteUserAdditionalInvalidTest() throws IOException {
-        String id = "0";
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .delete(deleteEndPoint, id)
