@@ -1,4 +1,4 @@
-package infoins.api.test.language.reference;
+package infoins.api.remove.reference;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;

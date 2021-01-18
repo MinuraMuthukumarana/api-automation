@@ -2,10 +2,12 @@ package infoins;
 
 import org.testng.annotations.BeforeClass;
 
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.Properties;
 
 
@@ -41,28 +43,27 @@ public class BaseClass {
             AccessTokenHolder.access_token = securityHandler.obtainAccessToken(clientId,secret);
         }
     }
+    public static String getGeneratedString(String file) throws IOException {
+        String filePath = System.getProperty("user.dir") + "\\payloads\\" + file;
+        return new String(Files.readAllBytes(Paths.get(filePath)));
+    }
+
     //Admin Service
-//    @BeforeClass
-//    public void setUpAdmin() throws IOException {
-//        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
-//    }
+    @BeforeClass
+    public void setUpAdmin() throws IOException {
+        getBearerToken("admin-service","a7eb9158-9fa3-4e00-8958-6e4660154027");
+    }
 
     //Umbrella Service
-    @BeforeClass
-    public void setUpUmbrella() throws IOException {
-        getBearerToken("umbrella-service","f9d8762e-6629-46d5-920b-676784c54067");
-    }
+//    @BeforeClass
+//    public void setUpUmbrella() throws IOException {
+//        getBearerToken("umbrella-service","f9d8762e-6629-46d5-920b-676784c54067");
+//    }
 
     //ProductBuilder Service
 //    @BeforeClass
 //    public void setUpProductBuilder() throws IOException {
 //        getBearerToken("product-builder","5d55b498-67f4-4a2b-87dc-3adb82ca93a4");
 //    }
-
-
-    public static String getGeneratedString(String file) throws IOException {
-        String filePath = System.getProperty("user.dir") + "\\payloads\\" + file;
-        return new String(Files.readAllBytes(Paths.get(filePath)));
-    }
 
 }

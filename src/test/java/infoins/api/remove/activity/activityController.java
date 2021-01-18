@@ -1,4 +1,4 @@
-package infoins.api.test.language.activity;
+package infoins.api.remove.activity;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;

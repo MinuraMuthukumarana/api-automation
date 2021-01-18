@@ -1,4 +1,4 @@
-package infoins.api.test.language.dateService;
+package infoins.api.remove.dateService;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;

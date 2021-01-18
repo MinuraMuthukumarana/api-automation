@@ -1,4 +1,4 @@
-package infoins.api.test.language.genericRest;
+package infoins.api.remove.genericRest;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
