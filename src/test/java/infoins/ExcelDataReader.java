@@ -14,7 +14,6 @@ public class ExcelDataReader {
         ArrayList<Object[]> apiData = new ArrayList<>();
 
         String projectPath = System.getProperty("user.dir");
-        //Workbook workbook = new XSSFWorkbook(projectPath +filepath);
         Workbook workbook = new XSSFWorkbook(projectPath +"\\Excel\\"+filepath);
         Sheet firstSheet = workbook.getSheetAt(sheetNumber);
 
@@ -30,6 +29,11 @@ public class ExcelDataReader {
             if(sheetNumber == 0) {
                 Object ob[] = {(int)StatusCodeCell.getNumericCellValue(), SchemaCell.getStringCellValue(),ValidationMessageCell.getStringCellValue(),};
                 apiData.add(ob);
+            }
+            else{
+                Object ob[] = {(int)StatusCodeCell.getNumericCellValue(), SchemaCell.getStringCellValue(),ValidationMessageCell.getStringCellValue(),};
+                apiData.add(ob);
+
             }
 
         }

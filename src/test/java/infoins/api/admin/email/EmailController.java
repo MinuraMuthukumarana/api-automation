@@ -2,12 +2,17 @@ package infoins.api.admin.email;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
+import infoins.ExcelDataReader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import static io.restassured.RestAssured.baseURI;
@@ -57,43 +62,6 @@ public class EmailController extends BaseClass {
                 .body("message", equalTo("Data added successfully"));
 
     }
-    //Incorrect email format
-    @Test
-    public void createEmailInvalidTest1() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-email-invalid1.json"))
-                .when()
-                .post(createEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Email must be a well-formed email address"));
-    }
-
-    //null value
-//    @Test
-//    public void createEmailInvalidTest2() throws IOException {
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        given()
-//                .header("accept", "*/*")
-//                .header("authorization", AccessTokenHolder.access_token)
-//                .header("CountryId", 1)
-//                .contentType(ContentType.JSON)
-//                .body(getGeneratedString("\\admin\\"+"create-email-invalid2.json"))
-//                .when()
-//                .post(createEndPoint)
-//                .then()
-//                .assertThat().statusCode(400)
-//                .and()
-//                .body("error", equalTo("Validation Error"));
-//    }
 
     @Test(priority = 2)
     public void getAllPaginationEmailValidTest() throws IOException{
@@ -198,31 +166,6 @@ public class EmailController extends BaseClass {
                 .assertThat().statusCode(400)
                 .and()
                 .body("message", equalTo("Data not found"));
-    }
-    //Incorrect email format
-    @Test
-    public void modifyEmailInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"appEmailConfId\": "+x+",\n" +
-                        "  \"emlTmpltId\": 1,\n" +
-                        "  \"isAutoBccToRtnEml\": true,\n" +
-                        "  \"nameAppear\": \"Andrew Update\",\n" +
-                        "  \"outEmlSignature\": \"Andrew signature update\",\n" +
-                        "  \"rtnEmlAdrs\": \"andrew.updategmail.com\"\n" +
-                        "}")
-                .when()
-                .put(modifyEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Email must be a well-formed email address"));
     }
 
     @Test(priority = 4)
@@ -425,4 +368,61 @@ public class EmailController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data not found"));
     }
+
+    //Invalid scenarios for CreateEmail
+    @DataProvider(name = "createEmailInvalidTest")
+    @Parameters({"EmailController"})
+    public Iterator<Object[]> getEmailCreateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("EmailController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(0,"\\AdminExcel\\EmailController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "createEmailInvalidTest")
+    public void CreateEmailControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .post(createEndPoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
+    }
+
+    //Invalid scenarios for UpdateEmail
+    @DataProvider(name = "UpdateEmailInvalidTest")
+    @Parameters({"EmailController"})
+    public Iterator<Object[]> getEmailUpdateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("EmailController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(1,"\\AdminExcel\\EmailController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "UpdateEmailInvalidTest")
+    public void UpdateEmailControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .put(modifyEndPoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
+    }
+
 }
