@@ -2,12 +2,17 @@ package infoins.api.admin.globaltax;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
+import infoins.ExcelDataReader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import static io.restassured.RestAssured.baseURI;
@@ -50,60 +55,6 @@ public class GlobalTaxController extends BaseClass {
                 .and()
                 .body("message", equalTo("Data added successfully"));
     }
-    //StartDate grater than EndDate
-    @Test
-    public void createGlobalTaxInvalidTest1() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-global-tax-invalid1.json"))
-                .when()
-                .post(createGlobalTaxEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Start Date cannot be greater than End Date"));
-    }
-    //TaxAmount and TaxRate
-    @Test
-    public void createGlobalTaxInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-global-tax-invalid2.json"))
-                .when()
-                .post(createGlobalTaxEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Please enter either Tax Percentage or Tax Rate"));
-    }
-
-//    //Invalid Date format
-//    @Test
-//    public void createGlobalTaxInvalidTest3() throws IOException {
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        given()
-//                .header("accept", "*/*")
-//                .header("authorization", AccessTokenHolder.access_token)
-//                .contentType(ContentType.JSON)
-//                .body(getGeneratedString("\\admin\\"+"create-global-tax-invalid3.json"))
-//                .when()
-//                .post(createGlobalTaxEndpoint)
-//                .then()
-//                .assertThat().statusCode(400)
-//                .and()
-//                .body("error", equalTo("Bad Request"));
-//    }
 
     @Test(priority = 2)
     public void getAllWithPaginationGlobalTaxValidTest() throws IOException{
@@ -180,60 +131,6 @@ public class GlobalTaxController extends BaseClass {
                 .assertThat().statusCode(200)
                 .and()
                 .body("message", equalTo("Data updated successfully"));
-    }
-    //StartDate grater than EndDate
-    @Test
-    public void modifyGlobalTaxInvalidTest1() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"countryId\": 1,\n" +
-                        "  \"endDate\": \"2021-10-25\",\n" +
-                        "  \"globalTaxId\": "+x+",\n" +
-                        "  \"isSpecial\": true,\n" +
-                        "  \"stDate\": \"2021-12-14\",\n" +
-                        "  \"taxAmount\": 2,\n" +
-                        "  \"taxRate\": 0,\n" +
-                        "  \"taxTypeId\": 1\n" +
-                        "}")
-                .when()
-                .put(modifyGlobalTaxEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Start Date cannot be greater than End Date"));
-    }
-    //TaxAmount and TaxRate
-    @Test
-    public void modifyGlobalTaxInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"countryId\": 1,\n" +
-                        "  \"endDate\": \"2021-10-25\",\n" +
-                        "  \"globalTaxId\": "+x+",\n" +
-                        "  \"isSpecial\": true,\n" +
-                        "  \"stDate\": \"2021-10-14\",\n" +
-                        "  \"taxAmount\": 25,\n" +
-                        "  \"taxRate\": 35,\n" +
-                        "  \"taxTypeId\": 1\n" +
-                        "}")
-                .when()
-                .put(modifyGlobalTaxEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Please enter either Tax Percentage or Tax Rate"));
     }
 
     @Test(priority = 4)
@@ -463,6 +360,62 @@ public class GlobalTaxController extends BaseClass {
                 .contentType(ContentType.JSON)
                 .and()
                 .body("message", equalTo("Data not found"));
+    }
+
+    //Invalid scenarios for CreateGlobalTax
+    @DataProvider(name = "createGlobalTaxInvalidTest")
+    @Parameters({"GlobalTaxController"})
+    public Iterator<Object[]> getGlobalTaxCreateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("GlobalTaxController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(0,"\\AdminExcel\\GlobalTaxController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "createGlobalTaxInvalidTest")
+    public void CreateGlobalTaxControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .post(createGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
+    }
+
+    //Invalid scenarios for UpdateGlobalTax
+    @DataProvider(name = "updateGlobalTaxInvalidTest")
+    @Parameters({"GlobalTaxController"})
+    public Iterator<Object[]> getGlobalTaxUpdateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("GlobalTaxController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(1,"\\AdminExcel\\GlobalTaxController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "updateGlobalTaxInvalidTest")
+    public void UpdateGlobalTaxControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .put(modifyGlobalTaxEndpoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
     }
 
 }
