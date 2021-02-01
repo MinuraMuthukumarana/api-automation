@@ -1,4 +1,4 @@
-package infoins.api.admin.date;
+package infoins.api.TestDemoAPI.DemoTestRemoved;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
@@ -6,7 +6,6 @@ import infoins.ExcelDataReader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.ITestContext;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -18,6 +17,7 @@ import java.util.List;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+
 /**
  * @author : Minura Muthukumarana
  *  * @date : September 18, 2020
@@ -65,27 +65,6 @@ public class DateController extends BaseClass {
             System.out.print(i);
         }
   }
-    //Verify with Minus Value
-    @Test
-    public void getAllPaginationDateInvalidTest() throws IOException{
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .queryParam("pageNo", -1)
-                .queryParam("pageSize", -100)
-                .queryParam("sortBy", "dateConfigId")
-                .when()
-                .get(getAllWithPaginationEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Page index must not be less than zero!"));
-
-    }
 
     @Test(priority = 2)
     public void updateDateValidTest() throws IOException{
@@ -197,6 +176,5 @@ public class DateController extends BaseClass {
                 .and()
                 .body("error_description", equalTo(message));
     }
-
 
 }
