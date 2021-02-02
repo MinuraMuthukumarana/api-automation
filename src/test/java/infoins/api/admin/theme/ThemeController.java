@@ -2,12 +2,17 @@ package infoins.api.admin.theme;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
+import infoins.ExcelDataReader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import static io.restassured.RestAssured.baseURI;
@@ -31,7 +36,6 @@ public class ThemeController extends BaseClass {
     String getAllPaginationEndPoint = "/app-themes/all/pagination";
     String deleteOneEndpoint = "/app-themes/{id}";
     String createMultipleThemeEndpoint = "/app-themes/multiple";
-    String createThemesEndpoint = "/app-themes";
     String getAllConfigThemesWithChildren="/app-themes/config-theme/all/children";
     String getAllConfigThemeParents="/app-themes/config-theme/all/parent";
     String getOneConfigThemeWithChildren="/app-themes/config-theme/{id}/children";
@@ -55,42 +59,6 @@ public class ThemeController extends BaseClass {
                 .assertThat().statusCode(201)
                 .and()
                 .body("message",equalTo("Data added successfully"));
-    }
-    //Verify with null
-    @Test
-    public void createThemeConfigInvalidTest1() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept","*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-theme-invalid1.json"))
-                .when()
-                .post(createThemesEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description",equalTo("The given id must not be null!"));
-    }
-    //Verify with Start Date can be greater than End Date
-    @Test
-    public void createThemeConfigInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept","*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-theme-invalid2.json"))
-                .when()
-                .post(createThemesEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description",equalTo("Start Date cannot be greater than End Date"));
     }
 
     @Test(priority = 2)
@@ -129,7 +97,6 @@ public class ThemeController extends BaseClass {
     @Test(priority = 3)
     public void modifyThemeValidTest() throws IOException {
         baseURL = getURL();
-        String modifyThemeEndpoint = "/app-themes";
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
@@ -148,29 +115,6 @@ public class ThemeController extends BaseClass {
                 .assertThat().statusCode(200)
                 .and()
                 .body("message",equalTo("Data updated successfully"));
-    }
-    //Verify with Start Date can be greater than End Date
-    @Test
-    public void modifyThemeInvalidTheme() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept","*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"appThemeId\": "+x+",\n" +
-                        "  \"endDate\": \"2020-10-31\",\n" +
-                        "  \"stDate\": \"2020-12-01\",\n" +
-                        "  \"themeId\": 1\n" +
-                        "}")
-                .when()
-                .put(modifyThemeEndpoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description",equalTo("Start Date cannot be greater than End Date"));
     }
 
     @Test(priority = 4)
@@ -467,5 +411,60 @@ public class ThemeController extends BaseClass {
                 .body("message", equalTo("Ids "+w+","+y+","+z+" deleted successfully."));
     }
 
+    //Invalid scenarios for CreateTheme
+    @DataProvider(name = "CreateThemeInvalidTest")
+    @Parameters({"ThemeController"})
+    public Iterator<Object[]> getThemeCreateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("ThemeController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(0,"\\AdminExcel\\ThemeController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "CreateThemeInvalidTest")
+    public void CreateEmailControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .post(createThemeEndpoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
+    }
+
+    //Invalid scenarios for UpdateTheme
+    @DataProvider(name = "UpdateThemeInvalidTest")
+    @Parameters({"ThemeController"})
+    public Iterator<Object[]> getThemeUpdateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("EmailController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(1,"\\AdminExcel\\ThemeController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "UpdateThemeInvalidTest")
+    public void UpdateEmailControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .put(modifyThemeEndpoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
+    }
 
 }

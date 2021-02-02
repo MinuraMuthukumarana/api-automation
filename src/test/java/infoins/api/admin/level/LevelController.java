@@ -22,25 +22,68 @@ import static org.hamcrest.Matchers.*;
  *  */
 
 public class LevelController extends BaseClass {
-    private int x;
+    private int x,z,w;
     String baseURL;
     String createLevelConfigEndpoint = "/level-configs";
     String getAllPaginationEndPoint = "/level-configs/all/pagination";
     String getLevelConfigEndpoint = "/level-configs/{id}";
     String deleteLevelConfigEndpoint = "/level-configs/{id}";
-    String getBulkLevelConfigEndpoint = "/level-configs/bulk";
-
-
 
     @Test (priority = 1)
-    public void createLevelConfig() throws IOException {
+    public void getLastCreatedLevelNo() throws IOException{
+        baseURL = getURL();
+        baseURI = baseURL;
+        Response response =
+                given()
+                        .header("accept", "*/*")
+                        .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
+                        .contentType(ContentType.JSON)
+                        .queryParam("pageNo", 0)
+                        .queryParam("pageSize", 100)
+                        .queryParam("sortBy", "levelNo")
+                        .when()
+                        .get(getAllPaginationEndPoint)
+                        .then()
+                        .assertThat().statusCode(200)
+                        .and().extract().response();
+
+        String jsonStr = response.getBody().asString();
+        System.out.println("Data List: " + jsonStr);
+
+        int size = response.jsonPath().getList("data.levelNo").size();
+        System.out.println("Data Size: " + size);
+
+        List<Integer> ids = response.jsonPath().getList("data.levelNo");
+        x= ids.get(size-1);
+        System.out.println("Last index:" +x);
+        for (Integer i : ids) {
+            System.out.print(i);
+        }
+    }
+
+    @Test (priority = 2)
+    public void createLevelConfigValidTest() throws IOException {
+        int y =x+1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-level-success.json"))
+                .body("{\n" +
+                        "  \"isCurrency\": true,\n" +
+                        "  \"isFiscalYear\": true,\n" +
+                        "  \"isLanguage\": true,\n" +
+                        "  \"isLocationSetup\": true,\n" +
+                        "  \"isLogo\": true,\n" +
+                        "  \"isParent\": true,\n" +
+                        "  \"isTax\": true,\n" +
+                        "  \"isUpr\": true,\n" +
+                        "  \"levelCode\": \"L"+y+"\",\n" +
+                        "  \"levelDesc\": \"LevelDesc_"+y+"\",\n" +
+                        "  \"levelName\": \"LevelName_"+y+"\"\n" +
+                        "}")
                 .when()
                 .post(createLevelConfigEndpoint)
                 .then()
@@ -50,7 +93,8 @@ public class LevelController extends BaseClass {
                 .body("message",equalTo("Data added successfully"));
     }
 
-    @Test (priority = 2)
+    //Get last created levelConfigId and LevelNo
+    @Test (priority = 3)
     public void getAllWithPagination() throws IOException{
         baseURL = getURL();
         baseURI = baseURL;
@@ -58,6 +102,7 @@ public class LevelController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .queryParam("pageNo", 0)
                         .queryParam("pageSize", 100)
@@ -71,19 +116,29 @@ public class LevelController extends BaseClass {
         String jsonStr = response.getBody().asString();
         System.out.println("Data List: " + jsonStr);
 
-        int size = response.jsonPath().getList("data.levelConfigId").size();
-        System.out.println("Data Size: " + size);
-
+        //Get Last created LevelConfigId
+        int size1 = response.jsonPath().getList("data.levelConfigId").size();
+        System.out.println("Data Size: " + size1);
         List<Integer> ids = response.jsonPath().getList("data.levelConfigId");
-        x= ids.get(size-1);
-        System.out.println("Last index:" +x);
+        z= ids.get(size1-1);
+        System.out.println("Last levelConfigId index:" +z);
         for (Integer i : ids) {
+            System.out.print(i);
+        }
+
+        //Get Last created LevelNo
+        int size2 = response.jsonPath().getList("data.levelNo").size();
+        System.out.println("Data Size: " + size2);
+        List<Integer> ids2 = response.jsonPath().getList("data.levelNo");
+        w= ids2.get(size2-1);
+        System.out.println("Last levelNo index:" +w);
+        for (Integer i : ids2) {
             System.out.print(i);
         }
     }
 
-    @Test(priority = 3)
-    public void modifyLevelConfig() throws IOException {
+    @Test(priority = 4)
+    public void modifyLevelConfigValidTest() throws IOException {
         baseURL = getURL();
         String createLevelConfigEndpoint = "/level-configs";
         baseURI = baseURL;
@@ -92,18 +147,18 @@ public class LevelController extends BaseClass {
                 .header("authorization", AccessTokenHolder.access_token)
                 .contentType(ContentType.JSON)
                 .body("{\n" +
-                        "  \"isCurrency\": \"Y\",\n" +
-                        "  \"isFiscalYear\": \"Y\",\n" +
-                        "  \"isLanguage\": \"Y\",\n" +
-                        "  \"isLocationSetup\": \"Y\",\n" +
-                        "  \"isLogo\": \"Y\",\n" +
-                        "  \"isParent\": \"Y\",\n" +
-                        "  \"isTax\": \"Y\",\n" +
-                        "  \"isUpr\": \"Y\",\n" +
-                        "  \"levelCode\": \"L01\",\n" +
-                        "  \"levelConfigId\" :"+x+",\n" +
-                        "  \"levelDesc\": \"Level Desc Update\",\n" +
-                        "  \"levelName\": \"Level Name Update\"\n" +
+                        "  \"isCurrency\": true,\n" +
+                        "  \"isFiscalYear\": true,\n" +
+                        "  \"isLanguage\": true,\n" +
+                        "  \"isLocationSetup\": true,\n" +
+                        "  \"isLogo\": true,\n" +
+                        "  \"isParent\": true,\n" +
+                        "  \"isTax\": true,\n" +
+                        "  \"isUpr\": true,\n" +
+                        "  \"levelCode\": \"LevelCodeUp_"+w+"\",\n" +
+                        "  \"levelConfigId\": "+z+",\n" +
+                        "  \"levelDesc\": \"LevelDescUp_"+w+"\",\n" +
+                        "  \"levelName\": \"LevelName_"+w+"\"\n" +
                         "}")
                 .when()
                 .put(createLevelConfigEndpoint)
@@ -113,28 +168,10 @@ public class LevelController extends BaseClass {
                 .and()
                 .body("message",equalTo("Data updated successfully"));
     }
-    @Test
-    public void modifyInvalidLevelConfig() throws IOException {
-        baseURL = getURL();
-        String createLevelConfigEndpoint = "/level-configs";
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"create-level-invalid.json"))
-                .when()
-                .put(createLevelConfigEndpoint)
-                .then()
-                .assertThat()
-                .statusCode(400)
-                .and()
-                .body("message",equalTo("Bad Request"));
-    }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void getOneLevelConfig() throws IOException {
-        int levelId = x;
+        int levelConfigId = z;
         baseURL = getURL();
         baseURI = baseURL;
 
@@ -143,7 +180,7 @@ public class LevelController extends BaseClass {
                 .header("accept","*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .when()
-                .get(getLevelConfigEndpoint,levelId)
+                .get(getLevelConfigEndpoint,levelConfigId)
                 .then()
                 .assertThat()
                 .statusCode(200)
@@ -153,36 +190,16 @@ public class LevelController extends BaseClass {
         System.out.println("Data response: " + jsonStr);
     }
 
-    @Test (priority = 5)
-    public void getBulkLevelConfigs() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        Response response =
-        given()
-                .header("accept","*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .when()
-                .get(getBulkLevelConfigEndpoint)
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .and().extract().response();
-
-        String jsonStr = response.getBody().asString();
-        System.out.println("Data Bulk: " + jsonStr);
-
-    }
-
     @Test(priority = 6)
     public void deleteLevelConfig() throws IOException {
-        int levelId = x;
+        int levelConfigId = z;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept","*/*")
                 .header("authorization", AccessTokenHolder.access_token)
                 .when()
-                .delete(deleteLevelConfigEndpoint,levelId)
+                .delete(deleteLevelConfigEndpoint,levelConfigId)
                 .then()
                 .assertThat()
                 .statusCode(200)
