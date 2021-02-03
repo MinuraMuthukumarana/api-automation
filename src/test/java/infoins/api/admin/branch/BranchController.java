@@ -40,6 +40,9 @@ BranchController extends BaseClass {
     String getChangeActiveStatusEndPoint="/branches/changeActiveStatus/{branchId}";
     String deleteBranchEndPoint = "/branches/{branchId}";
     String getBranchIdWithPagination= "/branches/allBrachLevel/{branchId}/{pageNo}/{pageSize}";
+    /*  *
+    *   * Don't delete branchId 11,12,13,14,15
+    *  */
 
     @Test(priority = 1)
     public void createBranchValidTest() throws IOException {
