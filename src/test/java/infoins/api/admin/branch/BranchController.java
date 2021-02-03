@@ -2,12 +2,17 @@ package infoins.api.admin.branch;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
+import infoins.ExcelDataReader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -33,11 +38,8 @@ BranchController extends BaseClass {
     String getOneEndPoint = "/branches/{id}";
     String getCountryByBranchIdEndPoint ="/branches/branchId/{branchId}";
     String getChangeActiveStatusEndPoint="/branches/changeActiveStatus/{branchId}";
-    String getAllBranchMappersEndPoint = "/branches/getAllBranchMappers";
     String deleteBranchEndPoint = "/branches/{branchId}";
     String getBranchIdWithPagination= "/branches/allBrachLevel/{branchId}/{pageNo}/{pageSize}";
-
-
 
     @Test(priority = 1)
     public void createBranchValidTest() throws IOException {
@@ -110,63 +112,6 @@ BranchController extends BaseClass {
                 .assertThat().statusCode(201)
                 .and()
                 .body("message", equalTo("Data added successfully"));
-
-    }
-    //Invalid EmailType
-    @Test
-    public void createBranchInvalidTest1() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"add-new-branch-invalid1.json"))
-                .when()
-                .post(addNewBranchEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Email validation Error"));
-
-    }
-    //Invalid ContactType
-    @Test
-    public void createBranchInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"add-new-branch-invalid2.json"))
-                .when()
-                .post(addNewBranchEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Contact Type Validation Error"));
-
-    }
-    //Used BranchCode
-    @Test
-    public void createBranchInvalidTest3() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"add-new-branch-invalid3.json"))
-                .when()
-                .post(addNewBranchEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Branch_code('MAL') is already exist"));
 
     }
 
@@ -301,63 +246,6 @@ BranchController extends BaseClass {
                 .body("message", equalTo("Data updated successfully"));
 
     }
-    //Invalid EmailType
-    @Test
-    public void updateBranchInvalidTest1() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"update-branch-invalid1.json"))
-                .when()
-                .put(updateBranchEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Email validation Error"));
-
-    }
-    //Invalid ContactType
-    @Test
-    public void updateBranchInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"update-branch-invalid2.json"))
-                .when()
-                .put(updateBranchEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error_description", equalTo("Contact Type Validation Error"));
-
-    }
-    //Already used branchCode
-    @Test
-    public void updateBranchInvalidTest3() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body(getGeneratedString("\\admin\\"+"update-branch-invalid3.json"))
-                .when()
-                .put(updateBranchEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .and()
-                .body("error", equalTo("Bad Request"));
-
-    }
 
     @Test(priority = 4)
     public void getOneValidTest() throws IOException {
@@ -368,6 +256,7 @@ BranchController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getOneEndPoint, id)
@@ -387,6 +276,7 @@ BranchController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -404,6 +294,7 @@ BranchController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getOneEndPoint, id)
@@ -422,6 +313,7 @@ BranchController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .when()
                         .get(getCountryByBranchIdEndPoint, branchId)
@@ -441,6 +333,7 @@ BranchController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getCountryByBranchIdEndPoint, branchId)
@@ -458,6 +351,7 @@ BranchController extends BaseClass {
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
                 .get(getCountryByBranchIdEndPoint, branchId)
@@ -469,42 +363,22 @@ BranchController extends BaseClass {
 
     @Test(priority = 6)
     public void getChangeActiveStatusValidTest() throws IOException {
-        int id = x;
+        int branchId = x;
         baseURL = getURL();
         baseURI = baseURL;
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
                         .when()
-                        .get(getChangeActiveStatusEndPoint, id)
+                        .get(getChangeActiveStatusEndPoint, branchId)
                         .then()
                         .assertThat().statusCode(200)
                         .and()
                         .body("message", equalTo("Data updated successfully"));
 
     }
-
-    //Removed
-//    @Test(priority = 7)
-//    public void getAllBranchMappersValidTest() throws IOException {
-//        baseURL = getURL();
-//        baseURI = baseURL;
-//        Response response=
-//        given()
-//                .header("accept", "*/*")
-//                .header("authorization", AccessTokenHolder.access_token)
-//                .contentType(ContentType.JSON)
-//                .when()
-//                .get(getAllBranchMappersEndPoint)
-//                .then()
-//                .assertThat().statusCode(200)
-//                .and().extract().response();
-//
-//        String jsonStr = response.getBody().asString();
-//        System.out.println("getAllBranchMappers Data List: " + jsonStr);
-//
-//    }
 
     @Test(priority = 7)
     public void getBranchIdWithPaginationBranchValidTest() throws IOException {
@@ -518,10 +392,8 @@ BranchController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        .header("CountryId", 1)
                         .contentType(ContentType.JSON)
-                        .queryParam("pageNo", 0)
-                        .queryParam("pageSize", 100)
-                        .queryParam("sortBy", "branchId")
                         .when()
                         .get(getBranchIdWithPagination,branchId,pageNo,pageSize)
                         .then()
@@ -531,9 +403,9 @@ BranchController extends BaseClass {
         String jsonStr = response.getBody().asString();
         System.out.println("BranchIdWithPagination Data List: " + jsonStr);
     }
-    @Test(priority = 7)
+    @Test
     public void getBranchIdWithPaginationBranchInValidTest() throws IOException {
-        int branchId = x;
+        int branchId = 5;
         int pageNo = -1;
         int pageSize = 100;
 
@@ -542,10 +414,8 @@ BranchController extends BaseClass {
                 given()
                         .header("accept", "*/*")
                         .header("authorization", AccessTokenHolder.access_token)
+                        //.header("CountryId", 1)
                         .contentType(ContentType.JSON)
-                        .queryParam("pageNo", 0)
-                        .queryParam("pageSize", 100)
-                        .queryParam("sortBy", "branchId")
                         .when()
                         .get(getBranchIdWithPagination,branchId,pageNo,pageSize)
                         .then()
@@ -556,15 +426,16 @@ BranchController extends BaseClass {
 
     @Test(priority = 8)
     public void deleteBranchValidTest() throws IOException {
-        int branchId = x;
+        int id = x;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
-                .delete(deleteBranchEndPoint, branchId)
+                .delete(deleteBranchEndPoint, id)
                 .then()
                 .assertThat().statusCode(200)
                 .and()
@@ -573,20 +444,77 @@ BranchController extends BaseClass {
     }
     @Test
     public void deleteBranchInvalidTest() throws IOException {
-        int branchId = -1;
+        int id = -1;
         baseURL = getURL();
         baseURI = baseURL;
         given()
                 .header("accept", "*/*")
                 .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
                 .contentType(ContentType.JSON)
                 .when()
-                .delete(deleteBranchEndPoint, branchId)
+                .delete(deleteBranchEndPoint, id)
                 .then()
                 .assertThat().statusCode(400)
                 .and()
                 .body("message", equalTo("Data not found"));
 
+    }
+
+    //Invalid scenarios for CreateBranch
+    @DataProvider(name = "CreateBranchInvalidTest")
+    @Parameters({"BranchController"})
+    public Iterator<Object[]> getBranchCreateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("BranchController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(0,"\\AdminExcel\\BranchController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "CreateBranchInvalidTest")
+    public void CreateBranchControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .post(addNewBranchEndPoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
+    }
+
+    //Invalid scenarios for UpdateBranch
+    @DataProvider(name = "UpdateBranchInvalidTest")
+    @Parameters({"BranchController"})
+    public Iterator<Object[]> getBranchUpdateTestData(ITestContext context) throws IOException {
+
+        String dataFile = context.getCurrentXmlTest().getParameter("BranchController");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(1,"\\AdminExcel\\BranchController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "UpdateBranchInvalidTest")
+    public void UpdateBranchControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .put(updateBranchEndPoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
     }
 
 }
