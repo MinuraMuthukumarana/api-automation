@@ -17,7 +17,6 @@
             <class name="infoins.api.admin.userGroup.UserGroupController"/>
 
             <class name="infoins.api.admin.user.UserController"/>
-            <class name="infoins.api.admin.userAdditionalInfo.UserAdditionalInfoController"/>
             <class name="infoins.api.admin.userProfile.UserProfileController"/>
         </classes>
     </test>

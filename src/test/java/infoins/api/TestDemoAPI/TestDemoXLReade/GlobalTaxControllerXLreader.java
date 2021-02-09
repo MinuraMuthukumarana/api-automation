@@ -26,7 +26,7 @@ public class GlobalTaxControllerXLreader extends BaseClass {
     public Iterator<Object[]> getApiTestData(ITestContext context) throws IOException {
 
         String dataFile = context.getCurrentXmlTest().getParameter("filePath");
-        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(0, "\\ADMIN_APIDataFile.xlsx");
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(0, "\\Test_APIDataFile.xlsx");
         return iterator;
     }
 

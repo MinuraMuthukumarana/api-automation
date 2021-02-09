@@ -1,9 +1,8 @@
-package infoins.api.admin.userAdditionalInfo;
+package infoins.api.remove.userAdditionalInfo;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
 import io.restassured.http.ContentType;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
