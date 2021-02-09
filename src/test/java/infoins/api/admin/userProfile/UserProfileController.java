@@ -2,12 +2,17 @@ package infoins.api.admin.userProfile;
 
 import infoins.AccessTokenHolder;
 import infoins.BaseClass;
+import infoins.ExcelDataReader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Random;
 
 import static io.restassured.RestAssured.baseURI;
@@ -54,60 +59,6 @@ public class UserProfileController extends BaseClass {
                 .body("message", equalTo("Data updated successfully"));
 
     }
-    //Verify invalid email
-    @Test
-    public void modifyUserProfileInvalidTest1() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        Random randomGenerator = new Random();
-        int RandomInt = randomGenerator.nextInt(100);
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"otherName\": \"Lucky"+RandomInt+"\",\n" +
-                        "  \"photo\": \"photo"+RandomInt+"\",\n" +
-                        "  \"signature\": \"signature"+RandomInt+"\",\n" +
-                        "  \"userId\": 40,\n" +
-                        "  \"userPrimaryEmail\": \"lucky"+RandomInt+"gmail.com\",\n" +
-                        "  \"userPrimaryPhone\": \"07285615"+RandomInt+"\"\n" +
-                        "}")
-                .when()
-                .put(modifyEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .body("error_description", equalTo("Email must be a well-formed email address"));
-
-    }
-    //Verify invalid contact
-    @Test
-    public void modifyUserProfileInvalidTest2() throws IOException {
-        baseURL = getURL();
-        baseURI = baseURL;
-        Random randomGenerator = new Random();
-        int RandomInt = randomGenerator.nextInt(100);
-        given()
-                .header("accept", "*/*")
-                .header("authorization", AccessTokenHolder.access_token)
-                .header("CountryId", 1)
-                .contentType(ContentType.JSON)
-                .body("{\n" +
-                        "  \"otherName\": \"Lucky"+RandomInt+"\",\n" +
-                        "  \"photo\": \"photo"+RandomInt+"\",\n" +
-                        "  \"signature\": \"signature"+RandomInt+"\",\n" +
-                        "  \"userId\": 40,\n" +
-                        "  \"userPrimaryEmail\": \"lucky"+RandomInt+"@gmail.com\",\n" +
-                        "  \"userPrimaryPhone\": \"07285615\"\n" +
-                        "}")
-                .when()
-                .put(modifyEndPoint)
-                .then()
-                .assertThat().statusCode(400)
-                .body("error_description", equalTo("Invalid Phone Number"));
-
-    }
 
     @Test(priority = 2)
     public void getOneUserProfileValidTest() throws IOException {
@@ -147,4 +98,29 @@ public class UserProfileController extends BaseClass {
                 .body("error", equalTo("Bad Request"));
 
     }
+
+    //Invalid scenarios for UpdateUserProfileController
+    @DataProvider(name = "UpdateUserProfileInvalidTest")
+    public Iterator<Object[]> getUserProfileUpdateTestData(ITestContext context) throws IOException {
+        Iterator<Object[]> iterator = ExcelDataReader.excelDataReader(0,"\\AdminExcel\\UserProfileController.xlsx");
+        return iterator;
+    }
+    @Test(dataProvider = "UpdateUserProfileInvalidTest")
+    public void UpdateUserProfileControllerInvalid(Integer statusCode, String schema, String message) throws IOException {
+        baseURL = getURL();
+        baseURI = baseURL;
+        given()
+                .header("accept", "*/*")
+                .header("authorization", AccessTokenHolder.access_token)
+                .header("CountryId", 1)
+                .contentType(ContentType.JSON)
+                .body(schema)
+                .when()
+                .put(modifyEndPoint)
+                .then()
+                .assertThat().statusCode(statusCode)
+                .and()
+                .body("error_description", equalTo(message));
+    }
+
 }
